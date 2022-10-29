@@ -27,7 +27,7 @@ class User extends Authenticatable implements JWTSubject
         'profile_pic_url',
         'dob',
         'is_deleted',
-        'user_role'
+        'role_id'
     ];
 
     /**
@@ -59,4 +59,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class,'role');
+    }
 }
