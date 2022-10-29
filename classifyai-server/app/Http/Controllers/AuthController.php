@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -23,6 +24,10 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
+        $image_url = NULL;
+        if ($request->has('profile_pic_base64')) {
+            $image_url = $this->uploadPP($request->profile_pic_base64, $request->email);
+        }
 
         $role_to_find = Role::findOrFail($user_role_id);
 
@@ -33,6 +38,8 @@ class AuthController extends Controller
             'username' => $request->username,
             'dob' => $request->dob,
             'password' => bcrypt($request->password),
+            'profile_pic_url' => $image_url
+
         ]);
 
         return response()->json([
@@ -40,8 +47,6 @@ class AuthController extends Controller
             'status' => "success",
             'user' => $role_to_find
         ], 201);
-        //TODO: handle profile pic upload
-
     }
 
     public function login(Request $request)
@@ -69,5 +74,17 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
+    }
+
+    public function uploadPP(String $image_received, $user_email)
+    {
+        $extension = explode('/', explode(':', substr($image_received, 0, strpos($image_received, ';')))[1])[1];   // .jpg .png .pdf
+        $replace = substr($image_received, 0, strpos($image_received, ',') + 1);
+        $image = str_replace($replace, '', $image_received);
+        $image = str_replace(' ', '+', $image);
+        $image_special_name = $user_email . "5";;
+        $image_url = $image_special_name . '.' . $extension;
+        \Intervention\Image\Facades\Image::make($image_received)->save(public_path('images/profile_pictures/') . $image_url);
+        return $image_url;
     }
 }
