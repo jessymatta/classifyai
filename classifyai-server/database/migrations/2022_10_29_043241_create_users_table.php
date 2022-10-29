@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('profile_pic_url')->nullable();
             $table->string('dob');
             $table->boolean('is_deleted')->default(false);
+            $table->foreign('user_role')->references('id')->on('roles');
             $table->timestamps();
         });
     }
