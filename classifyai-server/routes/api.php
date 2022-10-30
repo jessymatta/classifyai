@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CallController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SuperSupervisorController;
 
@@ -14,6 +15,7 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::post('/role', [RoleController::class, 'addRole'])->name('add-role');
             Route::post('/supervisors', [SuperSupervisorController::class, 'addSupervisor'])->name('add-supervisor');
             Route::post('/operators', [SuperSupervisorController::class, 'addOperator'])->name('add-operator');
+            Route::post('/calls', [CallController::class, 'addCall'])->name('add-call');
         });
     });
 
