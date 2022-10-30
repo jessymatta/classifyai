@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('profile_pic_url')->nullable();
-            $table->string('dob');
+            $table->string('dob')->nullable();
             $table->boolean('is_deleted')->default(false);
             $table->integer('role_id');
             $table->timestamps();
