@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Models\Role;
 
 
 class CallController extends Controller
@@ -27,7 +29,20 @@ class CallController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $operator_to_find = User::findOrFail($request->operator_id);
+
+        $operator_role_obj = Role::select('id')->where('role', 'OPERATOR')->first();
+        $operator_role_id = json_decode($operator_role_obj)->id;
+
+        // Operator id validations
+        try {
+            $operator_to_find = User::findOrFail($request->operator_id);
+        } catch (ModelNotFoundException $e) {
+            abort(response()->json('Operator id is not valid', 400));
+        }
+
+        if ($operator_to_find->role_id != $operator_role_id) {
+            abort(response()->json('User is not an operator', 400));
+        }
 
         // TODO : handle sentiment analysis
         $audio_url = $this->uploadCall($request->base64_audio, $request->operator_id);
