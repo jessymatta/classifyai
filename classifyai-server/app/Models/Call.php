@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Call extends Model
 {
     use HasFactory;
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -24,4 +24,9 @@ class Call extends Model
         'operator_id'
     ];
 
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
