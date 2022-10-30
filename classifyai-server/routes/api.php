@@ -13,6 +13,7 @@ Route::group(['prefix' => 'v0.1'], function () {
         Route::group(['middleware' => 'super_supervisor.role'], function () {
             Route::post('/role', [RoleController::class, 'addRole'])->name('add-role');
             Route::post('/supervisors', [SuperSupervisorController::class, 'addSupervisor'])->name('add-supervisor');
+            Route::post('/operators', [SuperSupervisorController::class, 'addOperator'])->name('add-operator');
         });
     });
 
