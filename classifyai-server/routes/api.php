@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SuperSupervisorController;
 
 Route::group(['prefix' => 'v0.1'], function () {
 
@@ -11,6 +12,7 @@ Route::group(['prefix' => 'v0.1'], function () {
     Route::group(['prefix' => 'super'], function () {
         Route::group(['middleware' => 'super_supervisor.role'], function () {
             Route::post('/role', [RoleController::class, 'addRole'])->name('add-role');
+            Route::post('/supervisors', [SuperSupervisorController::class, 'addSupervisor'])->name('add-supervisor');
         });
     });
 
