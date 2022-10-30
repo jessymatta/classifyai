@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('positive_emotions_pct');
             $table->integer('negative_emotions_pct');
             $table->integer('neutral_emotions_pct');
+            $table->integer('operator_id');
             $table->timestamps();
         });
     }
