@@ -6,6 +6,9 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\File;
+
 
 class AuthController extends Controller
 {
@@ -26,7 +29,7 @@ class AuthController extends Controller
         }
         $image_url = NULL;
         if ($request->has('profile_pic_base64')) {
-            $image_url = $this->uploadPP($request->profile_pic_base64, $request->email);
+            $image_url = $this->uploadPP($request->profile_pic_base64, $request->username);
         }
 
         $role_to_find = Role::findOrFail($user_role_id);
@@ -76,15 +79,21 @@ class AuthController extends Controller
         ]);
     }
 
-    public function uploadPP(String $image_received, $user_email)
+    public function uploadPP(String $image_received, $username)
     {
         $extension = explode('/', explode(':', substr($image_received, 0, strpos($image_received, ';')))[1])[1];   // .jpg .png .pdf
         $replace = substr($image_received, 0, strpos($image_received, ',') + 1);
         $image = str_replace($replace, '', $image_received);
         $image = str_replace(' ', '+', $image);
-        $image_special_name = $user_email . "5";;
+        $image_special_name = $username . time();
         $image_url = $image_special_name . '.' . $extension;
-        \Intervention\Image\Facades\Image::make($image_received)->save(public_path('images/profile_pictures/') . $image_url);
+
+        $folder = public_path("images/profile_pictures/" . $username);
+        if (!File::exists($folder)); {
+            File::makeDirectory($folder, 0777, true, true);
+        }
+        Image::make($image_received)->save($folder);
+
         return $image_url;
     }
 }
