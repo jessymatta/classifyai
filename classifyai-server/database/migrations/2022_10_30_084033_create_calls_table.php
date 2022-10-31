@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('call_custom_id');
             $table->string('cutomer_nbr');
             $table->string('audio_url');
-            $table->integer('duration');
-            $table->integer('positive_emotions_pct');
-            $table->integer('negative_emotions_pct');
-            $table->integer('neutral_emotions_pct');
+            $table->string('duration');
+            $table->decimal('positive_emotions_pct');
+            $table->decimal('negative_emotions_pct');
+            $table->decimal('neutral_emotions_pct');
             $table->integer('operator_id');
             $table->timestamps();
         });
