@@ -27,23 +27,28 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $image_url = NULL;
-        if ($request->has('profile_pic_base64')) {
-            $image_url = $this->uploadPP($request->profile_pic_base64, $request->username);
-        }
 
         $role_to_find = Role::findOrFail($user_role_id);
 
-        $role_to_find->users()->create([
+        $id = $role_to_find->users()->create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'username' => $request->username,
             'dob' => $request->dob,
             'password' => bcrypt($request->password),
-            'profile_pic_url' => $image_url
+            'profile_pic_url' => NULL
 
         ]);
+        $new_user_id = $id->id;
+
+        $image_url = NULL;
+        if ($request->has('profile_pic_base64')) {
+            $image_url = $this->uploadPP($request->profile_pic_base64, $new_user_id);
+        }
+
+        $id->profile_pic_url = $image_url;
+        $id->save();
 
         return response()->json([
             'message' => 'User successfully registered',
@@ -79,21 +84,21 @@ class AuthController extends Controller
         ]);
     }
 
-    public function uploadPP(String $image_received, $username)
+    public function uploadPP(String $image_received, $id)
     {
         $extension = explode('/', explode(':', substr($image_received, 0, strpos($image_received, ';')))[1])[1];   // .jpg .png .pdf
         $replace = substr($image_received, 0, strpos($image_received, ',') + 1);
         $image = str_replace($replace, '', $image_received);
         $image = str_replace(' ', '+', $image);
-        $image_special_name = $username . time();
+        $image_special_name = $id;
         $image_url = $image_special_name . '.' . $extension;
 
-        $folder = public_path("images/profile_pictures/" . $username);
+        $folder = public_path("images/profile_pictures/" . $id);
+
         if (!File::exists($folder)); {
             File::makeDirectory($folder, 0777, true, true);
         }
-        Image::make($image_received)->save($folder);
-
+        Image::make($image_received)->save(public_path('images/profile_pictures/' . $id . "/") . $image_url);
         return $image_url;
     }
 }
