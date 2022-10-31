@@ -101,4 +101,29 @@ class CallController extends Controller
 
         return $given_audio_url;
     }
+
+    //A method that submit upload for transcription
+    public function submitAudioForTranscription(String $returned_url)
+    {
+        $body = array("audio_url" => $returned_url, "sentiment_analysis" => true, "speaker_labels" => true);
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.assemblyai.com/v2/transcript',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($body),
+            CURLOPT_HTTPHEADER => [
+                'authorization: '. env('ASSEMBLY_AI_TOKEN'),
+                'content-type: application/json',
+            ],
+        ]);
+        $response_with_id = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            echo 'cURL Error #:' . $err;
+        }
+        return $response_with_id;
+    }
 }
