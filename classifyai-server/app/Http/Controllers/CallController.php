@@ -19,9 +19,6 @@ class CallController extends Controller
             'cutomer_nbr' => 'required|string',
             'base64_audio' => 'required|string',
             'duration' => 'required',
-            'positive_emotions_pct' => 'required',
-            'negative_emotions_pct' => 'required',
-            'neutral_emotions_pct' => 'required',
             'operator_id' => 'required'
         ]);
 
@@ -47,15 +44,10 @@ class CallController extends Controller
         // TODO : handle sentiment analysis
         $audio_url = $this->uploadCall($request->base64_audio, $request->operator_id);
 
-
         $operator_to_find->calls()->create([
             'call_custom_id' => $request->call_custom_id,
             'cutomer_nbr' => $request->cutomer_nbr,
             'audio_url' => $audio_url,
-            'duration' => $request->duration,
-            'positive_emotions_pct' => $request->positive_emotions_pct,
-            'negative_emotions_pct' => $request->negative_emotions_pct,
-            'neutral_emotions_pct' => $request->neutral_emotions_pct
         ]);
 
         return response()->json([
