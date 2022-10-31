@@ -98,8 +98,12 @@ class CallController extends Controller
         }
 
         $given_audio_url = json_decode($response)->upload_url;
+        $response_id_obj = $this->submitAudioForTranscription($given_audio_url);
+        $response_id = json_decode($response_id_obj)->id;
+        $to_return = $this->getAssemblyAIResults($response_id);
+        $to_upload_to_db = $this->processResponseData($to_return);
 
-        return $given_audio_url;
+        return $to_upload_to_db;
     }
 
     //A method that submit upload for transcription
