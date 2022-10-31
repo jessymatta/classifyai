@@ -191,7 +191,6 @@ class CallController extends Controller
 
         $total_customer_sentences = count($count_sentiment);
         foreach ($array_total_count as $key => $value) {
-            echo $key . " => " . $value . "\n";
             $percentage = round($value * (100 / $total_customer_sentences), 2);
             $array_results_to_return[$key] = $percentage;
         }
