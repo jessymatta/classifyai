@@ -41,13 +41,20 @@ class CallController extends Controller
             abort(response()->json('User is not an operator', 400));
         }
 
-        // TODO : handle sentiment analysis
         $audio_url = $this->uploadCall($request->base64_audio, $request->operator_id);
+        $proccessed_data = $this->uploadAudioToAssemblyAI($request->operator_id, $audio_url);
+
+        $duration_in_sec = $proccessed_data['audio_duration'];
+        $duration_to_add = intval($duration_in_sec / 60) . ':' . str_pad(($duration_in_sec % 60), 2, '0', STR_PAD_LEFT);
 
         $operator_to_find->calls()->create([
             'call_custom_id' => $request->call_custom_id,
             'cutomer_nbr' => $request->cutomer_nbr,
             'audio_url' => $audio_url,
+            'duration' => $duration_to_add,
+            'positive_emotions_pct' => $proccessed_data['POSITIVE'],
+            'negative_emotions_pct' => $proccessed_data['NEGATIVE'],
+            'neutral_emotions_pct' => $proccessed_data['NEUTRAL']
         ]);
 
         return response()->json([
