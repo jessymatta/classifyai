@@ -73,4 +73,32 @@ class CallController extends Controller
         file_put_contents(public_path("calls_folder/" . $operator_id . "/") . $audio_url, base64_decode($base64_audio));
         return $audio_url;
     }
+
+
+    //Upload local audio to AssemblyAI API for Transcription
+    public function uploadAudioToAssemblyAI($operator_id, $audio_name)
+    {
+        set_time_limit(0);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.assemblyai.com/v2/upload',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => file_get_contents('calls_folder/' . $operator_id . '/' . $audio_name),
+            CURLOPT_HTTPHEADER => [
+                'authorization: ' . env('ASSEMBLY_AI_TOKEN'),
+            ],
+        ]);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            echo 'cURL Error #:' . $err;
+        }
+
+        $given_audio_url = json_decode($response)->upload_url;
+
+        return $given_audio_url;
+    }
 }
