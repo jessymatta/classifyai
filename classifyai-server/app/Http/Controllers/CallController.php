@@ -114,7 +114,7 @@ class CallController extends Controller
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => json_encode($body),
             CURLOPT_HTTPHEADER => [
-                'authorization: '. env('ASSEMBLY_AI_TOKEN'),
+                'authorization: ' . env('ASSEMBLY_AI_TOKEN'),
                 'content-type: application/json',
             ],
         ]);
@@ -125,5 +125,36 @@ class CallController extends Controller
             echo 'cURL Error #:' . $err;
         }
         return $response_with_id;
+    }
+
+    //A method that get the transcription result
+    public function getAssemblyAIResults($id)
+    {
+        while (true) {
+            $curl = curl_init();
+
+            curl_setopt_array($curl, [
+                CURLOPT_URL => 'https://api.assemblyai.com/v2/transcript/' . $id,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => [
+                    'authorization: a78900a1eef641ca94b9ab9584ce0166',
+                    'content-type: application/json',
+                ],
+            ]);
+            $response = curl_exec($curl);
+
+            if (json_decode($response)->status == "completed") {
+                break;
+            }
+
+            $err = curl_error($curl);
+            curl_close($curl);
+            if ($err) {
+                echo 'cURL Error #:' . $err;
+            }
+        }
+
+        return $response;
     }
 }
