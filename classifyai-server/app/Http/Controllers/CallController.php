@@ -64,7 +64,7 @@ class CallController extends Controller
         ], 201);
     }
 
-    public function uploadCall(String $base64_audio, $operator_id)
+    private function uploadCall(String $base64_audio, $operator_id)
     {
 
         $audio_url = $operator_id . time() . ".mp3";
@@ -83,7 +83,7 @@ class CallController extends Controller
 
 
     //Upload local audio to AssemblyAI API for Transcription
-    public function uploadAudioToAssemblyAI($operator_id, $audio_name)
+    private function uploadAudioToAssemblyAI($operator_id, $audio_name)
     {
         set_time_limit(0);
 
@@ -114,7 +114,7 @@ class CallController extends Controller
     }
 
     //A method that submit upload for transcription
-    public function submitAudioForTranscription(String $returned_url)
+    private function submitAudioForTranscription(String $returned_url)
     {
         $body = array("audio_url" => $returned_url, "sentiment_analysis" => true, "speaker_labels" => true);
         $curl = curl_init();
@@ -139,7 +139,7 @@ class CallController extends Controller
     }
 
     //A method that get the transcription result
-    public function getAssemblyAIResults($id)
+    private function getAssemblyAIResults($id)
     {
         while (true) {
             $curl = curl_init();
@@ -170,7 +170,7 @@ class CallController extends Controller
     }
 
     //A method that cleans the data according to the database needs
-    public function processResponseData($response)
+    private function processResponseData($response)
     {
 
         $array_results_to_return = [];
