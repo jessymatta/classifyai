@@ -157,4 +157,34 @@ class CallController extends Controller
 
         return $response;
     }
+
+    //A method that cleans the data according to the database needs
+    public function processResponseData($response)
+    {
+
+        $array_results_to_return = [];
+        $response_in_json = json_decode($response);
+        $audio_duration = $response_in_json->audio_duration;
+        $array_results_to_return['audio_duration'] = $audio_duration;
+
+        $sentiment_analysis = $response_in_json->sentiment_analysis_results;
+
+        foreach ($sentiment_analysis as $value) {
+            $current_speaker = $value->speaker;
+            if ($current_speaker == 'B') {
+                $count_sentiment[] = $value->sentiment;
+            }
+        }
+
+        $array_total_count = array_count_values($count_sentiment);
+
+        $total_customer_sentences = count($count_sentiment);
+        foreach ($array_total_count as $key => $value) {
+            echo $key . " => " . $value . "\n";
+            $percentage = round($value * (100 / $total_customer_sentences), 2);
+            $array_results_to_return[$key] = $percentage;
+        }
+
+        return $array_results_to_return;
+    }
 }
