@@ -50,7 +50,7 @@ class SuperSupervisorController extends Controller
     {
         $supervisors = User::whereHas('role', function ($query) {
             $query->where('role', 'SUPERVISOR');
-        })->get();
+        })->where('is_deleted', false)->get();
 
         if (!$supervisors) {
             return response()->json(['error' => 'No supervisors found'], 400);
