@@ -68,10 +68,9 @@ class SuperSupervisorController extends Controller
         return response()->json($calls, 200);
     }
 
-    public function editEmployeeProfile(Request $request)
+    public function editEmployeeProfile(Request $request, int $id)
     {
         $validator = Validator::make($request->all(), [
-            'employee_id' => 'required|int',
             'first_name' => 'string|min:2',
             'last_name' => 'string|min:2',
             'email' => 'email|unique:users,email',
@@ -81,7 +80,7 @@ class SuperSupervisorController extends Controller
         ]);
 
         try {
-            $employee = User::findOrFail($request->employee_id);
+            $employee = User::findOrFail($id);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Employee not found'], 400);
         }
@@ -93,7 +92,7 @@ class SuperSupervisorController extends Controller
         $employee->update($request->all());
 
         if ($request->has('profile_pic_base64')) {
-            $image_url = app('App\Http\Controllers\AuthController')->uploadPP($request->profile_pic_base64, $request->employee_id);
+            $image_url = app('App\Http\Controllers\AuthController')->uploadPP($request->profile_pic_base64, $id);
             $employee->profile_pic_url = $image_url;
             $employee->save();
         }
