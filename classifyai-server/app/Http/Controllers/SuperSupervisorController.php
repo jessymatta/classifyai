@@ -116,7 +116,7 @@ class SuperSupervisorController extends Controller
 
     public function getEmployeeProfile(int $id)
     {
-        try{
+        try {
             $employee = User::findOrFail($id);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Employee not found'], 400);
@@ -124,6 +124,21 @@ class SuperSupervisorController extends Controller
         return response()->json([
             'message' => 'employee profile successfully retrieved',
             'user' => $employee
+        ], 200);
+    }
+
+    public function getCall(int $id)
+    {
+
+        try {
+            $call = Call::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Call not found'], 400);
+        }
+
+        return response()->json([
+            'message' => 'Call successfully retrieved',
+            'call' => $call
         ], 200);
     }
 }
