@@ -42,4 +42,17 @@ class SuperSupervisorController extends Controller
 
         return response()->json($operators, 200);
     }
+
+    public function getSupervisors()
+    {
+        $supervisors = User::whereHas('role', function ($query) {
+            $query->where('role', 'SUPERVISOR');
+        })->get();
+
+        if (!$supervisors) {
+            return response()->json(['error' => 'No supervisors found'], 400);
+        }
+
+        return response()->json($supervisors, 200);
+    }
 }
