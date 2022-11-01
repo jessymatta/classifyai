@@ -18,6 +18,7 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::post('/calls', [CallController::class, 'addCall'])->name('add-call');
             Route::get('/operators', [SuperSupervisorController::class, 'getOperators'])->name('get-operators');
             Route::get('/supervisors', [SuperSupervisorController::class, 'getSupervisors'])->name('get-supervisors');
+            Route::get('/calls', [SuperSupervisorController::class, 'getCalls'])->name('get-calls');
         });
     });
 
