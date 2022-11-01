@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Call;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -48,5 +49,31 @@ class DashboardController extends Controller
         $to_return = [$minutes, $seconds];
 
         return $to_return;
+    }
+
+    public function dailyAvgSentiments()
+    {
+        $calls = Call::whereDate('created_at', Carbon::today())->get();
+
+        $positive_percentages = [];
+        $negative_percentages = [];
+        $neutral_percentages = [];
+
+        foreach ($calls as $call) {
+            array_push($positive_percentages, $call['positive_emotions_pct']);
+            array_push($negative_percentages, $call['negative_emotions_pct']);
+            array_push($neutral_percentages, $call['neutral_emotions_pct']);
+        }
+
+        $total_calls = count($positive_percentages);
+        $average_positive_pct = array_sum($positive_percentages) / $total_calls;
+        $average_negative_pct = array_sum($negative_percentages) / $total_calls;
+        $average_neutral_pct = array_sum($neutral_percentages) / $total_calls;
+
+        return response()->json([
+            'average_positive_pct' => round($average_positive_pct, 2),
+            'average_negative_pct' => round($average_negative_pct, 2),
+            'average_neutral_pct' => round($average_neutral_pct, 2)
+        ]);
     }
 }
