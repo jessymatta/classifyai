@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\User;
 
 class SuperSupervisorController extends Controller
 {
@@ -27,5 +28,18 @@ class SuperSupervisorController extends Controller
         $role_id = json_decode($role_id_obj)->id;
         $res = app('App\Http\Controllers\AuthController')->register($request, $role_id);
         return $res;
+    }
+
+    public function getOperators()
+    {
+        $operators = User::whereHas('role', function ($query) {
+            $query->where('role', 'OPERATOR');
+        })->get();
+
+        if (!$operators) {
+            return response()->json(['error' => 'No operators found'], 400);
+        }
+
+        return response()->json($operators, 200);
     }
 }
