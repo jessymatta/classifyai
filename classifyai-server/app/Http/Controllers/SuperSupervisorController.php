@@ -113,4 +113,17 @@ class SuperSupervisorController extends Controller
         $employee->save();
         return response()->json(['message' => 'Employee deleted successfully'], 200);
     }
+
+    public function getEmployeeProfile(int $id)
+    {
+        try{
+            $employee = User::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Employee not found'], 400);
+        }
+        return response()->json([
+            'message' => 'employee profile successfully retrieved',
+            'user' => $employee
+        ], 200);
+    }
 }
