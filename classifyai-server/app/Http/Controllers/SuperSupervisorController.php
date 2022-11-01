@@ -71,7 +71,7 @@ class SuperSupervisorController extends Controller
     public function editEmployeeProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'employee_id'=>'required|int',
+            'employee_id' => 'required|int',
             'first_name' => 'string|min:2',
             'last_name' => 'string|min:2',
             'email' => 'email|unique:users,email',
@@ -100,5 +100,18 @@ class SuperSupervisorController extends Controller
 
 
         return response()->json(['message' => 'Employee profile updated successfully'], 200);
+    }
+
+    public function deleteEmployee(int $id)
+    {
+        try {
+            $employee = User::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Employee not found'], 400);
+        }
+
+        $employee->is_deleted = true;
+        $employee->save();
+        return response()->json(['message' => 'Employee deleted successfully'], 200);
     }
 }
