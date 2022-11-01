@@ -37,7 +37,7 @@ class SuperSupervisorController extends Controller
     {
         $operators = User::whereHas('role', function ($query) {
             $query->where('role', 'OPERATOR');
-        })->get();
+        })->where('is_deleted', false)->get();
 
         if (!$operators) {
             return response()->json(['error' => 'No operators found'], 400);
