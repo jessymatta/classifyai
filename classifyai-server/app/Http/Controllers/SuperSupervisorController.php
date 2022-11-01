@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Call;
 
 class SuperSupervisorController extends Controller
 {
@@ -54,5 +55,13 @@ class SuperSupervisorController extends Controller
         }
 
         return response()->json($supervisors, 200);
+    }
+
+    public function getCalls(){
+        $calls = Call::all();
+        if(!$calls){
+            return response()->json(['error' => 'No calls found'], 400);
+        }
+        return response()->json($calls, 200);
     }
 }
