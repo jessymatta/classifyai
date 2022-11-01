@@ -20,6 +20,7 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::get('/supervisors', [SuperSupervisorController::class, 'getSupervisors'])->name('get-supervisors');
             Route::get('/calls', [SuperSupervisorController::class, 'getCalls'])->name('get-calls');
             Route::put('/employees', [SuperSupervisorController::class, 'editEmployeeProfile'])->name('edit-employee');
+            Route::post('/employees/{id}', [SuperSupervisorController::class, 'deleteEmployee'])->name('delete-employee');
         });
     });
 
