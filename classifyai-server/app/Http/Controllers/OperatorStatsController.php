@@ -13,18 +13,12 @@ class OperatorStatsController extends Controller
 {
     public function getOperatorCallsAndCount($id = null)
     {
-        if (!$id) {
-            $id = auth()->user()->id;
-        }
-
-        $this->commonRoutesValidations($id);
-
         $operator_calls = Call::where('operator_id', $id)->get();
 
-        return response()->json([
+        return [
             'total_calls_number' => $operator_calls->count(),
             'operator_calls' => $operator_calls
-        ], 200);
+        ];
     }
 
     private function commonRoutesValidations($id)
@@ -54,15 +48,12 @@ class OperatorStatsController extends Controller
         if ($employee->role_id != $role_id) {
             abort(response()->json(['error' => 'Not a valid operator'], 400));
         }
+
+        return $employee;
     }
 
     public function getOperatorTotalCallsDurationPerMonth($id = null)
     {
-        if (!$id) {
-            $id = auth()->user()->id;
-        }
-
-        $this->commonRoutesValidations($id);
 
         $current_month = now()->month;
         $calls_duration = Call::select('duration')
@@ -82,17 +73,11 @@ class OperatorStatsController extends Controller
         $total_seconds_in_minutes = array_sum($seconds_array) / 60;
         $total_duration = round($total_minutes + $total_seconds_in_minutes);
 
-        return response()->json(['Total calls duration for this month' => $total_duration], 200);
+        return $total_duration;
     }
 
     public function getOperatorMonthlySentimentAnalysis($id = null)
     {
-        if (!$id) {
-            $id = auth()->user()->id;
-        }
-
-        $this->commonRoutesValidations($id);
-
         $current_month = now()->month;
 
         $calls = Call::select('*')
@@ -124,12 +109,6 @@ class OperatorStatsController extends Controller
 
     public function getOperatorLast7DaysSentimentsAvg($id = null)
     {
-        if (!$id) {
-            $id = auth()->user()->id;
-        }
-
-        $this->commonRoutesValidations($id);
-
         $date = Carbon::now()->subDays(7);
 
         $calls = Call::where('created_at', '>=', $date)
@@ -163,9 +142,6 @@ class OperatorStatsController extends Controller
                 'average_neutral_pct' => round($average_neutral_pct, 2)
             ];
         }
-        return response()->json([
-            'message' => "Average sentiment analysis for the last 7 days retrieved successfully",
-            'results' => $results_to_return,
-        ], 200);
+        return  $results_to_return;
     }
 }
