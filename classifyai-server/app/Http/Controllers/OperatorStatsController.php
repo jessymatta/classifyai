@@ -54,4 +54,33 @@ class OperatorStatsController extends Controller
             abort(response()->json(['error' => 'Not a valid operator'], 400));
         }
     }
+
+    public function getOperatorTotalCallsDurationPerMonth($id = null)
+    {
+        if (!$id) {
+            $id = auth()->user()->id;
+        }
+
+        $this->commonRoutesValidations($id);
+
+        $current_month = now()->month;
+        $calls_duration = Call::select('duration')
+            ->whereMonth('created_at', $current_month)
+            ->where('operator_id', $id)
+            ->get()
+            ->toArray();
+
+        $minutes_array = [];
+        $seconds_array = [];
+        foreach ($calls_duration as $dur) {
+            $parsed_duration = app('App\Http\Controllers\DashboardController')->parseDuration($dur['duration']);
+            array_push($minutes_array, $parsed_duration[0]);
+            array_push($seconds_array, $parsed_duration[1]);
+        }
+        $total_minutes = array_sum($minutes_array);
+        $total_seconds_in_minutes = array_sum($seconds_array) / 60;
+        $total_duration = round($total_minutes + $total_seconds_in_minutes);
+
+        return response()->json(['Total calls duration for this month' => $total_duration], 200);
+    }
 }
