@@ -101,7 +101,7 @@ class SuperSupervisorService
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return void if no errors found
+     * @return void
      */
     public function handleEditEmployeeProfile(Request $request, int $id)
     {
@@ -117,11 +117,11 @@ class SuperSupervisorService
         try {
             $employee = User::findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Employee not found'], 400);
+            abort(response()->json(['error' => 'Employee not found'], 400));
         }
 
         if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
+            abort(response()->json($validator->errors()->toJson(), 400));
         }
 
         $employee->update($request->all());
@@ -131,5 +131,22 @@ class SuperSupervisorService
             $employee->profile_pic_url = $image_url;
             $employee->save();
         }
+    }
+
+    /**
+     * Delete employee from the database
+     *
+     * @param int $id
+     * @return void
+     */
+    public function handleDeleteEmployee(int $id)
+    {
+        try {
+            $employee = User::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(response()->json(['error' => 'Employee not found'], 400));
+        }
+        $employee->is_deleted = true;
+        $employee->save();
     }
 }
