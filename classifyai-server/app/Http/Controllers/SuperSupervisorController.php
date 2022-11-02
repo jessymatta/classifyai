@@ -74,74 +74,59 @@ class SuperSupervisorController extends Controller
         return response()->json($calls, 200);
     }
 
-    public function editEmployeeProfile(Request $request, int $id)
+    /**
+     * Edit profile of an employee 
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editEmployeeProfile(Request $request, int $id, SuperSupervisorService $superSupervisorService)
     {
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'string|min:2',
-            'last_name' => 'string|min:2',
-            'email' => 'email|unique:users,email',
-            'username' => 'string|unique:users,username',
-            'dob' => 'string',
-            'profile_pic_base64' => 'string',
-        ]);
-
-        try {
-            $employee = User::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Employee not found'], 400);
-        }
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-
-        $employee->update($request->all());
-
-        if ($request->has('profile_pic_base64')) {
-            $image_url = app('App\Http\Controllers\AuthController')->uploadPP($request->profile_pic_base64, $id);
-            $employee->profile_pic_url = $image_url;
-            $employee->save();
-        }
-
-
-        return response()->json(['message' => 'Employee profile updated successfully'], 200);
+        $superSupervisorService->handleEditEmployeeProfile($request, $id);
+        return response()->json(['message' => 'Employee profile updated successfully'], 201);
     }
 
-    public function deleteEmployee(int $id)
+    /**
+     * Delete employee from the database
+     *
+     * @param int $id
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteEmployee(int $id, SuperSupervisorService $superSupervisorService)
     {
-        try {
-            $employee = User::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Employee not found'], 400);
-        }
-
-        $employee->is_deleted = true;
-        $employee->save();
-        return response()->json(['message' => 'Employee deleted successfully'], 200);
+        $superSupervisorService->handleDeleteEmployee($id);
+        return response()->json(['message' => 'Employee deleted successfully'], 201);
     }
 
-    public function getEmployeeProfile(int $id)
+    /**
+     * Get employee profile
+     *
+     * @param int $id
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getEmployeeProfile(int $id, SuperSupervisorService $superSupervisorService)
     {
-        try {
-            $employee = User::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Employee not found'], 400);
-        }
+        $employee = $superSupervisorService->handleGetEmployeeProfile($id);
         return response()->json([
             'message' => 'employee profile successfully retrieved',
             'user' => $employee
         ], 200);
     }
 
-    public function getCall(int $id)
+    /**
+     * Get a call by id
+     *
+     * @param int $id
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCall(int $id, SuperSupervisorService $superSupervisorService)
     {
-
-        try {
-            $call = Call::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Call not found'], 400);
-        }
-
+        $call = $superSupervisorService->handleGetCall($id);
         return response()->json([
             'message' => 'Call successfully retrieved',
             'call' => $call
