@@ -33,6 +33,11 @@ Route::group(['prefix' => 'v0.1'], function () {
     //Supervisors routes
     Route::group(['prefix' => 'supervisor'], function () {
         Route::group(['middleware' => 'supervisor.role'], function () {
+            Route::get('/operators', [SuperSupervisorController::class, 'getOperators'])->name('get-operators');
+            Route::get('/calls', [SuperSupervisorController::class, 'getCalls'])->name('get-calls');
+            Route::get('/calls/{id}', [SuperSupervisorController::class, 'getCall'])->name('get-call');
+            Route::get('/dashboard', [DashboardController::class, 'getDashboardStats'])->name('get-dashboard-stats');
+            Route::get('/operator/stats/{id?}', [OperatorStatsController::class, 'getOperatorStats'])->name('get-operator-stats');
         });
     });
 
