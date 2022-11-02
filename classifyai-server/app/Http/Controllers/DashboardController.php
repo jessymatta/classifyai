@@ -15,7 +15,7 @@ class DashboardController extends Controller
             $query->where('role', 'OPERATOR');
         })->where('is_deleted', false)->count();
 
-        return response()->json(['operators_count' => $operators_count], 200);
+        return $operators_count;
     }
 
     public function getCurrentMonthCallsDuration()
@@ -38,7 +38,7 @@ class DashboardController extends Controller
         $total_seconds_in_minutes = array_sum($seconds_array) / 60;
         $total_duration = round($total_minutes + $total_seconds_in_minutes);
 
-        return response()->json(['Total calls duration for this month' => $total_duration], 200);
+        return $total_duration;
     }
 
     public function parseDuration(String $duration)
@@ -70,11 +70,11 @@ class DashboardController extends Controller
         $average_negative_pct = array_sum($negative_percentages) / $total_calls;
         $average_neutral_pct = array_sum($neutral_percentages) / $total_calls;
 
-        return response()->json([
+        return [
             'average_positive_pct' => round($average_positive_pct, 2),
             'average_negative_pct' => round($average_negative_pct, 2),
             'average_neutral_pct' => round($average_neutral_pct, 2)
-        ]);
+        ];
     }
 
     public function getLast7DaysCallsAvg()
@@ -112,10 +112,8 @@ class DashboardController extends Controller
                 'average_neutral_pct' => round($average_neutral_pct, 2)
             ];
         }
-        return response()->json([
-            'message' => "Average sentiment analysis for the last 7 days retrieved successfully",
-            'results' => $results_to_return,
-        ], 200);
+
+        return $results_to_return;
     }
 
     public function getBestWorstOperator()
