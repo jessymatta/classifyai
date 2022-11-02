@@ -62,12 +62,15 @@ class SuperSupervisorController extends Controller
         return response()->json($supervisors, 200);
     }
 
-    public function getCalls()
+    /**
+     * Get all calls
+     *
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCalls(SuperSupervisorService $superSupervisorService)
     {
-        $calls = Call::all();
-        if (!$calls) {
-            return response()->json(['error' => 'No calls found'], 400);
-        }
+        $calls = $superSupervisorService->handleGetCalls();
         return response()->json($calls, 200);
     }
 
