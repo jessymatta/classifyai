@@ -50,16 +50,15 @@ class SuperSupervisorController extends Controller
         return response()->json($operators, 200);
     }
 
-    public function getSupervisors()
+    /**
+     * Get all users with an SUPERVISOR role
+     *
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSupervisors(SuperSupervisorService $superSupervisorService)
     {
-        $supervisors = User::whereHas('role', function ($query) {
-            $query->where('role', 'SUPERVISOR');
-        })->where('is_deleted', false)->get();
-
-        if (!$supervisors) {
-            return response()->json(['error' => 'No supervisors found'], 400);
-        }
-
+        $supervisors = $superSupervisorService->handleGetSupervisors();
         return response()->json($supervisors, 200);
     }
 
