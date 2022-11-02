@@ -76,4 +76,45 @@ class DashboardController extends Controller
             'average_neutral_pct' => round($average_neutral_pct, 2)
         ]);
     }
+
+    public function getLast7DaysCallsAvg()
+    {
+        $date = Carbon::now()->subDays(7);
+
+        $calls = Call::where('created_at', '>=', $date)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->created_at->format('d');
+            })
+            ->toArray();
+
+        $results_to_return = [];
+        foreach ($calls as $key => $value) {
+
+            $positive_percentages = [];
+            $negative_percentages = [];
+            $neutral_percentages = [];
+            foreach ($value as $k => $v) {
+
+                array_push($positive_percentages, $v['positive_emotions_pct']);
+                array_push($negative_percentages, $v['negative_emotions_pct']);
+                array_push($neutral_percentages, $v['neutral_emotions_pct']);
+            }
+
+            $average_positive_pct = array_sum($positive_percentages) / count($positive_percentages);
+            $average_negative_pct = array_sum($negative_percentages) / count($negative_percentages);
+            $average_neutral_pct = array_sum($neutral_percentages) / count($neutral_percentages);
+
+            $results_to_return[$key] = [
+                'average_positive_pct' => round($average_positive_pct, 2),
+                'average_negative_pct' => round($average_negative_pct, 2),
+                'average_neutral_pct' => round($average_neutral_pct, 2)
+            ];
+        }
+        return response()->json([
+            'message' => "Average sentiment analysis for the last 7 days retrieved successfully",
+            'results' => $results_to_return,
+        ],200);
+    }
 }
