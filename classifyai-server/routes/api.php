@@ -26,6 +26,7 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::get('/employees/{id}', [SuperSupervisorController::class, 'getEmployeeProfile'])->name('get-employee');
             Route::get('/calls/{id}', [SuperSupervisorController::class, 'getCall'])->name('get-call');
             Route::get('/dashboard', [DashboardController::class, 'getDashboardStats'])->name('get-dashboard-stats');
+            Route::get('/operator/stats/{id?}', [OperatorStatsController::class, 'getOperatorStats'])->name('get-operator-stats');
         });
     });
 
