@@ -149,4 +149,21 @@ class SuperSupervisorService
         $employee->is_deleted = true;
         $employee->save();
     }
+
+    /**
+     * Get employee profile
+     *
+     * @param int $id
+     * @return object
+     */
+    public function handleGetEmployeeProfile(int $id)
+    {
+        try {
+            $employee = User::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(response()->json(['error' => 'Employee not found'], 400));
+        }
+        return $employee;
+    }
+
 }
