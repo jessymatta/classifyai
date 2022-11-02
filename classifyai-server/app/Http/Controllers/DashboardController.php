@@ -171,4 +171,15 @@ class DashboardController extends Controller
 
         return $results_to_return;
     }
+
+    public function getDashboardStats()
+    {
+        $results = [];
+        $results['total_operators_number'] = $this->getOperatorsCount();
+        $results['total_calls_duration_this_month'] = $this->getCurrentMonthCallsDuration();
+        $results['daily_sentiment_analysis_avg'] = $this->dailyAvgSentiments();
+        $results['last_7_days_analysis_avg'] = $this->getLast7DaysCallsAvg();
+        $results['best_worst_operator'] = $this->getBestWorstOperator();
+        return $results;
+    }
 }
