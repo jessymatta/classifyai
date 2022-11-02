@@ -90,7 +90,7 @@ class AuthController extends Controller
         $replace = substr($image_received, 0, strpos($image_received, ',') + 1);
         $image = str_replace($replace, '', $image_received);
         $image = str_replace(' ', '+', $image);
-        $image_special_name = $id;
+        $image_special_name = $id . time();
         $image_url = $image_special_name . '.' . $extension;
 
         $folder = public_path("images/profile_pictures/" . $id);
