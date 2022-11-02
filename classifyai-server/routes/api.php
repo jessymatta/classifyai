@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CallController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SuperSupervisorController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OperatorStatsController;
 
 Route::group(['prefix' => 'v0.1'], function () {
 
@@ -23,6 +25,7 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::delete('/employees/{id}', [SuperSupervisorController::class, 'deleteEmployee'])->name('delete-employee');
             Route::get('/employees/{id}', [SuperSupervisorController::class, 'getEmployeeProfile'])->name('get-employee');
             Route::get('/calls/{id}', [SuperSupervisorController::class, 'getCall'])->name('get-call');
+            Route::get('/dashboard', [DashboardController::class, 'getDashboardStats'])->name('get-dashboard-stats');
         });
     });
 
