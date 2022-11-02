@@ -115,6 +115,62 @@ class DashboardController extends Controller
         return response()->json([
             'message' => "Average sentiment analysis for the last 7 days retrieved successfully",
             'results' => $results_to_return,
-        ],200);
+        ], 200);
+    }
+
+    public function getBestWorstOperator()
+    {
+        $current_month = now()->month;
+        $calls = Call::select('*')
+            ->whereMonth('created_at', $current_month)
+            ->get()
+            ->groupBy('operator_id')
+            ->toArray();
+
+        $results = [];
+        foreach ($calls as $key => $value) {
+
+            $positive_percentages = [];
+            $negative_percentages = [];
+            $neutral_percentages = [];
+            foreach ($value as $k => $v) {
+
+                array_push($positive_percentages, $v['positive_emotions_pct']);
+                array_push($negative_percentages, $v['negative_emotions_pct']);
+                array_push($neutral_percentages, $v['neutral_emotions_pct']);
+            }
+
+            $average_positive_pct = array_sum($positive_percentages) / count($positive_percentages);
+            $average_negative_pct = array_sum($negative_percentages) / count($negative_percentages);
+            $average_neutral_pct = array_sum($neutral_percentages) / count($neutral_percentages);
+
+            $results[$key] = [
+                'average_positive_pct' => round($average_positive_pct, 2),
+                'average_negative_pct' => round($average_negative_pct, 2),
+                'average_neutral_pct' => round($average_neutral_pct, 2)
+            ];
+        }
+
+        $MAX = array_combine(array_keys($results), array_column($results, 'average_positive_pct'));
+        $MIN = array_combine(array_keys($results), array_column($results, 'average_negative_pct'));
+        $results_to_return = [];
+
+        $max_employee_positive_pct = max($MAX);
+        $max_employee_positive_pct_id = array_search($max_employee_positive_pct, $MAX);
+
+        $max_employee_negative_pct = max($MIN);
+        $max_employee_negative_pct_id = array_search($max_employee_negative_pct, $MIN);
+
+        $results_to_return['best_operator'] = array(
+            'average_positive_pct' => $max_employee_positive_pct,
+            'operator' => User::findOrFail($max_employee_positive_pct_id),
+        );
+
+        $results_to_return['worst_operator'] = array(
+            'average_negative_pct' => $max_employee_negative_pct,
+            'operator' => User::findOrFail($max_employee_negative_pct_id),
+        );
+
+        return $results_to_return;
     }
 }
