@@ -41,7 +41,7 @@ class DashboardController extends Controller
         return response()->json(['Total calls duration for this month' => $total_duration], 200);
     }
 
-    private function parseDuration(String $duration)
+    public function parseDuration(String $duration)
     {
         $duration = explode(':', $duration);
         $minutes = $duration[0];
