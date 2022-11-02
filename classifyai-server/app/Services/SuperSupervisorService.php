@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Call;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Validator;
 
 class SuperSupervisorService
 {
@@ -92,5 +94,42 @@ class SuperSupervisorService
             abort(response()->json(['error' => 'No calls found'], 400));
         }
         return $calls;
+    }
+
+    /**
+     * Edit profile of an employee
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return void if no errors found
+     */
+    public function handleEditEmployeeProfile(Request $request, int $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'string|min:2',
+            'last_name' => 'string|min:2',
+            'email' => 'email|unique:users,email',
+            'username' => 'string|unique:users,username',
+            'dob' => 'string',
+            'profile_pic_base64' => 'string',
+        ]);
+
+        try {
+            $employee = User::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Employee not found'], 400);
+        }
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
+        $employee->update($request->all());
+
+        if ($request->has('profile_pic_base64')) {
+            $image_url = app('App\Http\Controllers\AuthController')->uploadPP($request->profile_pic_base64, $id);
+            $employee->profile_pic_url = $image_url;
+            $employee->save();
+        }
     }
 }
