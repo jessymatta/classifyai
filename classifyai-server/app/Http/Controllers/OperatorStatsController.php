@@ -144,4 +144,20 @@ class OperatorStatsController extends Controller
         }
         return  $results_to_return;
     }
+
+    public function getOperatorStats($id = NULL)
+    {
+        if (!$id) {
+            $id = auth()->user()->id;
+        }
+
+        $operator = $this->commonRoutesValidations($id);
+
+        $results['operator_profile'] = $operator;
+        $results['operator_calls_count'] = $this->getOperatorCallsAndCount($id)['total_calls_number'];
+        $results['operator_calls_info'] = $this->getOperatorCallsAndCount($id)['operator_calls'];
+        $results['operator_monthly_total_calls_duration'] = $this->getOperatorTotalCallsDurationPerMonth($id);
+        $results['operator_last7_days_analysis'] = $this->getOperatorLast7DaysSentimentsAvg($id);
+        return $results;
+    }
 }
