@@ -4,11 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\SuperSupervisorService;
 use Illuminate\Http\Request;
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Call;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Validator;
 
 class SuperSupervisorController extends Controller
 {
