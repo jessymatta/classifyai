@@ -151,7 +151,7 @@ class SuperSupervisorService
     }
 
     /**
-     * Get employee profile
+     * Get employee profile by id
      *
      * @param int $id
      * @return object
@@ -166,4 +166,20 @@ class SuperSupervisorService
         return $employee;
     }
 
+    /**
+     * Get a call by id
+     *
+     * @param int $id
+     * @return object
+     */
+    public function handleGetCall(int $id)
+    {
+        try {
+            $call = Call::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(response()->json(['error' => 'Call not found'], 400));
+        }
+
+        return $call;
+    }
 }
