@@ -83,4 +83,41 @@ class OperatorStatsController extends Controller
 
         return response()->json(['Total calls duration for this month' => $total_duration], 200);
     }
+
+    public function getOperatorMonthlySentimentAnalysis($id = null)
+    {
+        if (!$id) {
+            $id = auth()->user()->id;
+        }
+
+        $this->commonRoutesValidations($id);
+
+        $current_month = now()->month;
+
+        $calls = Call::select('*')
+            ->whereMonth('created_at', $current_month)
+            ->where('operator_id', $id)
+            ->get();
+
+        $positive_percentages = [];
+        $negative_percentages = [];
+        $neutral_percentages = [];
+
+        foreach ($calls as $call) {
+            array_push($positive_percentages, $call['positive_emotions_pct']);
+            array_push($negative_percentages, $call['negative_emotions_pct']);
+            array_push($neutral_percentages, $call['neutral_emotions_pct']);
+        }
+
+        $total_calls = count($positive_percentages);
+        $average_positive_pct = array_sum($positive_percentages) / $total_calls;
+        $average_negative_pct = array_sum($negative_percentages) / $total_calls;
+        $average_neutral_pct = array_sum($neutral_percentages) / $total_calls;
+
+        return response()->json([
+            'average_positive_pct' => round($average_positive_pct, 2),
+            'average_negative_pct' => round($average_negative_pct, 2),
+            'average_neutral_pct' => round($average_neutral_pct, 2)
+        ]);
+    }
 }
