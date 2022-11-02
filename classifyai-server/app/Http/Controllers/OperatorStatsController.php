@@ -10,6 +10,21 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class OperatorStatsController extends Controller
 {
+    public function getOperatorCallsAndCount($id = null)
+    {
+        if (!$id) {
+            $id = auth()->user()->id;
+        }
+
+        $this->commonRoutesValidations($id);
+
+        $operator_calls = Call::where('operator_id', $id)->get();
+
+        return response()->json([
+            'total_calls_number' => $operator_calls->count(),
+            'operator_calls' => $operator_calls
+        ], 200);
+    }
 
     private function commonRoutesValidations($id)
     {
