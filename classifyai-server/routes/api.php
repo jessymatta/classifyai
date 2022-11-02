@@ -44,6 +44,7 @@ Route::group(['prefix' => 'v0.1'], function () {
     //Operators routes
     Route::group(['prefix' => 'operator'], function () {
         Route::group(['middleware' => 'operator.role'], function () {
+            Route::get('/operator/stats/{id?}', [OperatorStatsController::class, 'getOperatorStats'])->name('get-operator-stats');
         });
     });
 
