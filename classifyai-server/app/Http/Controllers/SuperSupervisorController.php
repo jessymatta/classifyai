@@ -38,16 +38,15 @@ class SuperSupervisorController extends Controller
         return $res;
     }
 
-    public function getOperators()
+    /**
+     * Get all users with an OPERATOR role
+     *
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getOperators(SuperSupervisorService $superSupervisorService)
     {
-        $operators = User::whereHas('role', function ($query) {
-            $query->where('role', 'OPERATOR');
-        })->where('is_deleted', false)->get();
-
-        if (!$operators) {
-            return response()->json(['error' => 'No operators found'], 400);
-        }
-
+        $operators = $superSupervisorService->handleGetOperators();
         return response()->json($operators, 200);
     }
 
