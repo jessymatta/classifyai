@@ -54,10 +54,28 @@ class SuperSupervisorService
         })->where('is_deleted', false)->get();
 
         if (!$operators) {
-            // return response()->json(['error' => 'No operators found'], 400);
             abort(response()->json(['error' => 'No operators found'], 400));
         }
-        print(gettype($operators));
+
         return $operators;
+    }
+
+    /**
+     * Get all users with an SUPERVISOR role
+     *
+     * @return object
+     */
+    public function handleGetSupervisors()
+    {
+
+        $supervisors = User::whereHas('role', function ($query) {
+            $query->where('role', 'SUPERVISOR');
+        })->where('is_deleted', false)->get();
+
+        if (!$supervisors) {
+            abort(response()->json(['error' => 'No supervisors found'], 400));
+        }
+
+        return $supervisors;
     }
 }
