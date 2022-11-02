@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\User;
 
 class SuperSupervisorService
 {
@@ -39,5 +40,24 @@ class SuperSupervisorService
         $role_id = json_decode($role_id_obj)->id;
         $res = app('App\Http\Controllers\AuthController')->register($request, $role_id);
         return $res;
+    }
+
+    /**
+     * Get all users with an OPERATOR role
+     *
+     * @return object
+     */
+    public function handleGetOperators()
+    {
+        $operators = User::whereHas('role', function ($query) {
+            $query->where('role', 'OPERATOR');
+        })->where('is_deleted', false)->get();
+
+        if (!$operators) {
+            // return response()->json(['error' => 'No operators found'], 400);
+            abort(response()->json(['error' => 'No operators found'], 400));
+        }
+        print(gettype($operators));
+        return $operators;
     }
 }
