@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Call;
 
 class SuperSupervisorService
 {
@@ -77,5 +78,19 @@ class SuperSupervisorService
         }
 
         return $supervisors;
+    }
+
+    /**
+     * Get all calls
+     *
+     * @return object
+     */
+    public function handleGetCalls()
+    {
+        $calls = Call::all();
+        if (!$calls) {
+            abort(response()->json(['error' => 'No calls found'], 400));
+        }
+        return $calls;
     }
 }
