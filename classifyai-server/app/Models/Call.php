@@ -14,7 +14,6 @@ class Call extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'call_custom_id',
         'cutomer_nbr',
         'audio_url',
         'duration',
