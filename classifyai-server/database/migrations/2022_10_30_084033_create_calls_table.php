@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('positive_emotions_pct');
             $table->decimal('negative_emotions_pct');
             $table->decimal('neutral_emotions_pct');
+            $table->string('script_url');
             $table->timestamps();
         });
     }
