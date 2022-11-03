@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SuperSupervisorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OperatorStatsController;
+use App\Http\Controllers\ScriptController;
 
 Route::group(['prefix' => 'v0.1'], function () {
 
@@ -27,6 +28,7 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::get('/calls/{id}', [SuperSupervisorController::class, 'getCall'])->name('get-call');
             Route::get('/dashboard', [DashboardController::class, 'getDashboardStats'])->name('get-dashboard-stats');
             Route::get('/operator/stats/{id?}', [OperatorStatsController::class, 'getOperatorStats'])->name('get-operator-stats');
+            Route::get('/script/{id}', [ScriptController::class, 'getCallScript'])->name('get-call-script');
         });
     });
 
