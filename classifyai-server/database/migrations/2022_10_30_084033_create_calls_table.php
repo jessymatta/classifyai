@@ -15,14 +15,13 @@ return new class extends Migration
     {
         Schema::create('calls', function (Blueprint $table) {
             $table->id();
-            $table->string('call_custom_id');
+            $table->integer('operator_id');
             $table->string('cutomer_nbr');
             $table->string('audio_url');
             $table->string('duration');
             $table->decimal('positive_emotions_pct');
             $table->decimal('negative_emotions_pct');
             $table->decimal('neutral_emotions_pct');
-            $table->integer('operator_id');
             $table->timestamps();
         });
     }
