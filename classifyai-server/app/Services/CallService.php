@@ -12,7 +12,7 @@ use App\Models\Role;
 class CallService
 {
     /**
-     * Computes sentiment analysis percentages using the below helper functions and add the call to the database
+     * Compute sentiment analysis percentages using the below helper functions and add the call to the database
      * 
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -49,17 +49,15 @@ class CallService
 
         $duration_in_sec = $proccessed_data['audio_duration'];
         $duration_to_add = intval($duration_in_sec / 60) . ':' . str_pad(($duration_in_sec % 60), 2, '0', STR_PAD_LEFT);
-        //Add script scipt same name as audio bas .json
 
         $operator_to_find->calls()->create([
-            // 'call_custom_id' => $request->call_custom_id,
             'cutomer_nbr' => $request->cutomer_nbr,
             'audio_url' => $audio_url,
             'duration' => $duration_to_add,
             'positive_emotions_pct' => $proccessed_data['POSITIVE'],
             'negative_emotions_pct' => $proccessed_data['NEGATIVE'],
             'neutral_emotions_pct' => $proccessed_data['NEUTRAL'],
-            'script_url' => explode('.', $audio_url)[0] . '.json'
+            'script_url' => explode('.', $audio_url)[0] . '.csv'
         ]);
 
         return response()->json([
