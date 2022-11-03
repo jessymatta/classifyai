@@ -2,140 +2,126 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\SuperSupervisorService;
 use Illuminate\Http\Request;
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Call;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Validator;
 
 class SuperSupervisorController extends Controller
 {
-    public function addSupervisor(Request $request)
+    /**
+     * Add a user to the 'users' database table with a SUPERVISOR role
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addSupervisor(Request $request, SuperSupervisorService $superSupervisorService)
     {
-        $role_id_obj = Role::select('id')->where('role', 'SUPERVISOR')->first();
-        if (!$role_id_obj) {
-            return response()->json(['error' => 'Not a valid role'], 400);
-        }
-        $role_id = json_decode($role_id_obj)->id;
-        $res = app('App\Http\Controllers\AuthController')->register($request, $role_id);
+        $res = $superSupervisorService->handleAddSupervisor($request);
         return $res;
     }
 
-    public function addOperator(Request $request)
+    /**
+     * Add a user to the 'users' database table with a OPERATOR role
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addOperator(Request $request, SuperSupervisorService $superSupervisorService)
     {
-        $role_id_obj = Role::select('id')->where('role', 'OPERATOR')->first();
-        if (!$role_id_obj) {
-            return response()->json(['error' => 'Not a valid role'], 400);
-        }
-        $role_id = json_decode($role_id_obj)->id;
-        $res = app('App\Http\Controllers\AuthController')->register($request, $role_id);
+        $res = $superSupervisorService->handleAddOperator($request);
         return $res;
     }
 
-    public function getOperators()
+    /**
+     * Get all users with an OPERATOR role
+     *
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getOperators(SuperSupervisorService $superSupervisorService)
     {
-        $operators = User::whereHas('role', function ($query) {
-            $query->where('role', 'OPERATOR');
-        })->where('is_deleted', false)->get();
-
-        if (!$operators) {
-            return response()->json(['error' => 'No operators found'], 400);
-        }
-
+        $operators = $superSupervisorService->handleGetOperators();
         return response()->json($operators, 200);
     }
 
-    public function getSupervisors()
+    /**
+     * Get all users with an SUPERVISOR role
+     *
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSupervisors(SuperSupervisorService $superSupervisorService)
     {
-        $supervisors = User::whereHas('role', function ($query) {
-            $query->where('role', 'SUPERVISOR');
-        })->where('is_deleted', false)->get();
-
-        if (!$supervisors) {
-            return response()->json(['error' => 'No supervisors found'], 400);
-        }
-
+        $supervisors = $superSupervisorService->handleGetSupervisors();
         return response()->json($supervisors, 200);
     }
 
-    public function getCalls()
+    /**
+     * Get all calls
+     *
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCalls(SuperSupervisorService $superSupervisorService)
     {
-        $calls = Call::all();
-        if (!$calls) {
-            return response()->json(['error' => 'No calls found'], 400);
-        }
+        $calls = $superSupervisorService->handleGetCalls();
         return response()->json($calls, 200);
     }
 
-    public function editEmployeeProfile(Request $request, int $id)
+    /**
+     * Edit profile of an employee 
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editEmployeeProfile(Request $request, int $id, SuperSupervisorService $superSupervisorService)
     {
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'string|min:2',
-            'last_name' => 'string|min:2',
-            'email' => 'email|unique:users,email',
-            'username' => 'string|unique:users,username',
-            'dob' => 'string',
-            'profile_pic_base64' => 'string',
-        ]);
-
-        try {
-            $employee = User::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Employee not found'], 400);
-        }
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-
-        $employee->update($request->all());
-
-        if ($request->has('profile_pic_base64')) {
-            $image_url = app('App\Http\Controllers\AuthController')->uploadPP($request->profile_pic_base64, $id);
-            $employee->profile_pic_url = $image_url;
-            $employee->save();
-        }
-
-
-        return response()->json(['message' => 'Employee profile updated successfully'], 200);
+        $superSupervisorService->handleEditEmployeeProfile($request, $id);
+        return response()->json(['message' => 'Employee profile updated successfully'], 201);
     }
 
-    public function deleteEmployee(int $id)
+    /**
+     * Delete employee from the database
+     *
+     * @param int $id
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteEmployee(int $id, SuperSupervisorService $superSupervisorService)
     {
-        try {
-            $employee = User::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Employee not found'], 400);
-        }
-
-        $employee->is_deleted = true;
-        $employee->save();
-        return response()->json(['message' => 'Employee deleted successfully'], 200);
+        $superSupervisorService->handleDeleteEmployee($id);
+        return response()->json(['message' => 'Employee deleted successfully'], 201);
     }
 
-    public function getEmployeeProfile(int $id)
+    /**
+     * Get employee profile
+     *
+     * @param int $id
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getEmployeeProfile(int $id, SuperSupervisorService $superSupervisorService)
     {
-        try {
-            $employee = User::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Employee not found'], 400);
-        }
+        $employee = $superSupervisorService->handleGetEmployeeProfile($id);
         return response()->json([
             'message' => 'employee profile successfully retrieved',
             'user' => $employee
         ], 200);
     }
 
-    public function getCall(int $id)
+    /**
+     * Get a call by id
+     *
+     * @param int $id
+     * @param App\Services\SuperSupervisorService $super_supervisor_service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCall(int $id, SuperSupervisorService $superSupervisorService)
     {
-
-        try {
-            $call = Call::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Call not found'], 400);
-        }
-
+        $call = $superSupervisorService->handleGetCall($id);
         return response()->json([
             'message' => 'Call successfully retrieved',
             'call' => $call
