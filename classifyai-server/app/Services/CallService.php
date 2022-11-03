@@ -20,7 +20,6 @@ class CallService
     public function handleAddCall(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'call_custom_id' => 'required|string',
             'cutomer_nbr' => 'required|string',
             'base64_audio' => 'required|string',
             'operator_id' => 'required'
@@ -50,15 +49,17 @@ class CallService
 
         $duration_in_sec = $proccessed_data['audio_duration'];
         $duration_to_add = intval($duration_in_sec / 60) . ':' . str_pad(($duration_in_sec % 60), 2, '0', STR_PAD_LEFT);
+        //Add script scipt same name as audio bas .json
 
         $operator_to_find->calls()->create([
-            'call_custom_id' => $request->call_custom_id,
+            // 'call_custom_id' => $request->call_custom_id,
             'cutomer_nbr' => $request->cutomer_nbr,
             'audio_url' => $audio_url,
             'duration' => $duration_to_add,
             'positive_emotions_pct' => $proccessed_data['POSITIVE'],
             'negative_emotions_pct' => $proccessed_data['NEGATIVE'],
-            'neutral_emotions_pct' => $proccessed_data['NEUTRAL']
+            'neutral_emotions_pct' => $proccessed_data['NEUTRAL'],
+            'script_url' => explode('.', $audio_url)[0] . '.json'
         ]);
 
         return response()->json([
@@ -124,7 +125,7 @@ class CallService
         $response_id_obj = $this->submitAudioForTranscription($given_audio_url);
         $response_id = json_decode($response_id_obj)->id;
         $to_return = $this->getAssemblyAIResults($response_id);
-        $to_upload_to_db = $this->processResponseData($to_return);
+        $to_upload_to_db = $this->processResponseData($to_return, $operator_id, $audio_name);
 
         return $to_upload_to_db;
     }
@@ -196,12 +197,12 @@ class CallService
     }
 
     /**
-     * Process the data received from AssemblyAI and return it in the required format
+     * Process the data received from AssemblyAI, save it to a csv file and return it in the required format
      * 
      * @param String $id
      * @return array
      */
-    private function processResponseData(String $response): array
+    private function processResponseData(String $response, $operator_id, $audio_url): array
     {
 
         $array_results_to_return = [];
@@ -210,6 +211,9 @@ class CallService
         $array_results_to_return['audio_duration'] = $audio_duration;
 
         $sentiment_analysis = $response_in_json->sentiment_analysis_results;
+
+        $audio_name = explode('.', $audio_url)[0];
+        $this->convertToCSV(json_encode($sentiment_analysis), $audio_name, $operator_id);
 
         foreach ($sentiment_analysis as $value) {
             $current_speaker = $value->speaker;
@@ -227,5 +231,27 @@ class CallService
         }
 
         return $array_results_to_return;
+    }
+
+    /**
+     * Convert the JSON data to CSV and save it in the calls folder of the corresponding operator
+     *
+     * @param String $jsondata
+     * @param String $csvfile_name
+     * @param int $operator_id
+     * @return String
+     */
+    private function convertToCSV(String $jsondata,String $csvfile_name, int $operator_id)
+    {
+        $jsonans = json_decode($jsondata, true);
+        $csv = $csvfile_name .'.csv';
+        $path = public_path("calls_folder/" . $operator_id . "/") . $csv;
+        $file_pointer = fopen($path, 'w');
+        fputcsv($file_pointer, ['text', 'start', 'end', 'sentiment', 'confidence', 'speaker']);
+        foreach ($jsonans as $i) {
+            fputcsv($file_pointer, $i);
+        }
+        fclose($file_pointer);
+        return $csv;
     }
 }
