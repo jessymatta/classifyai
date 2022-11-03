@@ -20,7 +20,8 @@ class Call extends Model
         'positive_emotions_pct',
         'negative_emotions_pct',
         'neutral_emotions_pct',
-        'operator_id'
+        'operator_id',
+        'script_url'
     ];
 
 
