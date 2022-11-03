@@ -19,7 +19,6 @@ class DashboardService
             $query->where('role', 'OPERATOR');
         })->where('is_deleted', false)->count();
 
-        dd(gettype($operators_count));
         return $operators_count;
     }
 
