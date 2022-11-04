@@ -14,14 +14,14 @@ class Call extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'call_custom_id',
         'cutomer_nbr',
         'audio_url',
         'duration',
         'positive_emotions_pct',
         'negative_emotions_pct',
         'neutral_emotions_pct',
-        'operator_id'
+        'operator_id',
+        'script_url'
     ];
 
 
