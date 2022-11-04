@@ -127,7 +127,7 @@ class SuperSupervisorService
         $employee->update($request->all());
 
         if ($request->has('profile_pic_base64')) {
-            $image_url = app('App\Http\Controllers\AuthController')->uploadPP($request->profile_pic_base64, $id);
+            $image_url = app('App\Services\AuthService')->uploadPP($request->profile_pic_base64, $id);
             $employee->profile_pic_url = $image_url;
             $employee->save();
         }
