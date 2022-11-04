@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v0.1'], function () {
             Route::get('/dashboard', [DashboardController::class, 'getDashboardStats'])->name('get-dashboard-stats');
             Route::get('/operator/stats/{id?}', [OperatorStatsController::class, 'getOperatorStats'])->name('get-operator-stats');
             Route::get('/script/{id}', [ScriptController::class, 'getCallScript'])->name('get-call-script');
+            Route::post('/script', [ScriptController::class, 'uploadScriptAndGetAnalyze'])->name('upload-script-and-get-analysis');
         });
     });
 
