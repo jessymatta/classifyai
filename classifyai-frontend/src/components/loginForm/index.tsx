@@ -1,5 +1,8 @@
-import { useState } from "react"
+import { useState } from "react";
+import Button from "../button";
 import Input from "../input";
+import Logo from "../logo";
+import "./index.scss";
 
 
 const LoginForm = () => {
@@ -13,7 +16,8 @@ const LoginForm = () => {
 
     return (
         <section className="form__login">
-            <h1 className="margin">Login</h1>
+            <Logo logoType="login__logo"/>
+            <h1 className="form__title margin-top">Login</h1>
             <form onSubmit={handleLogin}>
                 <>
                     <Input value={email} type="text" label="Email" onChange={(e) => {
@@ -25,7 +29,9 @@ const LoginForm = () => {
                         setPassword(e.target.value);
                     }} />
                 </>
-                {/*Login button */}
+                <div className="margin-top">
+                <Button text={"Login"} classNames={["button--red" , "button--fullwidth"]}/>
+                </div>
             </form>
         </section>
     )
