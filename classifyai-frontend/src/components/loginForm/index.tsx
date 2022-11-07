@@ -1,36 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import "./index.scss";
 import Button from "../button";
 import Input from "../input";
 import Logo from "../logo";
-import "./index.scss";
+import { LoginFormProps } from "./loginForm";
+import { ErrorsLogin } from "./loginForm";
+import { validateLoginForm } from "../../helpers/validateLogin";
 
 
 const LoginForm = () => {
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const initialValues = { email: "", password: "" };
+    const [formValues, setFormValues] = useState<LoginFormProps>(initialValues);
+    const [formErrors, setFormErrors] = useState<ErrorsLogin>({});
+    const [isSubmit, setIsSubmit] = useState(false);
 
-    const handleLogin = () => {
-        console.log("login")
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormValues({ ...formValues, [name]: value });
     }
+
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        setFormErrors(validateLoginForm(formValues));
+        setIsSubmit(true);
+    }
+
+    useEffect(() => {
+        console.log(formErrors)
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            //here call axios 
+            console.log(formValues);
+        }
+
+    }, [formErrors])
 
     return (
         <section className="form__login">
-            <Logo logoType="login__logo"/>
+            <Logo logoType="login__logo" />
             <h1 className="form__title margin-top">Login</h1>
             <form onSubmit={handleLogin}>
-                <>
-                    <Input value={email} type="text" label="Email" onChange={(e) => {
-                        setEmail(e.target.value);
-                    }} />
-                </>
-                <>
-                    <Input value={password} type="password" label="Password" onChange={(e) => {
-                        setPassword(e.target.value);
-                    }} />
-                </>
+                <p className="error">{formErrors.email}</p>
+
+                <Input name={"email"} defaultValue={formValues.email} type="text" label="Email" onChange={handleChange} />
+
+                <p className="error">{formErrors.password}</p>
+
+                <Input name={"password"} defaultValue={formValues.password} type="password" label="Password" onChange={handleChange} />
+
                 <div className="margin-top">
-                <Button text={"Login"} classNames={["button--red" , "button--fullwidth"]}/>
+                    <Button text={"Login"} classNames={["button--red", "button--fullwidth"]} />
                 </div>
             </form>
         </section>
