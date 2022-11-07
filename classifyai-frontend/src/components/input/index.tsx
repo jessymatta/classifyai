@@ -1,6 +1,6 @@
 import React from 'react';
 import "./index.scss";
-import { InputProps } from "./index";
+import { InputProps } from "./input";
 
 const Input = ({ type, label, required, value, onChange }: InputProps) => {
     return (
