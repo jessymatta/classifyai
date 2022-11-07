@@ -31,7 +31,7 @@
         left: 1rem;
         top: 0.8rem;
         padding: 0 0.5rem;
-        color: $clr-primary-gray;
+        color: $color__primary--gray;
         font-size: $base__fontSize--small;
         cursor: text;
         transition: top 200ms ease-in,
@@ -47,5 +47,5 @@
     top: -0.7rem;
     font-size: $base__fontSize--xsmall;
     left: 0.8rem;
-    color: $clr-primary-red;
+    color:$color__primary--red;
 }
