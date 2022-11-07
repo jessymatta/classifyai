@@ -1,0 +1,28 @@
+@import "../../assets/styles/variables.scss";
+
+.button {
+    padding: 0.6rem;
+    color: white;
+    cursor: pointer;
+    font-size: $base__fontSize--xmedium;
+    font-weight: bold;
+    border: none;
+    border-radius: $button-radius;
+    height: 48px;
+}
+
+.button--fullwidth {
+    width: 100%;
+}
+
+.button--fixedwidth {
+    width: 120px;
+}
+
+.button--red {
+    background-color: $color__primary--red;
+}
+
+.button--green {
+    background-color: $color--green;
+}
