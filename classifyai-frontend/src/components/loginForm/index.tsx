@@ -6,6 +6,7 @@ import Logo from "../logo";
 import { LoginFormProps } from "./loginForm";
 import { ErrorsLogin } from "./loginForm";
 import { validateLoginForm } from "../../helpers/validateLogin";
+import { useLogin } from "../../query/auth/auth";
 
 
 const LoginForm = () => {
@@ -14,6 +15,7 @@ const LoginForm = () => {
     const [formValues, setFormValues] = useState<LoginFormProps>(initialValues);
     const [formErrors, setFormErrors] = useState<ErrorsLogin>({});
     const [isSubmit, setIsSubmit] = useState(false);
+    const { mutate } = useLogin();
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,12 +30,10 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
-        console.log(formErrors)
         if (Object.keys(formErrors).length === 0 && isSubmit) {
-            //here call axios 
-            console.log(formValues);
+            mutate(formValues);
+            console.log("Logged in successfully");
         }
-
     }, [formErrors])
 
     return (
