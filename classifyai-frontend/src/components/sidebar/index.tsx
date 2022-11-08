@@ -8,8 +8,19 @@ import { RiFileExcel2Line, RiCustomerService2Line } from "react-icons/ri";
 import { MdSupervisorAccount } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
+import { UserDetails } from '../../routes/UserInterface'
+import { queryClient } from '../../App';
 
-const Sidebar = ({role, username}:SidebarProps) => {
+const ROLES = {
+    "Super_Supervisor": 1,
+    "Supervisor": 2,
+    "Operator": 3
+}
+
+const Sidebar = ({ role, username }: SidebarProps) => {
+    const loggedInUser: UserDetails = queryClient.getQueryCache().find(['USER_LOGGED_IN'])?.state.data as UserDetails;
+    const loogedInUserRole = loggedInUser?.role_id;
+
     const logout = () => {
         localStorage.clear();
         window.location.href = "/login";
@@ -20,23 +31,21 @@ const Sidebar = ({role, username}:SidebarProps) => {
             <div className="sidebar__top">
                 <Logo logoType={"sidebar__logo"} />
             </div>
-                <p className='sidebar__role'>{role}</p>
-                <p className="sidebar__username">{username? `@${username}`: ""}</p>
+            <p className='sidebar__role'>{role}</p>
+            <p className="sidebar__username">{username ? `@${username}` : ""}</p>
 
             <div className="sidebar__links">
-                {/* //TODO: add links  */}
-                <SidebarLabel icon={<MdOutlineDashboard size={30}/>} labelName='dashboard'/>
-                <SidebarLabel icon={<MdSupervisorAccount size={30}/>} labelName='supervisors'/>
-                <SidebarLabel icon={<RiCustomerService2Line size={30}/>} labelName='operators'/>
-                <SidebarLabel icon={<IoCallOutline size={30}/>} labelName='calls'/>
-                <SidebarLabel icon={<RiFileExcel2Line size={30}/>} labelName='scripts'/>
+
+                <SidebarLabel icon={<MdOutlineDashboard size={30} />} labelName='dashboard' />
+                {loogedInUserRole === ROLES.Super_Supervisor ? <SidebarLabel icon={<MdSupervisorAccount size={30} />} labelName='supervisors' /> : ""}
+                {loogedInUserRole === (ROLES.Super_Supervisor || ROLES.Supervisor) ? <SidebarLabel icon={<RiCustomerService2Line size={30} />} labelName='operators' /> : ""}
+                {loogedInUserRole === (ROLES.Super_Supervisor || ROLES.Supervisor) ? <SidebarLabel icon={<IoCallOutline size={30} />} labelName='calls' /> : ""}
+                <SidebarLabel icon={<RiFileExcel2Line size={30} />} labelName='scripts' />
 
                 <div className="sidebar__logout">
-                <SidebarLabel onClick={logout} icon={<FiLogOut size={30}/>} labelName='logout'/>
+                    <SidebarLabel onClick={logout} icon={<FiLogOut size={30} />} labelName='logout' />
                 </div>
-                
             </div>
-
         </div>
     )
 }
