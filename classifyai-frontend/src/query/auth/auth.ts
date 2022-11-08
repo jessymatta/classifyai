@@ -13,10 +13,7 @@ export const useLogin = () => {
             queryClient.setQueryData(["USER_LOGGED_IN"], res.user);
         },
         onError: (err: Error) => {
-            if (err.request.status === 401) {
-                //TODO: Add error message
-                console.log("UNAUTHORIZED");
-            }
+            return err;
         },
     });
 };
