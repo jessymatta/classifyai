@@ -1,16 +1,11 @@
 @import "../../assets/styles/variables.scss";
 
-@mixin center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .sidebar {
     background-color: $color__primary--blue-dark;
     flex: 1;
     padding: 18px;
     height: 100vh;
+    position: relative;
 
     &__top {
         height: 50px;
@@ -28,6 +23,17 @@
         color: $color__primary--red;
         margin-top: 5px;
         @include center;
+    }
+
+    &__links{
+        margin-top: 50px;
+    }
+
+    &__logout{
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 3rem;
+        width:85%;
     }
 
 }
