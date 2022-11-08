@@ -30,3 +30,10 @@ $base__fontSize--xxlarge: 48px;
 // Border Radius
 $radius: 10px;
 $button-radius: 5px;
+
+// Mixin
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
