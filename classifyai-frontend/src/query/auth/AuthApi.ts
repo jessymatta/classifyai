@@ -15,8 +15,7 @@ export const logIn = async (user: LoginFormProps) => {
         return data;
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.response?.data)
-        return err.response?.data;
+        throw err.response?.status;
     }
 
 };
