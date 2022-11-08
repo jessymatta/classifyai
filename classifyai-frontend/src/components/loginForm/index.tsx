@@ -7,6 +7,7 @@ import { LoginFormProps } from "./loginForm";
 import { ErrorsLogin } from "./loginForm";
 import { validateLoginForm } from "../../helpers/validateLogin";
 import { useLogin } from "../../query/auth/auth";
+import { useNavigate } from "react-router-dom";
 
 
 const LoginForm = () => {
@@ -14,28 +15,31 @@ const LoginForm = () => {
     const initialValues = { email: "", password: "" };
     const [formValues, setFormValues] = useState<LoginFormProps>(initialValues);
     const [formErrors, setFormErrors] = useState<ErrorsLogin>({});
-    const [isSubmit, setIsSubmit] = useState(false);
+    // const [isSubmit, setIsSubmit] = useState(false);
     const [msg, setMsg] = useState("");
-    const { mutateAsync, isError: loginError, error, isSuccess } = useLogin();
+    const { mutateAsync } = useLogin();
+    const nagivate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormValues({ ...formValues, [name]: value });
     }
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setMsg("");
-        setFormErrors(validateLoginForm(formValues));
-        setIsSubmit(true);
-    }
+        const errors = validateLoginForm(formValues);
+        setFormErrors(errors);
 
-    useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-            mutateAsync(formValues); 
-            isSuccess ? setMsg("Login Success") : setMsg("Invalid Credentials");  
+        if (Object.keys(formErrors).length === 0) {
+            try {
+                await mutateAsync(formValues);
+                nagivate("/sidebar");
+            } catch (err) {
+                console.log(err)
+                if (err === 401) setMsg("Invalid Credentials");
+            }
         }
-    }, [formErrors])
+    }
 
     return (
         <section className="form__login">
