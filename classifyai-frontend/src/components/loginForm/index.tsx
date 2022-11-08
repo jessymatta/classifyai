@@ -15,8 +15,8 @@ const LoginForm = () => {
     const [formValues, setFormValues] = useState<LoginFormProps>(initialValues);
     const [formErrors, setFormErrors] = useState<ErrorsLogin>({});
     const [isSubmit, setIsSubmit] = useState(false);
-    const { mutate } = useLogin();
-
+    const [msg, setMsg] = useState("");
+    const { mutateAsync, isError: loginError, error, isSuccess } = useLogin();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -25,14 +25,15 @@ const LoginForm = () => {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
+        setMsg("");
         setFormErrors(validateLoginForm(formValues));
         setIsSubmit(true);
     }
 
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
-            mutate(formValues);
-            console.log("Logged in successfully");
+            mutateAsync(formValues); 
+            isSuccess ? setMsg("Login Success") : setMsg("Invalid Credentials");  
         }
     }, [formErrors])
 
@@ -41,11 +42,13 @@ const LoginForm = () => {
             <Logo logoType="login__logo" />
             <h1 className="form__title margin-top">Login</h1>
             <form onSubmit={handleLogin}>
-                <p className="error">{formErrors.email}</p>
+                <p className="form__login--response">{msg}</p>
+
+                <p className="error">{formErrors?.email}</p>
 
                 <Input name={"email"} defaultValue={formValues.email} type="text" label="Email" onChange={handleChange} />
 
-                <p className="error">{formErrors.password}</p>
+                <p className="error">{formErrors?.password}</p>
 
                 <Input name={"password"} defaultValue={formValues.password} type="password" label="Password" onChange={handleChange} />
 
