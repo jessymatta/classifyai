@@ -1,0 +1,16 @@
+@import "../assets/styles/variables.scss";
+
+.home {
+    display: flex;
+    min-height: 100%;
+
+    &__container {
+        background-color: $page--background-light;
+        flex: 6;
+    }
+
+    &__content {
+        border: 2px solid red;
+        padding: 6rem;
+    }
+}
