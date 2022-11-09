@@ -16,7 +16,9 @@
 }
 
 .button--fixedwidth {
-    width: 120px;
+    width: 140px;
+    font-size: $base__fontSize--medium;
+    padding:0.08rem;
 }
 
 .button--red {
