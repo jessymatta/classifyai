@@ -21,4 +21,12 @@
         width: 50px;
         width: auto;
     }
+
+    &__toggleBtn{
+        font-size: 35px;
+        display: flex;
+        align-items: center;
+        color: $color__primary--blue-dark;
+    }
+    
 }
