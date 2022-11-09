@@ -1,0 +1,24 @@
+@import "../../assets/styles/variables.scss";
+
+.header {
+    height: 55px;
+    background-color: $header--background;
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+
+    &__wrapper {
+        display: flex;
+        padding: 5px;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    &__pp {
+        margin-left: 15px;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        width: auto;
+    }
+}
