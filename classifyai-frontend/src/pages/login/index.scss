@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .loginPage__container {
     display: flex;
 }
@@ -7,5 +9,41 @@
 
     @media screen and (max-width: 800px) {
         display: none;
+    }
+}
+
+.form__login {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding: 40px;
+    padding-top: 25vh;
+    height: 100vh;
+
+    @media screen and (max-width: 800px) {
+        margin-bottom: 50%;
+    }
+
+    .form__title{
+        margin-bottom: 30px;
+        font-size: $base__fontSize--xxlarge;
+    }
+
+    .margin-top {
+        margin-top: 45px;
+    }
+
+    .error {
+        color: $color--red;
+        margin-bottom: 12px;
+        font-size: $base__fontSize--xxsmall;
+    }
+
+    &--response {
+        color: $color--red;
+        margin-bottom: 15px;
+        font-size: 20px;
+        @include center;
     }
 }
