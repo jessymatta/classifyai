@@ -16,8 +16,8 @@ const DashboardHOC = ({ children }: DashboardHOCProps) => {
                     <div className="home__content">
                         {content}
                     </div>
+                    {footer}
                 </div>
-                {footer}
             </div>
         </>
     )

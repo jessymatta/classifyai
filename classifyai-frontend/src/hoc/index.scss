@@ -1,4 +1,4 @@
-@import "../assets/styles/variables.scss";
+@import "../styles/variables.scss";
 
 .home {
     display: flex;
@@ -7,10 +7,10 @@
     &__container {
         background-color: $page--background-light;
         flex: 6;
+        position: relative;
     }
 
     &__content {
-        border: 2px solid red;
-        padding: 6rem;
+        padding: 0.5rem;
     }
 }
