@@ -1,0 +1,17 @@
+@import "../../styles/variables.scss";
+
+.footer {
+    background-color: $footer--background;
+    height: 37px;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    @include center;
+
+}
+
+.footer__content {
+    font-size: $base__fontSize--small;
+    font-weight: normal;
+}

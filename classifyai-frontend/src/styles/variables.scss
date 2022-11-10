@@ -12,7 +12,7 @@ $page--background-light: #F4F5FA;
 $sidebar__labels--color:#BCC6E3;
 $footer--background: rgba(34, 44, 60, 0.58);
 $footer--color: #F4F5FA;
-$navbar--background: #D2665D;
+$header--background: #D2665D;
 
 //Font Sizes
 $base__fontSize--small: 14px;
@@ -30,3 +30,10 @@ $base__fontSize--xxlarge: 48px;
 // Border Radius
 $radius: 10px;
 $button-radius: 5px;
+
+// Mixin
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

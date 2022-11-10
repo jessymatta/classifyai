@@ -1,7 +1,7 @@
-import { LoginFormProps } from "../components/loginForm/loginForm";
-import { ErrorsLogin } from "../components/loginForm/loginForm";
+import { LoginFormProps } from "../pages/login/loginForm";
+import { ErrorsLogin } from "../pages/login/loginForm";
 
-export function validateLoginForm ({ email, password }: LoginFormProps){
+export function validateLoginForm({ email, password }: LoginFormProps) {
     const errors: ErrorsLogin = {};
     if (!email) {
         errors.email = "Email is required";

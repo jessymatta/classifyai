@@ -1,4 +1,4 @@
-import { LoginFormProps } from "../../components/loginForm/loginForm";
+import { LoginFormProps } from "../../pages/login/loginForm";
 import { instanceAxios } from "../axios";
 import { AxiosError } from 'axios';
 
