@@ -1,0 +1,74 @@
+@import "../../styles/variables.scss";
+
+.card {
+    background-color: white;
+    border-radius: $radius;
+    padding: 2.3rem;
+    width: 398px;
+    height: fit-content;
+
+    &__title {
+        font-size: $base__fontSize--large;
+    }
+
+    &__subtitle {
+        font-size: $base__fontSize--medium;
+        color: $color__primary--gray;
+    }
+
+    &__emoji {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
+    &__percentage {
+        font-size: $base__fontSize--xxmedium;
+        color: $color--green;
+    }
+
+    &__image {
+
+        height: 130px;
+
+        &--good {
+            width: 110px;
+            margin-top: 12px;
+        }
+
+        &--bad {
+            width: 140px;
+        }
+    }
+
+    &__container {
+        display: flex;
+
+        &--left {
+
+            &--percentage {
+                display: flex;
+                align-items: center;
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
+        }
+
+        &--right {
+            margin-left: 60px;
+            width: fit-content;
+        }
+    }
+}
+
+.margin-top {
+    margin-top: 5px;
+}
+
+.good {
+    color: $color--green;
+}
+
+.bad {
+    color: $color--red;
+}
