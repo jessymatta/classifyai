@@ -1,0 +1,39 @@
+@import "../../styles/variables.scss";
+
+.smallcard {
+    background-color: white;
+    border-radius: $radius;
+    padding: 1.3rem 1.5rem;
+    width: 398px;
+    height: fit-content;
+    display: flex;
+    @include center;
+
+    &__left {
+        width: 100px;
+        height: 100px;
+        margin-right: 50px;
+
+        &--img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__right {
+        h4 {
+            font-size: $base__fontSize--xxlarge;
+            font-weight: 300;
+        }
+
+        p {
+            font-size: $base__fontSize--xxmedium;
+            color: $color__primary--gray;
+        }
+
+        .small {
+            font-size: $base__fontSize--xxsmall;
+            color: $color--green;
+        }
+    }
+}
