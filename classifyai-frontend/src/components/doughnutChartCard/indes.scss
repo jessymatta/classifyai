@@ -4,8 +4,8 @@
     background-color: white;
     border-radius: $radius;
     padding: 1.3rem;
-    width: 330px;
-    height: 400px;
+    width: fit-content;
+    height: 100%;
 
     &--title {
         font-size: $base__fontSize--large;

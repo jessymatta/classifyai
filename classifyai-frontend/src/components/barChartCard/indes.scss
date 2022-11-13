@@ -4,7 +4,8 @@
     background-color: white;
     border-radius: $radius;
     padding: 1.3rem 1.5rem;
-    height: fit-content;
+    height: 100%;
+    width: 100%;
 
     &__title {
         font-size: $base__fontSize--large;
@@ -15,8 +16,8 @@
         color: $color--green;
     }
 
-    &__wrapper{
-        height: 270px;
+    &__wrapper {
+        height: 90%;
         padding: 0 1rem;
     }
 }
