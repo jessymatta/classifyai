@@ -1,13 +1,17 @@
 @import "../styles/variables.scss";
 
 .home {
+    height: 100vh;
     display: flex;
-    min-height: 100%;
+
+    &__sidebar {
+        position: relative;
+        margin-right: 238px;
+    }
 
     &__container {
         background-color: $page--background-light;
-        flex: 6;
-        position: relative;
+        flex: 5.5;
     }
 
     &__content {

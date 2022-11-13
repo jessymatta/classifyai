@@ -10,7 +10,9 @@ const DashboardHOC = ({ children }: DashboardHOCProps) => {
     return (
         <>
             <div className='home'>
-                {sidebar}
+                <div className="home__sidebar">
+                    {sidebar}
+                </div>
                 <div className="home__container">
                     {header}
                     <div className="home__content">
