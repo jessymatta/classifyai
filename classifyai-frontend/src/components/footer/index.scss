@@ -4,11 +4,10 @@
     background-color: $footer--background;
     height: 37px;
     color: white;
-    position: absolute;
-    bottom: 0;
     width: 100%;
     @include center;
-
+    position: fixed;
+    bottom: 0;
 }
 
 .footer__content {
