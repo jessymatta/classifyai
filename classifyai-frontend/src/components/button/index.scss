@@ -9,22 +9,28 @@
     border: none;
     border-radius: $button-radius;
     height: 48px;
-}
 
-.button--fullwidth {
-    width: 100%;
-}
+    &--fullwidth {
+        width: 100%;
+    }
 
-.button--fixedwidth {
-    width: 140px;
-    font-size: $base__fontSize--medium;
-    padding:0.08rem;
-}
+    &--fixedwidth {
+        width: 140px;
+        font-size: $base__fontSize--medium;
+        padding: 0.08rem;
+    }
 
-.button--red {
-    background-color: $color__primary--red;
-}
+    &--red {
+        background-color: $color__primary--red;
+    }
 
-.button--green {
-    background-color: $color--green;
+    &--green {
+        background-color: $color--green;
+    }
+
+    &--title {
+        color: black;
+        background-color: white;
+        font-size: $base__fontSize--small;
+    }
 }
