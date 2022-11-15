@@ -6,8 +6,9 @@ import { FaPlayCircle, FaPauseCircle } from "react-icons/fa"
 import { AiOutlineInfoCircle } from "react-icons/ai"
 import { TbFileDownload } from "react-icons/tb"
 import { CallRowProps } from "./CallDetails"
+import {BASE_URL_CALLS} from "../../constants/urls"
 
-const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, createdAt, calls, setCurrentSong, setIsPlaying }: CallRowProps) => {
+const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, createdAt, calls, setCurrentSong, setIsPlaying,operator_id,script_url }: CallRowProps) => {
     const [isActive, setIsActive] = useState(false);
 
     const handleClick = () => {
@@ -66,7 +67,13 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, createdAt, ca
             <td
                 style={{
                     backgroundColor: isActive ? 'yellow' : 'white',
-                }}><TbFileDownload className='script' /></td>
+                }}>
+                    <a href={`${BASE_URL_CALLS}/${operator_id}/${script_url}`}
+                    download>
+                    <TbFileDownload className='script' />
+                    </a>
+                    
+                    </td>
         </tr>
 
     )
