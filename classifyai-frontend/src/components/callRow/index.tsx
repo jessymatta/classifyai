@@ -6,9 +6,10 @@ import { FaPlayCircle, FaPauseCircle } from "react-icons/fa"
 import { AiOutlineInfoCircle } from "react-icons/ai"
 import { TbFileDownload } from "react-icons/tb"
 import { CallRowProps } from "./CallDetails"
-import {BASE_URL_CALLS} from "../../constants/urls"
+import { BASE_URL_CALLS } from "../../constants/urls"
 
-const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, createdAt, calls, setCurrentSong, setIsPlaying,operator_id,script_url }: CallRowProps) => {
+
+const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, createdAt, calls, setCurrentSong, setIsPlaying, operator_id, script_url,operator }: CallRowProps) => {
     const [isActive, setIsActive] = useState(false);
 
     const handleClick = () => {
@@ -39,11 +40,12 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, createdAt, ca
                     backgroundColor: isActive ? 'yellow' : 'white',
                 }}
             >{customerNbr}</td>
+
             <td className='username'
                 style={{
                     backgroundColor: isActive ? 'yellow' : 'white',
                 }}
-            >@username</td>
+            >{`@${operator&& operator.username}`}</td>
             <td
                 style={{
                     backgroundColor: isActive ? 'yellow' : 'white',
@@ -68,12 +70,12 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, createdAt, ca
                 style={{
                     backgroundColor: isActive ? 'yellow' : 'white',
                 }}>
-                    <a href={`${BASE_URL_CALLS}/${operator_id}/${script_url}`}
+                <a href={`${BASE_URL_CALLS}/${operator_id}/${script_url}`}
                     download>
                     <TbFileDownload className='script' />
-                    </a>
-                    
-                    </td>
+                </a>
+
+            </td>
         </tr>
 
     )
