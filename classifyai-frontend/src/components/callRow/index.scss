@@ -48,4 +48,8 @@
     width: 30px;
     height: 30px;
     color: $color__primary--gray;
+
+    &:hover{
+        color:$color--yellow;
+    }
 }
