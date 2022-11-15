@@ -8,18 +8,18 @@ interface DashboardHOCProps {
 const DashboardHOC = ({ children }: DashboardHOCProps) => {
     const [sidebar, header, content, footer] = children;
     return (
-        <>
-            <div className='home'>
+        <div className='home'>
+            <div className="home__sidebar">
                 {sidebar}
-                <div className="home__container">
-                    {header}
-                    <div className="home__content">
-                        {content}
-                    </div>
-                    {footer}
-                </div>
             </div>
-        </>
+            <div className="home__container">
+                {header}
+                <div className="home__content">
+                    {content}
+                </div>
+                {footer}
+            </div>
+        </div>
     )
 }
 

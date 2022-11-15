@@ -16,6 +16,7 @@ const Sidebar = () => {
 
     const logout = () => {
         localStorage.clear();
+        queryClient.clear()
         window.location.href = "/login";
     }
 
@@ -33,9 +34,9 @@ const Sidebar = () => {
                     <SidebarLabel linkTo={label.linkTo} icon={label.icon} labelName={label.labelName} />
                 ))}
 
-                <div className="sidebar__logout">
-                    <SidebarLabel onClick={logout} icon={<FiLogOut size={30} />} labelName='logout' />
-                </div>
+            </div>
+            <div className="sidebar__logout">
+                <SidebarLabel onClick={logout} icon={<FiLogOut size={30} />} labelName='logout' />
             </div>
         </div>
     )

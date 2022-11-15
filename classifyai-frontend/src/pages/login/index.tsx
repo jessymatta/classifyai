@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from "react";
-// import LoginForm from '../../components/loginForm'
 import LoginImage from '../../assets/images/login_pic.svg';
 import "./index.scss";
 import Button from "../../components/button";
@@ -16,7 +15,6 @@ const LoginPage = () => {
     const initialValues = { email: "", password: "" };
     const [formValues, setFormValues] = useState<LoginFormProps>(initialValues);
     const [formErrors, setFormErrors] = useState<ErrorsLogin>({});
-    // const [isSubmit, setIsSubmit] = useState(false);
     const [msg, setMsg] = useState("");
     const { mutateAsync } = useLogin();
     const nagivate = useNavigate();
@@ -44,26 +42,25 @@ const LoginPage = () => {
     return (
         <div className='loginPage__container'>
             <img className="loginPage__image" src={LoginImage} alt="login-hero" />
-            {/* <LoginForm /> */}
             <section className="form__login">
-            <Logo logoType="login__logo" />
-            <h1 className="form__title margin-top">Login</h1>
-            <form onSubmit={handleLogin}>
-                <p className="form__login--response">{msg}</p>
+                <Logo logoType="login__logo" />
+                <h1 className="form__title margin-top">Login</h1>
+                <form onSubmit={handleLogin}>
+                    <p className="form__login--response">{msg}</p>
 
-                <p className="error">{formErrors?.email}</p>
+                    <p className="error">{formErrors?.email}</p>
 
-                <Input name={"email"} defaultValue={formValues.email} type="text" label="Email" onChange={handleChange} />
+                    <Input name={"email"} defaultValue={formValues.email} type="text" label="Email" onChange={handleChange} />
 
-                <p className="error">{formErrors?.password}</p>
+                    <p className="error">{formErrors?.password}</p>
 
-                <Input name={"password"} defaultValue={formValues.password} type="password" label="Password" onChange={handleChange} />
+                    <Input name={"password"} defaultValue={formValues.password} type="password" label="Password" onChange={handleChange} />
 
-                <div className="margin-top">
-                    <Button text={"Login"} classNames={["button--red", "button--fullwidth"]} />
-                </div>
-            </form>
-        </section>
+                    <div className="margin-top">
+                        <Button text={"Login"} classNames={["button--red", "button--fullwidth"]} />
+                    </div>
+                </form>
+            </section>
         </div>
 
     )

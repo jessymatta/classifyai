@@ -1,0 +1,23 @@
+@import "../../styles/variables.scss";
+
+.barchart {
+    background-color: white;
+    border-radius: $radius;
+    padding: 1.3rem 1.5rem;
+    height: 100%;
+    width: 100%;
+
+    &__title {
+        font-size: $base__fontSize--large;
+    }
+
+    &__subtitle {
+        font-size: $base__fontSize--xxsmall;
+        color: $color--green;
+    }
+
+    &__wrapper {
+        height: 90%;
+        padding: 0 1rem;
+    }
+}

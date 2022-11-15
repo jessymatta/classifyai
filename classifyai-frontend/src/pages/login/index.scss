@@ -1,11 +1,12 @@
 @import "../../styles/variables.scss";
 
 .loginPage__container {
+    height: 100vh;
     display: flex;
 }
 
 .loginPage__image {
-    height: 100vh;
+    height: 100%;
 
     @media screen and (max-width: 800px) {
         display: none;
@@ -13,19 +14,14 @@
 }
 
 .form__login {
-    width: 100%;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-content: center;
+    width: 100%;
     padding: 40px;
-    padding-top: 25vh;
-    height: 100vh;
+    height: 100%;
 
-    @media screen and (max-width: 800px) {
-        margin-bottom: 50%;
-    }
-
-    .form__title{
+    .form__title {
         margin-bottom: 30px;
         font-size: $base__fontSize--xxlarge;
     }
