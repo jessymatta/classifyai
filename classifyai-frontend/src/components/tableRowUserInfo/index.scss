@@ -1,0 +1,29 @@
+@import "../../styles/variables.scss";
+
+.user__pp {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    width: auto;
+}
+
+.user__info {
+    display: flex;
+    width: fit-content;
+
+    &--right {
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .name {
+            font-size: $base__fontSize--medium;
+        }
+
+        .username {
+            font-size: $base__fontSize--small;
+            color: $color__primary--gray;
+        }
+    }
+}

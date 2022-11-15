@@ -1,0 +1,40 @@
+@import "../../styles/variables.scss";
+
+.pagination__container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1rem;
+    margin-top: 10px;
+
+    li {
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    button {
+        background-color: white;
+        padding: 0.2rem 0.5rem;
+        border: none;
+        width: 100%;
+        height: 100%;
+        color: $color__primary--gray;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $color__primary--red;
+            color: white;
+        }
+
+        &:focus {
+            background-color: $color__primary--red;
+            color: white;
+        }
+
+    }
+
+}
+
+.pagination__element {
+    border: 1px solid $color__primary--gray;
+}

@@ -1,0 +1,42 @@
+@import "../../styles/variables.scss";
+
+.table {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px solid $color__primary--gray;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    background-color: white;
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid $color__primary--gray;
+}
+
+th {
+    font-size: $base__fontSize--small;
+    color: $color__primary--gray;
+}
+
+td {
+    padding: 0.5rem 1rem;
+    font-size: $base__fontSize--medium;
+}
+
+tr>th:first-child {
+    border-top-left-radius: 10px;
+}
+
+tr>th:last-child {
+    border-top-right-radius: 10px;
+}
