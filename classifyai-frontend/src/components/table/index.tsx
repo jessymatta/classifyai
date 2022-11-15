@@ -35,6 +35,7 @@ const Table = ({ headers, rowsData, callData, calls, setCurrentSong,setIsPlaying
                                     calls={calls}
                                     setCurrentSong={setCurrentSong}
                                     setIsPlaying={setIsPlaying}
+                                    operator={call.users}
                                 />
                             ))}
                         </>
