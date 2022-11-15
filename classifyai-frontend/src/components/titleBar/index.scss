@@ -1,0 +1,20 @@
+@import "../../styles/variables.scss";
+
+.title_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem;
+    align-items: center;
+    border-radius: $radius;
+    height: 65px;
+    width: 100%;
+    padding-left: 20px;
+    background-color: $color__primary--red;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    p {
+        font-size: $base__fontSize--xlarge;
+        color: white;
+    }
+}
