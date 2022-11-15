@@ -16,7 +16,7 @@ const Calls = () => {
     const { data: allCalls, isSuccess: allCallsSuccess } = useGetAllCalls()
     const [allCallsData, setAllCallsData] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [callsPerPage] = useState(7)
+    const [callsPerPage] = useState(8)
     const indexOfLastCall = currentPage * callsPerPage;
     const indexOfFirstCall = indexOfLastCall - callsPerPage;
     const currentCalls = allCallsData.slice(indexOfFirstCall, indexOfLastCall)
