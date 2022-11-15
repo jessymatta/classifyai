@@ -20,4 +20,6 @@ export interface CallRowProps {
     calls: Array<string> | any,
     setCurrentSong: Function | any,
     setIsPlaying: Function | any,
+    operator_id: number,
+    script_url: string
 }
