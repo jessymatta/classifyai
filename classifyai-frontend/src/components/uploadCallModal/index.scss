@@ -1,0 +1,57 @@
+@import "../../styles/variables.scss";
+
+.callmodal__container{
+    width:100%;
+    padding:2rem;
+    position:relative;
+}
+
+.upload__call{
+    border: 2px dotted #949494;
+    width:100%;
+    padding:6rem;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    @include center;
+    flex-direction: column;
+
+    .image{
+        height:100px;
+        width:100px;
+        cursor: pointer;
+    }
+    input[type=file]::-webkit-file-upload-button {
+        visibility: hidden;
+    }
+
+}
+
+.spinner{
+    position:fixed;
+    top:0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top:25%;
+    width:60%;
+    height:50%;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    @include center;
+    flex-direction: column;
+    p:first-child{
+        margin-bottom: 2rem;
+    }
+    p:last-child{
+        color:blue;
+        margin-top: 2rem;
+        font-size: $base__fontSize--xxsmall;
+    }
+
+}
+
+.imglabel{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
