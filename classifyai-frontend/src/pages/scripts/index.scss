@@ -1,0 +1,23 @@
+@import "../../styles/variables.scss";
+
+.script__upload{
+    border: 2px dotted $color__primary--gray;
+    padding:5rem;
+    width: 50%;
+    margin:0 auto;
+    margin-top: 10%;
+    border-radius: $radius;
+    @include center;
+    flex-direction: column;
+    gap:20px;
+
+    img{
+        width:100px;
+        height:100px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+input[type=file]::-webkit-file-upload-button {
+    visibility: hidden;
+}
