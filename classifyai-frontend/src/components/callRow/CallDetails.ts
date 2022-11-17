@@ -18,6 +18,8 @@ export interface CallRowProps {
     customerNbr: string,
     duration: string,
     positiveEmotionsPCT: number,
+    negativeEmotionsPCT: number,
+    neutralEmotionsPCT: number,
     createdAt: string,
     calls: Array<string> | any,
     setCurrentSong: Function | any,
