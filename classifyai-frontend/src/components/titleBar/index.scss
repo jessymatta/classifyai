@@ -1,6 +1,7 @@
 @import "../../styles/variables.scss";
 
-.title_container {
+.title_container,
+.modal_title {
     display: flex;
     justify-content: space-between;
     padding: 0.3rem;
@@ -16,5 +17,17 @@
     p {
         font-size: $base__fontSize--xlarge;
         color: white;
+    }
+}
+
+.modal_title {
+    margin-top: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right:1rem;
+    .arrow {
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
     }
 }
