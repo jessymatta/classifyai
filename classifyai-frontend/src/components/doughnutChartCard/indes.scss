@@ -18,3 +18,14 @@
         margin-top: 7px;
     }
 }
+
+.shadow{
+    padding-top:0.5rem;
+    padding-bottom: 2rem;
+
+    .card__chart--subtitle{
+        color:$color--green;
+        font-size: $base__fontSize--xmedium;
+        margin-bottom: 2rem;
+    }
+}

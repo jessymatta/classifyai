@@ -11,12 +11,14 @@ import Pagination from '../../components/pagination'
 import AudioController from '../../components/audioController'
 import { CurrentCall } from "./CurrentCall"
 import { BASE_URL_CALLS } from "../../constants/urls"
+import AddInfoModalHOC from '../../hoc/addInfoModalHOC'
+import UploadCallModal from '../../components/uploadCallModal'
 
 const Calls = () => {
     const { data: allCalls, isSuccess: allCallsSuccess } = useGetAllCalls()
     const [allCallsData, setAllCallsData] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [callsPerPage] = useState(7)
+    const [callsPerPage] = useState(8)
     const indexOfLastCall = currentPage * callsPerPage;
     const indexOfFirstCall = indexOfLastCall - callsPerPage;
     const currentCalls = allCallsData.slice(indexOfFirstCall, indexOfLastCall)
@@ -28,6 +30,8 @@ const Calls = () => {
     const [currentCall, setCurrentCall] = useState<CurrentCall>(allCallsData[0])
     const [url, setUrl] = useState<string>()
     const audioElem = useRef<HTMLAudioElement>(null)
+
+    const [openUploadCallModal, setOpenUploadCallModal] = useState(false)
 
     useEffect(() => {
         if (allCallsSuccess) {
@@ -67,7 +71,7 @@ const Calls = () => {
             <Header />
             <div>
                 <TitleComponent title={"Calls"} btnText={"add call"}
-                    onClick={() => console.log("ok")} />
+                    onClick={() => setOpenUploadCallModal(true)} />
 
                 <Table
                     headers={["Play", "Customer's number", "Operator username", "Created At", "Duration", "Customer satisfaction", "Script"]}
@@ -94,6 +98,13 @@ const Calls = () => {
                     setCurrentCall={setCurrentCall}
                 />
 
+                <AddInfoModalHOC
+                    open={openUploadCallModal}
+                    onClose={() => setOpenUploadCallModal(false)}
+                    modalTitle={"Add Call"}
+                    width="50vw" >
+                    <UploadCallModal onClose={() => setOpenUploadCallModal(false)}  />
+                </AddInfoModalHOC>
             </div>
             <Footer />
         </DashboardHOC>

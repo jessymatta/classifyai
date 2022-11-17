@@ -1,3 +1,4 @@
+import {UserDetails} from "../../routes/UserInterface" 
 export interface CallDetails {
     id: number,
     cutomer_nbr: string,
@@ -9,6 +10,7 @@ export interface CallDetails {
     neutral_emotions_pct: number,
     script_url: string,
     created_at: string,
+    users:UserDetails
 }
 
 export interface CallRowProps {
@@ -16,8 +18,13 @@ export interface CallRowProps {
     customerNbr: string,
     duration: string,
     positiveEmotionsPCT: number,
+    negativeEmotionsPCT: number,
+    neutralEmotionsPCT: number,
     createdAt: string,
     calls: Array<string> | any,
     setCurrentSong: Function | any,
     setIsPlaying: Function | any,
+    operator_id: number,
+    script_url: string,
+    operator:UserDetails
 }

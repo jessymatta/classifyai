@@ -34,3 +34,8 @@
         font-size: $base__fontSize--small;
     }
 }
+
+button:disabled,
+button[disabled] {
+    background-color: $color__primary--gray;
+}
