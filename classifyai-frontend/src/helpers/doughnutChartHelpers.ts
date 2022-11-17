@@ -29,6 +29,22 @@ export const options: ChartOptions<'doughnut'> = {
                 pointStyle: 'circle',
                 padding: 15,
             }
-        }
+        },
     },
+}
+
+export const optionsTopLegend: ChartOptions<'doughnut'> = {
+    plugins: {
+        legend: {
+            position: 'right',
+            align: "start",
+            labels: {
+                usePointStyle: true,
+                pointStyle: 'circle',
+                padding: 10,
+            }
+        },
+    },
+    responsive: false,
+    maintainAspectRatio: false,
 }
