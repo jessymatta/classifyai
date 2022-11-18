@@ -9,7 +9,7 @@ export interface OperatorProfileTabsProps {
     operatorsCalls: Array<string>
 }
 
-interface Sentiments {
+export interface Sentiments {
     average_positive_pct: number;
     average_negative_pct: number;
     average_neutral_pct: number;
