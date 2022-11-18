@@ -8,4 +8,5 @@ export interface TableProps {
     calls?: Array<string>;
     setCurrentSong?:Function;
     setIsPlaying?:Function;
+    singleOperator?:boolean;
 }
