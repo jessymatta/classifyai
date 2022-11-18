@@ -1,4 +1,3 @@
-import React from 'react'
 import "./index.scss"
 import { UserDetails } from '../../routes/UserInterface'
 import TableRow from '../tableRowEmployee'
@@ -6,7 +5,7 @@ import { TableProps } from "./TableProps"
 import CallRow from '../callRow'
 import { CallDetails } from "../../components/callRow/CallDetails"
 
-const Table = ({ headers, rowsData, callData, calls, setCurrentSong,setIsPlaying }: TableProps) => {
+const Table = ({ headers, rowsData, callData, calls, setCurrentSong, setIsPlaying, singleOperator }: TableProps) => {
 
     return (
         <div className='table'>
@@ -38,6 +37,7 @@ const Table = ({ headers, rowsData, callData, calls, setCurrentSong,setIsPlaying
                                     setCurrentSong={setCurrentSong}
                                     setIsPlaying={setIsPlaying}
                                     operator={call.users}
+                                    singleOperator={singleOperator}
                                 />
                             ))}
                         </>

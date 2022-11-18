@@ -26,5 +26,6 @@ export interface CallRowProps {
     setIsPlaying: Function | any,
     operator_id: number,
     script_url: string,
-    operator:UserDetails
+    operator:UserDetails,
+    singleOperator?:boolean,
 }

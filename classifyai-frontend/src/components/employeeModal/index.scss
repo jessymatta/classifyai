@@ -1,0 +1,49 @@
+@import "../../styles/variables.scss";
+
+        .left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 3rem;
+
+            img {
+                width: 300px;
+                height: 300px;
+                border-radius: 50%;
+                margin: 0 auto;
+            }
+        }
+
+        .right {
+            flex: 1;
+            padding: 1rem;
+        }
+
+.test {
+    width: 70%;
+    display: flex;
+    gap: 40px;
+    justify-content: flex-start;
+}
+
+.error {
+    font-size: 10px;
+    color: $color--red;
+    margin-bottom: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.upload_pp_label {
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: $color__primary--red;
+    }
+}
