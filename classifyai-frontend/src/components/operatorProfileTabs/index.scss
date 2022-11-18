@@ -5,7 +5,8 @@
     font-size: 20px;
     color: $color__primary--gray;
     border-bottom: 5px solid transparent;
-    background-color: transparent;
+    // !important is added in order to override the default style of the react-tab component
+    background-color: transparent !important;
 
     &:hover {
         border-bottom: 5px solid $color__primary--red;
@@ -18,7 +19,6 @@
     }
 }
 
-
 .tab__labels {
     list-style-type: none;
     @include center;
@@ -27,7 +27,8 @@
 }
 
 .tab1__container {
-    display: flex;
+    // !important is added in order to override the default style of the react-tab component
+    display: flex !important;
 
     &--left {
         flex: 1;
