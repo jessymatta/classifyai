@@ -1,0 +1,33 @@
+@import "../../styles/variables.scss";
+
+.operatorstats {
+    background-color: $page--background-light;
+    position: fixed;
+    top: 7%;
+    left: 13%;
+    border-radius: $radius;
+    width: 80%;
+    height: 88%;
+
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &__close {
+        display: flex;
+        justify-content: flex-end;
+        font-size: $base__fontSize--large;
+        color: $color__primary--gray;
+        padding: 0.6rem;
+
+        .span {
+            cursor: pointer;
+        }
+    }
+
+    &__content {
+        padding: 0 1rem;
+    }
+}
