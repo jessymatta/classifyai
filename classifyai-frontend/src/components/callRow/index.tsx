@@ -12,7 +12,7 @@ import { chartData, optionsTopLegend } from "../../helpers/doughnutChartHelpers"
 
 
 const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmotionsPCT, neutralEmotionsPCT,
-    createdAt, calls, setCurrentSong, setIsPlaying, operator_id, script_url, operator }: CallRowProps) => {
+    createdAt, calls, setCurrentSong, setIsPlaying, operator_id, script_url, operator,singleOperator }: CallRowProps) => {
     const [isActive, setIsActive] = useState(false);
 
     const handleClick = () => {
@@ -46,11 +46,12 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmoti
                     }}
                 >{customerNbr}</td>
 
-                <td className='username'
+                {!singleOperator && <td className='username'
                     style={{
                         backgroundColor: isActive ? 'yellow' : 'white',
                     }}
-                >{`@${operator && operator.username}`}</td>
+                >{`@${operator && operator.username}`}</td>}
+
                 <td
                     style={{
                         backgroundColor: isActive ? 'yellow' : 'white',
