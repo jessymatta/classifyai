@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Footer from '../../components/footer'
 import Header from '../../components/header'
-import Modal from '../../components/addEmployeeModal'
+import Modal from '../../components/employeeModal'
 import Pagination from '../../components/pagination'
 import Sidebar from '../../components/sidebar'
 import Table from '../../components/table'
@@ -53,7 +53,8 @@ const Operators = () => {
                     open={openAddUserModal}
                     onClose={() => setOpenAddUserModal(false)}
                     modalTitle={"Add Operator"} >
-                    <Modal />
+                    <Modal
+                        onSuccess={() => setOpenAddUserModal(false)} />
                 </AddInfoModalHOC>
 
             </div>
