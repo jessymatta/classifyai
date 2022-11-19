@@ -1,6 +1,6 @@
 export interface ModalProps {
-    open: boolean,
-    onClose: (e: React.MouseEvent<HTMLElement>) => void;
+    onSuccess: () => void;
+    supervisor?: boolean;
 }
 
 export interface AddUserFormProps {
