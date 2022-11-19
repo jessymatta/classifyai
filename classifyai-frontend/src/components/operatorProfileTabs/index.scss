@@ -9,13 +9,14 @@
     background-color: transparent !important;
 
     &:hover {
-        border-bottom: 5px solid $color__primary--red;
-        color: $color__primary--red;
+        border: none;
+        border-bottom: 5px solid $color__primary--red !important;
+        color: $color__primary--red !important;
     }
 
     &:focus {
-        border-bottom: 5px solid $color__primary--red;
-        color: $color__primary--red;
+        border-bottom: 5px solid $color__primary--red !important;
+        color: $color__primary--red !important;
     }
 }
 
@@ -57,4 +58,8 @@
 
 .tab1__container--right-bottom {
     max-height: 350px;
+}
+
+.react-tabs__tab-panel{
+    display: block !important;
 }
