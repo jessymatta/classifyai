@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import "./index.scss"
 import Button from "../button"
 import Input from "../input"
-import { AddUserFormProps, AddUserFormErrors } from "./ModalAddUsers"
-import { addUser } from "../../query/operators/addOperator"
+import { AddUserFormProps, AddUserFormErrors, ModalProps } from "./ModalAddUsers"
 import DummyPP from "../../assets/images/dummy__pp.svg"
 import { validateAddUserForm } from "../../helpers/addEmployeeValidations"
+import { useAddOperator } from "../../query/operators/useOperators"
+import { useAddSupervisor } from "../../query/supervisors/useSupervisors"
+import LoadingSpinner from '../loadingSpinner'
 
-const Modal = () => {
+const Modal = ({ onSuccess, supervisor }: ModalProps) => {
     const initialValues = {
         firstName: "",
         lastName: "",
@@ -17,7 +19,8 @@ const Modal = () => {
         password: "",
         confirmPass: ""
     };
-
+    const { mutateAsync: addOperator, isSuccess: operatorAddedSuccess, isLoading: operatorInfoLoading } = useAddOperator();
+    const { mutateAsync: addSupervisor, isSuccess: supervisorAddedSuccess, isLoading: supervisorInfoLoading } = useAddSupervisor();
     const [formValues, setFormValues] = useState<AddUserFormProps>(initialValues);
     const [formErrors, setFormErrors] = useState<AddUserFormErrors>({});
     const [profileBase64, setProfileBase64] = useState();
@@ -45,7 +48,11 @@ const Modal = () => {
             }
             const postData = async () => {
                 try {
-                    const results = await addUser(bodyFormData)
+                    if (supervisor) {
+                        const results = await addSupervisor(bodyFormData)
+                        return results;
+                    }
+                    const results = await addOperator(bodyFormData)
                     return results;
                 } catch (err) {
                     console.log(err)
@@ -57,7 +64,6 @@ const Modal = () => {
 
     const cancelInputs = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("canceling inputs")
         setFormErrors({})
         setFormValues(initialValues)
     }
@@ -71,6 +77,11 @@ const Modal = () => {
             let image_url: any = e.target?.result;
             setProfileBase64(image_url)
         }
+    }
+
+    if (operatorAddedSuccess || supervisorAddedSuccess) {
+        setTimeout(onSuccess
+            , 3000);
     }
 
     return (
@@ -164,6 +175,25 @@ const Modal = () => {
                             classNames={["button--red", "button--fullwidth"]}
                         />
                     </div>
+
+                    {(operatorInfoLoading || supervisorInfoLoading) &&
+                        <LoadingSpinner
+                            topMsg={
+                                operatorInfoLoading?"Adding the operator":"Adding the supervisor"}
+                            bottomMsg={"This will take a few seconds"}
+                            loading={true}
+                        />
+                    }
+
+                    {(operatorAddedSuccess || supervisorAddedSuccess) &&
+                        <LoadingSpinner
+                            successMsgTop={
+                                operatorAddedSuccess ? "Operator added successfully" : "Supervisor added successfully"}
+                            successMsgBottom={"This modal will close by itself in 3 seconds"}
+                            success={true}
+                        />
+                    }
+
                 </form>
 
             </div>
