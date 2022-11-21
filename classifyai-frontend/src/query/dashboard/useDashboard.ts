@@ -1,18 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { BASE_URL } from "../../constants/urls"
-
+import axios, { AxiosError } from 'axios'
+import { useQuery } from "@tanstack/react-query"
+import Config from "../../constants/config.json";
 
 export const DASHBOARD_STATS = ["DASHBOARD_STATS"]
 
-const getDashboardStats = async () => axios.get(`${BASE_URL}/super/dashboard`,
-    {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`
-        }
+//GET ALL DASHBOARD STATS API CALL
+const getDashboardStats = async () => {
+    try {
+        const res = await axios.get(`${Config.BASE_URL}/common/dashboard`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` }
+        });
+        return res;
+    } catch (error) {
+        const err = error as AxiosError
+        throw err;
     }
-).then((res) => res).catch((err) => err)
+}
 
+//GET ALL DASHBOARD STATS HOOK
 export const useDashboardStats = () => useQuery(
     {
         queryKey: DASHBOARD_STATS,
