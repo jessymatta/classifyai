@@ -1,7 +1,8 @@
 import axios from "axios";
+import Config from "../../constants/config.json";
 
-export const instanceAxios = axios.create(
-    {
-        baseURL: "http://127.0.0.1:8000/api/v0.1"
-    }
-)
+const instanceAxios = axios.create({
+    baseURL: Config.BASE_URL,
+});
+
+export default instanceAxios;

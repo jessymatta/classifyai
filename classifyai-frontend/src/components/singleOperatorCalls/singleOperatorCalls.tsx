@@ -3,7 +3,7 @@ import Table from "../table"
 import Pagination from '../../components/pagination'
 import AudioController from '../../components/audioController'
 import { CurrentCall } from "../../pages/calls/CurrentCall"
-import { BASE_URL_CALLS } from "../../constants/urls"
+import Config from "../../constants/config.json"
 
 interface SingleOperatorCallsProps {
     calls: Array<string> 
@@ -43,13 +43,13 @@ const SingleOperatorCalls = ({ calls }: SingleOperatorCallsProps) => {
 
     useEffect(() => {
         if (currentCall) {
-            setUrl(`${BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
+            setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
         }
     }, [currentCall])
 
     useEffect(() => {
         setCurrentCall(calls[0])
-        setUrl(`${BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
+        setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
     }, [calls])
     return (
         <>

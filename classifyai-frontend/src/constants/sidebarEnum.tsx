@@ -2,7 +2,7 @@ import { MdOutlineDashboard } from "react-icons/md"
 import { RiFileExcel2Line, RiCustomerService2Line } from "react-icons/ri"
 import { MdSupervisorAccount } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5"
-import {ROLES} from "./roles"
+import { ROLES } from "./roles"
 
 export const sidesbarLabels = {
     [ROLES.Super_Supervisor]: [{ linkTo: "dashboard", icon: <MdOutlineDashboard size={30} />, labelName: "dashboard" },
@@ -16,7 +16,7 @@ export const sidesbarLabels = {
     { linkTo: "scripts", icon: <RiFileExcel2Line size={30} />, labelName: "scripts" },
     { linkTo: "calls", icon: <IoCallOutline size={30} />, labelName: "calls" }
     ],
-    [ROLES.Operator]: [{ linkTo: "dashboard", icon: <MdOutlineDashboard size={30} />, labelName: "dashboard" },
+    [ROLES.Operator]: [{ linkTo: "dashboardoperator", icon: <MdOutlineDashboard size={30} />, labelName: "dashboard" },
     { linkTo: "scripts", icon: <RiFileExcel2Line size={30} />, labelName: "scripts" },
     ],
 }

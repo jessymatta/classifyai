@@ -1,18 +1,26 @@
 import "./index.scss"
-import { UserDetails } from '../../routes/UserInterface'
-import TableRow from '../tableRowEmployee'
+import { UserDetails } from "../../routes/UserInterface"
+import TableRow from "../tableRowEmployee"
 import { TableProps } from "./TableProps"
-import CallRow from '../callRow'
+import CallRow from "../callRow"
 import { CallDetails } from "../../components/callRow/CallDetails"
 
-const Table = ({ headers, rowsData, callData, calls, setCurrentSong, setIsPlaying, singleOperator }: TableProps) => {
+const Table = ({
+    headers,
+    rowsData,
+    callData,
+    calls,
+    setCurrentSong,
+    setIsPlaying,
+    singleOperator,
+    supervisor,
+    isSuperSupervisor }: TableProps) => {
 
     return (
         <div className='table'>
             <table>
                 <thead>
                     <tr>
-
                         {headers.map((th) => (
                             <th>{th}</th>
                         ))}
@@ -45,7 +53,11 @@ const Table = ({ headers, rowsData, callData, calls, setCurrentSong, setIsPlayin
                         :
 
                         rowsData?.map((operator: UserDetails) => (
-                            <TableRow {...operator} />
+                            <TableRow
+                                user={{ ...operator }}
+                                supervisor={supervisor}
+                                supersupervisor={isSuperSupervisor}
+                            />
                         ))}
 
                 </tbody>

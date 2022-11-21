@@ -10,7 +10,7 @@ import { useGetAllCalls } from "../../query/calls/useCalls"
 import Pagination from '../../components/pagination'
 import AudioController from '../../components/audioController'
 import { CurrentCall } from "./CurrentCall"
-import { BASE_URL_CALLS } from "../../constants/urls"
+import Config from "../../constants/config.json"
 import AddInfoModalHOC from '../../hoc/addInfoModalHOC'
 import UploadCallModal from '../../components/uploadCallModal'
 
@@ -61,7 +61,7 @@ const Calls = () => {
 
     useEffect(() => {
         if (currentCall) {
-            setUrl(`${BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
+            setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
         }
     }, [currentCall])
 

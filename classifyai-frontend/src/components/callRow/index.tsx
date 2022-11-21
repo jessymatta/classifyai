@@ -6,9 +6,10 @@ import { FaPlayCircle, FaPauseCircle } from "react-icons/fa"
 import { AiOutlineInfoCircle } from "react-icons/ai"
 import { TbFileDownload } from "react-icons/tb"
 import { CallRowProps } from "./CallDetails"
-import { BASE_URL_CALLS } from "../../constants/urls"
+import Config from "../../constants/config.json"
 import { Doughnut } from 'react-chartjs-2';
 import { chartData, optionsTopLegend } from "../../helpers/doughnutChartHelpers"
+import OperatorStatsModal from '../operatorStatsModal'
 
 
 const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmotionsPCT, neutralEmotionsPCT,
@@ -21,6 +22,7 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmoti
         isActive ? setIsPlaying(false) : setIsPlaying(true);
     };
     const [isInfoActive, setIsInfoActive] = useState(false);
+    const [isOperatorStatsModalActive, setIsOperatorStatsModalActive] = useState(false);
 
     return (
         <>
@@ -46,11 +48,13 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmoti
                     }}
                 >{customerNbr}</td>
 
-                {!singleOperator && <td className='username'
-                    style={{
-                        backgroundColor: isActive ? 'yellow' : 'white',
-                    }}
-                >{`@${operator && operator.username}`}</td>}
+                {!singleOperator && 
+                <td className='username'
+                    style={{backgroundColor: isActive ? 'yellow' : 'white'}}
+                    onClick={()=>setIsOperatorStatsModalActive(true)}
+                >
+                {`@${operator && operator.username}`}
+                </td>}
 
                 <td
                     style={{
@@ -84,13 +88,19 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmoti
                     style={{
                         backgroundColor: isActive ? 'yellow' : 'white',
                     }}>
-                    <a href={`${BASE_URL_CALLS}/${operator_id}/${script_url}`}
+                    <a href={`${Config.BASE_URL_CALLS}/${operator_id}/${script_url}`}
                         download>
                         <TbFileDownload
                             className='script' />
                     </a>
                 </td>
             </tr>
+
+            {isOperatorStatsModalActive &&
+                <OperatorStatsModal
+                    onClose={() => setIsOperatorStatsModalActive(false)}
+                    id={operator.id} />
+            }
         </>
 
     )

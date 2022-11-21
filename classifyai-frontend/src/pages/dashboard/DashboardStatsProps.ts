@@ -15,4 +15,5 @@ export interface OperatorProfile {
     first_name: string,
     last_name: string,
     username: string,
+    id:number
 }

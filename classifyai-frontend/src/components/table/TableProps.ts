@@ -6,7 +6,9 @@ export interface TableProps {
     rowsData?: Array<UserDetails>;
     callData?: Array<CallDetails>;
     calls?: Array<string>;
-    setCurrentSong?:Function;
-    setIsPlaying?:Function;
-    singleOperator?:boolean;
+    setCurrentSong?: Function;
+    setIsPlaying?: Function;
+    singleOperator?: boolean;
+    supervisor?: boolean;
+    isSuperSupervisor?: boolean
 }

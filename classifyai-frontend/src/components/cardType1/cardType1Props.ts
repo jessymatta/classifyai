@@ -6,6 +6,6 @@ export interface CardProps {
     emoji: string,
     percentage: number,
     image: string,
-    type: string
-
+    type: string,
+    id:number
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Footer from '../../components/footer'
 import Header from '../../components/header'
-import Modal from '../../components/addEmployeeModal'
+import Modal from '../../components/employeeModal'
 import Pagination from '../../components/pagination'
 import Sidebar from '../../components/sidebar'
 import Table from '../../components/table'
@@ -9,6 +9,7 @@ import TitleComponent from '../../components/titleBar'
 import AddInfoModalHOC from '../../hoc/addInfoModalHOC'
 import DashboardHOC from '../../hoc/DashboardHOC'
 import { useGetAllOperators } from '../../query/operators/useOperators'
+import { queryClient } from '../../App';
 
 const Operators = () => {
     const [operators, setOperators] = useState([])
@@ -20,6 +21,7 @@ const Operators = () => {
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = operators.slice(indexOfFirstUser, indexOfLastUser)
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+    const userRole = queryClient.getQueryCache().find(['USER_LOGGED_IN_ROLE'])?.state.data
 
     useEffect(() => {
         if (allOperatorsSuccess) {
@@ -41,6 +43,7 @@ const Operators = () => {
                 <Table
                     headers={["Operator", "Email", "Joining Date", "Actions"]}
                     rowsData={currentUsers}
+                    isSuperSupervisor={userRole === "Super Supervisor"}
                 />
 
                 <Pagination
@@ -53,7 +56,8 @@ const Operators = () => {
                     open={openAddUserModal}
                     onClose={() => setOpenAddUserModal(false)}
                     modalTitle={"Add Operator"} >
-                    <Modal />
+                    <Modal
+                        onSuccess={() => setOpenAddUserModal(false)} />
                 </AddInfoModalHOC>
 
             </div>

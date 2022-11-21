@@ -10,6 +10,7 @@ import { ErrorsLogin } from "./loginForm";
 import { validateLoginForm } from "../../helpers/validateLogin";
 import { useLogin } from "../../query/auth/auth";
 import { useNavigate } from "react-router-dom";
+import { queryClient } from '../../App';
 
 const LoginPage = () => {
     const initialValues = { email: "", password: "" };
@@ -18,6 +19,7 @@ const LoginPage = () => {
     const [msg, setMsg] = useState("");
     const { mutateAsync } = useLogin();
     const nagivate = useNavigate();
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -32,7 +34,12 @@ const LoginPage = () => {
         if (Object.keys(formErrors).length === 0) {
             try {
                 await mutateAsync(formValues);
+                const userRole = queryClient.getQueryCache().find(['USER_LOGGED_IN_ROLE'])?.state.data
+
+                userRole == "Operator"?
+                nagivate("/dashboardoperator"):
                 nagivate("/dashboard");
+
             } catch (err) {
                 console.log(err)
                 if (err === 401) setMsg("Invalid Credentials");
