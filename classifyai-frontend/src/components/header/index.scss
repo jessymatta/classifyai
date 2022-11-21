@@ -20,13 +20,22 @@
         height: 50px;
         width: 50px;
         width: auto;
+        cursor: pointer;
     }
 
-    &__toggleBtn{
+    &__toggleBtn {
         font-size: 35px;
         display: flex;
         align-items: center;
         color: $color__primary--blue-dark;
     }
-    
+}
+
+.darkmode__icon {
+    cursor: pointer;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $color__primary--gray;
+    }
 }
