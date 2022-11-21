@@ -1,0 +1,100 @@
+@import "./variables.scss";
+
+.app.dark {
+    background-color: #28243D;
+
+    .home__container,
+    .infoChart,
+    .form__label,
+    .operatorstats,
+    .confirmation {
+        background-color: #28243D;
+    }
+
+    .sidebar,
+    .card,
+    .smallcard,
+    .card__chart,
+    .barchart,
+    .circularPct__card,
+    .employeeProfile {
+        background-color: #312D4B;
+    }
+
+
+    .card,
+    .barchart {
+        &__title {
+            color: $color__primary--gray;
+        }
+    }
+
+    .circularPct__card {
+        p:first-child {
+            color: $color__primary--gray;
+        }
+    }
+
+    .card__chart {
+        &--title {
+            color: $color__primary--gray;
+        }
+    }
+
+    th,
+    td {
+        background-color: #312D4B !important;
+    }
+
+    td {
+        color: white;
+    }
+
+    .pagination__container {
+        button {
+            background-color: #312D4B;
+
+            &:hover {
+                background-color: $color__primary--red;
+                color: white;
+            }
+
+            &:focus {
+                background-color: $color__primary--red;
+                color: white;
+            }
+        }
+    }
+
+    .modal__container {
+        background-color: #28243D;
+        color: $color__primary--gray;
+    }
+
+    .script__upload {
+        color: $color__primary--gray;
+    }
+
+    .scriptdata__container {
+        background-color: #312D4B;
+    }
+
+    .title_container {
+        button {
+            background-color: #312D4B;
+            color: white;
+        }
+    }
+
+    .spinner {
+        background-color: #312D4B !important;
+
+        p:last-child {
+            color: red;
+        }
+    }
+
+    .success__msg {
+        color: white;
+    }
+}

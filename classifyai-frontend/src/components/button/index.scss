@@ -1,0 +1,42 @@
+@import "../../styles/variables.scss";
+
+.button {
+    padding: 0.6rem;
+    color: white;
+    cursor: pointer;
+    font-size: $base__fontSize--xmedium;
+    font-weight: bold;
+    border: none;
+    border-radius: $button-radius;
+    height: 48px;
+    background-color: $color__primary--gray;
+
+    &--fullwidth {
+        width: 100%;
+    }
+
+    &--fixedwidth {
+        width: 140px;
+        font-size: $base__fontSize--medium;
+        padding: 0.08rem;
+    }
+
+    &--red {
+        background-color: $color__primary--red;
+    }
+
+    &--green {
+        background-color: $color--green;
+    }
+
+    &--title {
+        color: black;
+        background-color: white;
+        font-size: $base__fontSize--small;
+    }
+}
+
+button:disabled,
+button[disabled] {
+    background-color: $color__primary--gray;
+}

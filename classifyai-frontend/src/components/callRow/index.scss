@@ -1,0 +1,66 @@
+@import "../../styles/variables.scss";
+
+.call__icons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    .phone,
+    .play {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .play {
+        color: $color__primary--red;
+    }
+}
+
+.username {
+    color: #1400FF;
+    cursor: pointer;
+}
+
+.satisfaction {
+    color: $color--green;
+    width: 15%;
+
+    div {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: $base__fontSize--xmedium;
+
+        .info {
+            width: 22px;
+            height: 22px;
+            color: $color__primary--gray;
+            cursor: pointer;
+        }
+
+    }
+}
+
+.script {
+    width: 30px;
+    height: 30px;
+    color: $color__primary--gray;
+
+    &:hover{
+        color:$color--yellow;
+    }
+}
+
+.infoChart{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position:fixed;
+    right:8%;
+    padding:2rem 0rem;
+    background-color: white;
+    border-radius: 10px;
+    z-index: 100;
+    @include center;
+}

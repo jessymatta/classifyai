@@ -1,0 +1,48 @@
+@import "../../styles/variables.scss";
+
+.smallcard {
+    background-color: white;
+    border-radius: $radius;
+    padding: 1.3rem 1.5rem;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    @include center;
+
+    &__left {
+        width: 100px;
+        height: 100px;
+        margin-right: 50px;
+
+        &--img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__right {
+        h4 {
+            font-size: $base__fontSize--xxlarge;
+            font-weight: 300;
+        }
+
+        p {
+            font-size: $base__fontSize--xxmedium;
+            color: $color__primary--gray;
+        }
+
+        .small {
+            font-size: $base__fontSize--xxsmall;
+            color: $color--green;
+        }
+    }
+}
+
+.shadow{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding-right:0;
+
+    .small{
+        font-size: $base__fontSize--small;
+    }
+}

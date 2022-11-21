@@ -1,0 +1,5 @@
+{
+  "BASE_URL": "http://127.0.0.1:8000/api/v0.1",
+  "BASE_URL_CALLS": "http://127.0.0.1:8000/calls_folder",
+  "BASE_URL_PP": "http://127.0.0.1:8000/images/profile_pictures"
+}
