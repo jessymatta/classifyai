@@ -163,7 +163,7 @@ const Modal = ({ onSuccess, supervisor }: ModalProps) => {
                         required
                     />
 
-                    <div className='test'>
+                    <div className='form_btns'>
                         <Button
                             text={"submit"}
                             classNames={["button--green", "button--fullwidth"]}
