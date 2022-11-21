@@ -1,5 +1,5 @@
 import "./index.scss"
-import { BASE_URL_PP } from "../../constants/urls"
+import Config from "../../constants/config.json"
 import DummyPP from "../../assets/images/dummy__pp.svg"
 import { EmployeeProfileCardProps } from "./EmployeeProfileCardProps"
 import { EmployeeProfileCardLabels } from "../../helpers/employeeProfileCardHelpers"
@@ -13,7 +13,7 @@ const EmployeeProfileCard = ({ userProfile }: EmployeeProfileCardProps) => {
             <hr />
 
             {userProfile.profile_pic_url ?
-                <img src={`${BASE_URL_PP}/${userProfile.id}/${userProfile.profile_pic_url}`} alt="pp" />
+                <img src={`${Config.BASE_URL_PP}/${userProfile.id}/${userProfile.profile_pic_url}`} alt="pp" />
 
                 :
                 <img src={DummyPP} alt="pp" />

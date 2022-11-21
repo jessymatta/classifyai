@@ -4,7 +4,7 @@ import { queryClient } from "../../App"
 import { UserDetails } from "../../routes/UserInterface"
 import { DarkModeContext } from "../../context/darkModeContext"
 import { CgDarkMode } from "react-icons/cg"
-import { BASE_URL_PP } from "../../constants/urls"
+import Config from "../../constants/config.json"
 import SupervisorProfile from "../supervisorProfile"
 
 const Header = () => {
@@ -25,7 +25,7 @@ const Header = () => {
                 </div>
 
                 {loogedInUserProfilePic &&
-                    <img src={`${BASE_URL_PP}/${loogedInUserId}/${loogedInUserProfilePic}`}
+                    <img src={`${Config.BASE_URL_PP}/${loogedInUserId}/${loogedInUserProfilePic}`}
                         className="header__pp" alt="pp"
                         onClick={() => setEmployeeProfileModal(true)}
                     />}

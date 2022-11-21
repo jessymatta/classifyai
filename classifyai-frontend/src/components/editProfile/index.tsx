@@ -4,7 +4,7 @@ import Input from "../input"
 import LoadingSpinner from "../loadingSpinner"
 import DummyPP from "../../assets/images/dummy__pp.svg"
 import { validateAddUserForm } from '../../helpers/addEmployeeValidations'
-import { BASE_URL_PP } from '../../constants/urls'
+import Config from "../../constants/config.json"
 import { useEditEmployee } from "../../query/common/useEmployee"
 import { EditProfileModalProps, EditUserFormProps, EditUserFormErrors } from "./EditProfileInterfaces"
 
@@ -67,7 +67,7 @@ const EditProfileModal = ({ employee, onClose }: EditProfileModalProps) => {
                     :
                     profileBase64 ?
                         <img src={profileBase64} alt="pp" />
-                        : <img src={`${BASE_URL_PP}/${employee.id}/${employee.profile_pic_url}`} alt="pp" />}
+                        : <img src={`${Config.BASE_URL_PP}/${employee.id}/${employee.profile_pic_url}`} alt="pp" />}
                 <label className="upload_pp_label" htmlFor="pp">Edit Photo</label>
                 <input
                     onChange={convertImage}
