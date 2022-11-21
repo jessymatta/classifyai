@@ -1,5 +1,5 @@
 import { LoginFormProps } from "../../pages/login/loginForm";
-import { instanceAxios } from "../axios";
+import instanceAxios from "../axios/index"
 import { AxiosError } from 'axios';
 
 export const logIn = async (user: LoginFormProps) => {
