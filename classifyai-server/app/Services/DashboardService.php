@@ -117,7 +117,7 @@ class DashboardService
             ->orderBy('created_at', 'desc')
             ->get()
             ->groupBy(function ($item) {
-                return $item->created_at->format('d');
+                return $item->created_at->format('d/m/y');
             })
             ->toArray();
 
