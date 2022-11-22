@@ -1,28 +1,19 @@
-import React, { useState } from 'react'
-import "./index.scss"
-import Button from "../button"
-import Input from "../input"
-import { AddUserFormProps, AddUserFormErrors, ModalProps } from "./ModalAddUsers"
-import DummyPP from "../../assets/images/dummy__pp.svg"
-import { validateAddUserForm } from "../../helpers/addEmployeeValidations"
-import { useAddOperator } from "../../query/operators/useOperators"
-import { useAddSupervisor } from "../../query/supervisors/useSupervisors"
-import LoadingSpinner from '../loadingSpinner'
+import React, { useState } from "react";
+import "./index.scss";
+import Button from "../button";
+import Input from "../input";
+import { AddUserFormProps, ModalProps } from "./ModalAddUsers";
+import DummyPP from "../../assets/images/dummy__pp.svg";
+import { useAddOperator } from "../../query/operators/useOperators";
+import { useAddSupervisor } from "../../query/supervisors/useSupervisors";
+import LoadingSpinner from "../loadingSpinner";
+import { inputsFct, initialValues } from "../../helpers/addEmployeeFormInputsEnum";
 
 const Modal = ({ onSuccess, supervisor }: ModalProps) => {
-    const initialValues = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        username: "",
-        dob: "",
-        password: "",
-        confirmPass: ""
-    };
+
     const { mutateAsync: addOperator, isSuccess: operatorAddedSuccess, isLoading: operatorInfoLoading } = useAddOperator();
     const { mutateAsync: addSupervisor, isSuccess: supervisorAddedSuccess, isLoading: supervisorInfoLoading } = useAddSupervisor();
     const [formValues, setFormValues] = useState<AddUserFormProps>(initialValues);
-    const [formErrors, setFormErrors] = useState<AddUserFormErrors>({});
     const [profileBase64, setProfileBase64] = useState();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,41 +21,31 @@ const Modal = ({ onSuccess, supervisor }: ModalProps) => {
         setFormValues({ ...formValues, [name]: value });
     }
 
+    const inputs = inputsFct(formValues.password);
     const handleAddUser = async (e: React.FormEvent) => {
         e.preventDefault();
-        const errors = validateAddUserForm(formValues);
-        setFormErrors(errors);
-        if (Object.keys(formErrors).length === 0) {
-            let bodyFormData = new FormData();
-            bodyFormData.append("first_name", formValues.firstName)
-            bodyFormData.append("last_name", formValues.lastName)
-            bodyFormData.append("email", formValues.email)
-            bodyFormData.append("username", formValues.username)
-            bodyFormData.append("dob", formValues.dob)
-            bodyFormData.append("password", formValues.password)
-            bodyFormData.append("password_confirmation", formValues.confirmPass)
-            if (profileBase64) {
-                bodyFormData.append("profile_pic_base64", profileBase64)
-            }
-            const postData = async () => {
-                try {
-                    if (supervisor) {
-                        const results = await addSupervisor(bodyFormData)
-                        return results;
-                    }
-                    const results = await addOperator(bodyFormData)
-                    return results;
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-            postData();
+        console.log(formValues)
+        if (profileBase64) {
+            formValues["profile_pic_base64"] = profileBase64;
         }
+        const postData = async () => {
+            try {
+                if (supervisor) {
+                    const results = await addSupervisor(formValues)
+                    return results;
+                }
+                const results = await addOperator(formValues)
+                return results;
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        postData();
     }
+
 
     const cancelInputs = (e: React.FormEvent) => {
         e.preventDefault();
-        setFormErrors({})
         setFormValues(initialValues)
     }
 
@@ -98,70 +79,19 @@ const Modal = ({ onSuccess, supervisor }: ModalProps) => {
 
             <div className="right">
                 <form onSubmit={handleAddUser}>
-
-                    <p className="error">{formErrors?.firstName}</p>
-                    <Input
-                        name={"firstName"}
-                        defaultValue={""}
-                        type="text"
-                        label="First Name"
-                        onChange={handleChange}
-                        required
-                    />
-                    <p className="error">{formErrors?.lastName}</p>
-                    <Input
-                        name={"lastName"}
-                        defaultValue={""}
-                        type="text"
-                        label="Last Name"
-                        onChange={handleChange}
-                        required
-                    />
-                    <p className="error">{formErrors?.email}</p>
-                    <Input
-                        name={"email"}
-                        defaultValue={""}
-                        type="text"
-                        label="Email"
-                        onChange={handleChange}
-                        required
-                    />
-                    <p className="error">{formErrors?.username}</p>
-                    <Input
-                        name={"username"}
-                        defaultValue={""}
-                        type="text"
-                        label="Username"
-                        onChange={handleChange}
-                        required
-                    />
-                    <p className="error">{formErrors?.dob}</p>
-                    <Input
-                        name={"dob"}
-                        defaultValue={""}
-                        type="date"
-                        label="dob"
-                        onChange={handleChange}
-                        required
-                    />
-                    <p className="error">{formErrors?.password}</p>
-                    <Input
-                        name={"password"}
-                        defaultValue={""}
-                        type="password"
-                        label="Password"
-                        onChange={handleChange}
-                        required
-                    />
-                    <p className="error">{formErrors?.confirmPass}</p>
-                    <Input
-                        name={"confirmPass"}
-                        defaultValue={""}
-                        type="password"
-                        label="Confirm Password"
-                        onChange={handleChange}
-                        required
-                    />
+                    {inputs.map((input) => (
+                        <Input
+                            key={input.id}
+                            name={input.name}
+                            defaultValue={input.placeholder}
+                            type={input.type}
+                            label={input.label}
+                            onChange={handleChange}
+                            required
+                            errorMessage={input.errorMessage}
+                            pattern={input.pattern}
+                        />
+                    ))}
 
                     <div className='form_btns'>
                         <Button
@@ -179,8 +109,8 @@ const Modal = ({ onSuccess, supervisor }: ModalProps) => {
                     {(operatorInfoLoading || supervisorInfoLoading) &&
                         <LoadingSpinner
                             topMsg={
-                                operatorInfoLoading?"Adding the operator":"Adding the supervisor"}
-                            bottomMsg={"This will take a few seconds"}
+                                operatorInfoLoading ? "Adding the operator" : "Adding the supervisor"}
+                            bottomMsg={"This will take  few seconds"}
                             loading={true}
                         />
                     }
