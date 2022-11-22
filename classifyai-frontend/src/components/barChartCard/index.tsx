@@ -19,4 +19,4 @@ const BarChartCard = ({ title, subtitle, labels, positivePctArray, negativePctAr
     )
 }
 
-export default BarChartCard
+export default BarChartCard;

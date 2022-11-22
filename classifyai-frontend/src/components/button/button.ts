@@ -1,5 +1,5 @@
 export interface ButtonProps {
-    text: string,
+    text: string;
     classNames?: Array<String>;
     onClick?: (e: React.MouseEvent<HTMLElement>) => void;
     disabled?: boolean;

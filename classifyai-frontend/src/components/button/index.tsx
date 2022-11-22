@@ -11,4 +11,4 @@ const Button = ({ text, classNames, onClick, disabled }: ButtonProps) => {
     )
 }
 
-export default Button
+export default Button;
