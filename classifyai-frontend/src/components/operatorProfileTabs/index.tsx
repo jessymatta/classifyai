@@ -74,9 +74,9 @@ const OperatorProfileTabs = ({
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <SingleOperatorCalls
+                    {operatorsCalls&& <SingleOperatorCalls
                         calls={operatorsCalls}
-                    />
+                    />}
                 </TabPanel>
             </Tabs>
         </div>
