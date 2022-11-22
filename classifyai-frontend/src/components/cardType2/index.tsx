@@ -1,10 +1,9 @@
-import React from 'react'
-import "./index.scss"
-import { CardType2Props } from './CardType2Props'
+import "./index.scss";
+import { CardType2Props } from "./CardType2Props";
 
 const SmallCard = ({ stats, title, image, subtitle, shadow }: CardType2Props) => {
     return (
-        <div className={shadow? 'smallcard shadow': 'smallcard'}>
+        <div className={shadow ? 'smallcard shadow' : 'smallcard'}>
 
             <div className="smallcard__left">
                 <img className='smallcard__left--img' src={image} alt="phone" />
@@ -20,4 +19,4 @@ const SmallCard = ({ stats, title, image, subtitle, shadow }: CardType2Props) =>
     )
 }
 
-export default SmallCard
+export default SmallCard;
