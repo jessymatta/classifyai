@@ -1,8 +1,8 @@
-import "./index.scss"
-import { useState } from 'react'
-import Button from '../button'
-import { CardProps } from "./cardType1Props"
-import OperatorStatsModal from '../operatorStatsModal'
+import "./index.scss";
+import { useState } from "react";
+import Button from "../button";
+import { CardProps } from "./cardType1Props";
+import OperatorStatsModal from "../operatorStatsModal";
 
 const Card = ({ title, firstName, lastName, username, emoji, percentage, image, type, id }: CardProps) => {
     const [isOperatorStatsModalActive, setIsOperatorStatsModalActive] = useState(false);
@@ -11,7 +11,6 @@ const Card = ({ title, firstName, lastName, username, emoji, percentage, image, 
             <div className='card'>
 
                 <p className='card__title'>{title}</p>
-
                 <div className="card__container">
 
                     <div className="card__container--left">
@@ -35,8 +34,8 @@ const Card = ({ title, firstName, lastName, username, emoji, percentage, image, 
                     </div>
 
                 </div>
-
             </div>
+
             {isOperatorStatsModalActive &&
                 <OperatorStatsModal
                     onClose={() => { setIsOperatorStatsModalActive(false) }}
@@ -47,4 +46,4 @@ const Card = ({ title, firstName, lastName, username, emoji, percentage, image, 
     )
 }
 
-export default Card
+export default Card;
