@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
 use App\Models\Call;
 use App\Models\User;
 use App\Models\Role;
@@ -58,6 +57,12 @@ class OperatorStatsService
     {
         $operator_calls = Call::where('operator_id', $id)->get();
 
+        if (count($operator_calls) == 0) {
+            return [
+                'total_calls_number' => 0,
+                'operator_calls' => null
+            ];
+        }
         return [
             'total_calls_number' => $operator_calls->count(),
             'operator_calls' => $operator_calls
@@ -80,6 +85,9 @@ class OperatorStatsService
             ->get()
             ->toArray();
 
+        if (!$calls_duration) {
+            return 0;
+        }
         $minutes_array = [];
         $seconds_array = [];
         foreach ($calls_duration as $dur) {
@@ -109,6 +117,13 @@ class OperatorStatsService
             ->where('operator_id', $id)
             ->get();
 
+        if (count($calls) == 0) {
+            return [
+                'average_positive_pct' => 0,
+                'average_negative_pct' => 0,
+                'average_neutral_pct' => 0,
+            ];
+        }
         $positive_percentages = [];
         $negative_percentages = [];
         $neutral_percentages = [];
@@ -150,6 +165,14 @@ class OperatorStatsService
                 return $item->created_at->format('d/m/y');
             })
             ->toArray();
+
+        if (count($calls) == 0) {
+            return $to_return["no data"] = [
+                'average_positive_pct' => 0,
+                'average_negative_pct' => 0,
+                'average_neutral_pct' => 0,
+            ];
+        }
 
         $results_to_return = [];
         foreach ($calls as $key => $value) {
