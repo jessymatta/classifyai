@@ -1,8 +1,8 @@
-import "./index.scss"
+import "./index.scss";
 import Button from "../button";
-import { AiOutlineCloseCircle } from "react-icons/ai"
-import { useDeleteEmployee } from "../../query/common/useEmployee"
-import { ConfirmationPopupProps } from "./confirmationPopupProps"
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useDeleteEmployee } from "../../query/common/useEmployee";
+import { ConfirmationPopupProps } from "./confirmationPopupProps";
 
 const ConfirmationPopup = ({ onClose, id }: ConfirmationPopupProps) => {
     const { mutateAsync: deletEmployee, isSuccess: employeeDeletedSuccess } = useDeleteEmployee();
@@ -11,7 +11,7 @@ const ConfirmationPopup = ({ onClose, id }: ConfirmationPopupProps) => {
         try {
             await deletEmployee(id);
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     }
 
@@ -44,4 +44,4 @@ const ConfirmationPopup = ({ onClose, id }: ConfirmationPopupProps) => {
     )
 }
 
-export default ConfirmationPopup
+export default ConfirmationPopup;
