@@ -41,6 +41,20 @@
         background-color: white;
 
     }
+
+    span{
+        font-size: 12px;
+        color:red;
+        display: none;
+    }
+
+    input:invalid[focused="true"]~span{
+        display: block;
+    }
+
+    input:invalid ~ .form__input{
+        margin-top:0;
+    }
 }
 
 .form__input:focus~.form__label,
