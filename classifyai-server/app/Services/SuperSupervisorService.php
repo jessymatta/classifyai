@@ -89,7 +89,7 @@ class SuperSupervisorService
      */
     public function handleGetCalls()
     {
-        $calls = Call::all();
+        $calls = Call::with('users')->get();
         if (!$calls) {
             abort(response()->json(['error' => 'No calls found'], 400));
         }

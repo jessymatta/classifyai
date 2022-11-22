@@ -83,7 +83,7 @@ class OperatorStatsService
         $minutes_array = [];
         $seconds_array = [];
         foreach ($calls_duration as $dur) {
-            $parsed_duration = app('App\Http\Controllers\DashboardController')->parseDuration($dur['duration']);
+            $parsed_duration = app('App\Services\DashboardService')->parseDuration($dur['duration']);
             array_push($minutes_array, $parsed_duration[0]);
             array_push($seconds_array, $parsed_duration[1]);
         }
@@ -147,7 +147,7 @@ class OperatorStatsService
 
             ->get()
             ->groupBy(function ($item) {
-                return $item->created_at->format('d');
+                return $item->created_at->format('d/m/y');
             })
             ->toArray();
 
