@@ -35,4 +35,4 @@ const Input = ({ type, label, required, defaultValue, name, onChange, errorMessa
     )
 }
 
-export default Input
+export default Input;
