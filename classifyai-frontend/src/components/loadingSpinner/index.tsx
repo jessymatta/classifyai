@@ -1,6 +1,6 @@
-import "./index.scss"
-import { AiOutlineCheckCircle } from "react-icons/ai"
-import { LoadingSpinnerProps } from "./LoadingSpinnerProps"
+import "./index.scss";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { LoadingSpinnerProps } from "./LoadingSpinnerProps";
 
 const LoadingSpinner = ({
     topMsg,
@@ -32,4 +32,4 @@ const LoadingSpinner = ({
     )
 }
 
-export default LoadingSpinner
+export default LoadingSpinner;
