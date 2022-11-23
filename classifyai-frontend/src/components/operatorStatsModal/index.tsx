@@ -1,20 +1,20 @@
-import "./index.scss"
-import { useState, useEffect } from 'react'
-import OperatorProfileTabs from '../operatorProfileTabs'
-import { useOperatorStats } from "../../query/operators/useOperators"
-import { parseAndGetBarChartData } from '../../helpers/barChartHelpers'
-import { OperatorStatsModalProps, OperatorStatsResponse } from "./OperatorStatsInterfaces"
+import "./index.scss";
+import { useState, useEffect } from "react";
+import OperatorProfileTabs from "../operatorProfileTabs";
+import { useOperatorStats } from "../../query/operators/useOperators";
+import { parseAndGetBarChartData } from "../../helpers/barChartHelpers";
+import { OperatorStatsModalProps, OperatorStatsResponse } from "./OperatorStatsInterfaces";
 
 const OperatorStatsModal = ({ onClose, id }: OperatorStatsModalProps) => {
 
-    const { data: operatorStats, isSuccess: operatorStatsSuccess } = useOperatorStats(id)
-    const [currentOperatorStats, setCurrentOperatorStats] = useState<OperatorStatsResponse>()
-    const [barChartData, setBarChartData] = useState<any>([])
+    const { data: operatorStats, isSuccess: operatorStatsSuccess } = useOperatorStats(id);
+    const [currentOperatorStats, setCurrentOperatorStats] = useState<OperatorStatsResponse>();
+    const [barChartData, setBarChartData] = useState<any>([]);
 
     useEffect(() => {
         if (operatorStatsSuccess) {
-            setCurrentOperatorStats(operatorStats.data)
-            setBarChartData(parseAndGetBarChartData(operatorStats.data.operator_last7_days_analysis))
+            setCurrentOperatorStats(operatorStats.data);
+            setBarChartData(parseAndGetBarChartData(operatorStats.data.operator_last7_days_analysis));
         }
     }, [operatorStats])
 
@@ -41,4 +41,4 @@ const OperatorStatsModal = ({ onClose, id }: OperatorStatsModalProps) => {
     )
 }
 
-export default OperatorStatsModal
+export default OperatorStatsModal;
