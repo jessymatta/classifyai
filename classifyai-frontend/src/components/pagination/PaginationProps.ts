@@ -1,5 +1,5 @@
 export interface PaginationProps {
-    usersPerPage: number,
-    totalUsers: number,
-    paginate: Function
+    usersPerPage: number;
+    totalUsers: number;
+    paginate: Function;
 }
