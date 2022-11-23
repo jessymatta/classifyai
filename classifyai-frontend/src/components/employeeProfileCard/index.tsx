@@ -31,4 +31,4 @@ const EmployeeProfileCard = ({ userProfile }: EmployeeProfileCardProps) => {
     )
 }
 
-export default EmployeeProfileCard
+export default EmployeeProfileCard;
