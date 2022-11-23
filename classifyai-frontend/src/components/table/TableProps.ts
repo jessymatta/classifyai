@@ -1,5 +1,5 @@
-import { UserDetails } from '../../routes/UserInterface'
-import { CallDetails } from '../callRow/CallDetails';
+import { UserDetails } from "../../routes/UserInterface";
+import { CallDetails } from "../callRow/CallDetails";
 
 export interface TableProps {
     headers: Array<string>;
@@ -10,5 +10,5 @@ export interface TableProps {
     setIsPlaying?: Function;
     singleOperator?: boolean;
     supervisor?: boolean;
-    isSuperSupervisor?: boolean
+    isSuperSupervisor?: boolean;
 }
