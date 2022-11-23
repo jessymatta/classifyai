@@ -1,6 +1,6 @@
-import "./index.scss"
-import EmployeeProfileCard from "../employeeProfileCard"
-import { SupervisorProfileProps } from "./SupervisorProfileProps"
+import "./index.scss";
+import EmployeeProfileCard from "../employeeProfileCard";
+import { SupervisorProfileProps } from "./SupervisorProfileProps";
 
 const SupervisorProfile = ({ supervisor, onClose }: SupervisorProfileProps) => {
     return (
@@ -14,4 +14,4 @@ const SupervisorProfile = ({ supervisor, onClose }: SupervisorProfileProps) => {
     )
 }
 
-export default SupervisorProfile
+export default SupervisorProfile;
