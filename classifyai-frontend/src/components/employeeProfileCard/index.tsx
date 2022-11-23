@@ -1,8 +1,8 @@
-import "./index.scss"
-import Config from "../../constants/config.json"
-import DummyPP from "../../assets/images/dummy__pp.svg"
-import { EmployeeProfileCardProps } from "./EmployeeProfileCardProps"
-import { EmployeeProfileCardLabels } from "../../helpers/employeeProfileCardHelpers"
+import "./index.scss";
+import Config from "../../constants/config.json";
+import DummyPP from "../../assets/images/dummy__pp.svg";
+import { EmployeeProfileCardProps } from "./EmployeeProfileCardProps";
+import { EmployeeProfileCardLabels } from "../../helpers/employeeProfileCardHelpers";
 
 const EmployeeProfileCard = ({ userProfile }: EmployeeProfileCardProps) => {
     const ToDisplay = EmployeeProfileCardLabels(userProfile)
@@ -14,7 +14,6 @@ const EmployeeProfileCard = ({ userProfile }: EmployeeProfileCardProps) => {
 
             {userProfile.profile_pic_url ?
                 <img src={`${Config.BASE_URL_PP}/${userProfile.id}/${userProfile.profile_pic_url}`} alt="pp" />
-
                 :
                 <img src={DummyPP} alt="pp" />
             }
