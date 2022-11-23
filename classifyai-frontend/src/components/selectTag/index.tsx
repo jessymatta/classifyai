@@ -1,6 +1,6 @@
-import Select from "react-select"
-import { SelectTagProps } from "./SelectTagProps"
-import { selectStyle } from "./selectTagConfig"
+import Select from "react-select";
+import { SelectTagProps } from "./SelectTagProps";
+import { selectStyle } from "./selectTagConfig";
 
 const SelectTag = ({ options, onChange }: SelectTagProps) => {
 

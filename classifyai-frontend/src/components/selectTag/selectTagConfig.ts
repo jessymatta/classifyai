@@ -1,6 +1,6 @@
-import { StylesConfig } from "react-select"
-import { CSSProperties } from "react"
-import { MyOptionType } from "./SelectTagProps"
+import { StylesConfig } from "react-select";
+import { CSSProperties } from "react";
+import { MyOptionType } from "./SelectTagProps";
 
 const customControlStyles: CSSProperties = {
     color: "white",

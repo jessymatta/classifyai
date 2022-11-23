@@ -1,9 +1,9 @@
-import { ActionMeta, SingleValue } from "react-select"
+import { ActionMeta, SingleValue } from "react-select";
 
 export type MyOptionType = {
     label: string | JSX.Element;
     value: string;
-    key: number
+    key: number;
 };
 
 export interface SelectTagProps {
