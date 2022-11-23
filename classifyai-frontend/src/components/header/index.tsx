@@ -1,11 +1,11 @@
-import "./index.scss"
-import { useContext, useState } from "react"
-import { queryClient } from "../../App"
-import { UserDetails } from "../../routes/UserInterface"
-import { DarkModeContext } from "../../context/darkModeContext"
-import { CgDarkMode } from "react-icons/cg"
-import Config from "../../constants/config.json"
-import SupervisorProfile from "../supervisorProfile"
+import "./index.scss";
+import { useContext, useState } from "react";
+import { queryClient } from "../../App";
+import { UserDetails } from "../../routes/UserInterface";
+import { DarkModeContext } from "../../context/darkModeContext";
+import { CgDarkMode } from "react-icons/cg";
+import Config from "../../constants/config.json";
+import SupervisorProfile from "../supervisorProfile";
 
 const Header = () => {
     const { dispatch } = useContext(DarkModeContext)
@@ -40,5 +40,5 @@ const Header = () => {
     )
 }
 
-export default Header
+export default Header;
 
