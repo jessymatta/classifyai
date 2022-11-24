@@ -26,28 +26,27 @@ const Modal = ({ onSuccess, supervisor }: ModalProps) => {
     const handleAddUser = async (e: React.FormEvent) => {
         e.preventDefault();
         setServerErrors([]);
-        console.log(formValues)
         if (profileBase64) {
             formValues["profile_pic_base64"] = profileBase64;
         }
 
         try {
             if (supervisor) {
-                const results = await addSupervisor(formValues)
+                const results = await addSupervisor(formValues);
                 return results;
             }
-            const results = await addOperator(formValues)
+            const results = await addOperator(formValues);
             return results;
         } catch (err: any) {
             for (let key of Object.keys(JSON.parse(err.response.data))) {
                 if (key === "email") {
-                    setServerErrors([...serverErrors, "Email is already taken"])
+                    setServerErrors([...serverErrors, "Email is already taken"]);
                 }
                 else if (key === "username") {
-                    setServerErrors([...serverErrors, "Username is already taken"])
+                    setServerErrors([...serverErrors, "Username is already taken"]);
                 }
                 else {
-                    setServerErrors([...serverErrors, "Something went wrong. Please Try again"])
+                    setServerErrors([...serverErrors, "Something went wrong. Please Try again"]);
                 }
 
             }
@@ -58,7 +57,7 @@ const Modal = ({ onSuccess, supervisor }: ModalProps) => {
 
     const cancelInputs = (e: React.FormEvent) => {
         e.preventDefault();
-        setFormValues(initialValues)
+        setFormValues(initialValues);
     }
 
     const convertImage = (e: React.ChangeEvent) => {
@@ -68,7 +67,7 @@ const Modal = ({ onSuccess, supervisor }: ModalProps) => {
         reader.readAsDataURL(image_file);
         reader.onload = (e) => {
             let image_url: any = e.target?.result;
-            setProfileBase64(image_url)
+            setProfileBase64(image_url);
         }
     }
 

@@ -3,19 +3,16 @@ import Button from "../button";
 import Input from "../input";
 import LoadingSpinner from "../loadingSpinner";
 import DummyPP from "../../assets/images/dummy__pp.svg";
-import { validateEditProfileForm } from "../../helpers/editProfileValidations";
 import Config from "../../constants/config.json";
 import { useEditEmployee } from "../../query/common/useEmployee";
-import { EditProfileModalProps, EditUserFormProps, EditUserFormErrors } from "./EditProfileInterfaces";
+import { EditProfileModalProps, EditUserFormProps } from "./EditProfileInterfaces";
 
 const EditProfileModal = ({ employee, onClose }: EditProfileModalProps) => {
 
     const [formValues, setFormValues] = useState<EditUserFormProps | any>(null);
-    const [formErrors, setFormErrors] = useState<EditUserFormErrors>({});
     const [profileBase64, setProfileBase64] = useState();
     const { mutateAsync: editEmployee, isSuccess: editEmployeeSucess, isLoading: editEmployeeLoading } = useEditEmployee();
     const [serverErrors, setServerErrors] = useState<string[]>([]);
-
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -35,34 +32,25 @@ const EditProfileModal = ({ employee, onClose }: EditProfileModalProps) => {
 
     const handleAddUser = async (e: React.FormEvent) => {
         e.preventDefault();
-        const errors = validateEditProfileForm(formValues);
-        setFormErrors(errors);
-        if (Object.keys(formErrors).length == 0) {
 
-            if (profileBase64) {
-                formValues["profile_pic_base64"] = profileBase64
-            }
-
-            const postData = async () => {
-                try {
-                    const results = await editEmployee({ id: employee.id, data: formValues })
-                    return results;
-                } catch (err: any) {
-                    for (let key of Object.keys(JSON.parse(err.response.data))) {
-                        if (key === "email") {
-                            setServerErrors([...serverErrors, "Email is already taken"])
-                        }
-                        else if (key === "username") {
-                            setServerErrors([...serverErrors, "Username is already taken"])
-                        }
-                        else {
-                            setServerErrors([...serverErrors, "Something went wrong. Please Try again"])
-                        }
-
-                    }
+        if (profileBase64) {
+            formValues["profile_pic_base64"] = profileBase64
+        }
+        try {
+            const results = await editEmployee({ id: employee.id, data: formValues })
+            return results;
+        } catch (err: any) {
+            for (let key of Object.keys(JSON.parse(err.response.data))) {
+                if (key === "email") {
+                    setServerErrors([...serverErrors, "Email is already taken"])
+                }
+                else if (key === "username") {
+                    setServerErrors([...serverErrors, "Username is already taken"])
+                }
+                else {
+                    setServerErrors([...serverErrors, "Something went wrong. Please Try again"])
                 }
             }
-            postData();
         }
     }
 
@@ -97,7 +85,6 @@ const EditProfileModal = ({ employee, onClose }: EditProfileModalProps) => {
                 ))}
                 <form onSubmit={handleAddUser}>
 
-                    <p className="error">{formErrors?.first_name}</p>
                     <Input
                         name={"first_name"}
                         defaultValue={employee.first_name}
@@ -105,7 +92,7 @@ const EditProfileModal = ({ employee, onClose }: EditProfileModalProps) => {
                         label="First Name"
                         onChange={handleChange}
                     />
-                    <p className="error">{formErrors?.last_name}</p>
+
                     <Input
                         name={"last_name"}
                         defaultValue={employee.last_name}
@@ -113,7 +100,7 @@ const EditProfileModal = ({ employee, onClose }: EditProfileModalProps) => {
                         label="Last Name"
                         onChange={handleChange}
                     />
-                    <p className="error">{formErrors?.email}</p>
+
                     <Input
                         name={"email"}
                         defaultValue={employee.email}
@@ -121,7 +108,7 @@ const EditProfileModal = ({ employee, onClose }: EditProfileModalProps) => {
                         label="Email"
                         onChange={handleChange}
                     />
-                    <p className="error">{formErrors?.username}</p>
+
                     <Input
                         name={"username"}
                         defaultValue={employee.username}
@@ -129,7 +116,7 @@ const EditProfileModal = ({ employee, onClose }: EditProfileModalProps) => {
                         label="Username"
                         onChange={handleChange}
                     />
-                    <p className="error">{formErrors?.dob}</p>
+
                     <Input
                         name={"dob"}
                         defaultValue={employee.dob ? employee.dob : ""}
