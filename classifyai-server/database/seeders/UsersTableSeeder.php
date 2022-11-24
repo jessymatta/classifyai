@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             
                 'first_name' => 'admin',
                 'last_name' => 'admin',
-                'email' => 'admin@admin',
+                'email' => 'admin@classifyai.io',
                 'username' => 'admin',
                 'password' => bcrypt('admin'),
                 'role_id' => 1
