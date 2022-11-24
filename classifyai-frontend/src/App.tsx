@@ -1,8 +1,7 @@
-import './App.scss';
-import "./styles/dark.scss"
+import "./App.scss";
+import "./styles/dark.scss";
 import { useContext } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LoginPage from "./pages/login";
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import RequireAuth from './routes/RequireAuth';
@@ -11,13 +10,12 @@ import Operators from './pages/operators';
 import Supervisors from './pages/supervisors';
 import Calls from './pages/calls';
 import Scripts from './pages/scripts';
-import { ROLES } from "./constants/roles"
-import { DarkModeContext } from './context/darkModeContext'
-import DashboardOperator from './pages/dashboardOperator';
-import "./firebase"
+import { ROLES } from "./constants/roles";
+import { DarkModeContext } from "./context/darkModeContext";
+import DashboardOperator from "./pages/dashboardOperator";
+import "./firebase";
 
 export const queryClient = new QueryClient();
-
 
 function App() {
 
@@ -26,7 +24,6 @@ function App() {
 
     <div className={darkMode ? "app dark" : "app"}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen />
         <HashRouter>
 
           <Routes>
