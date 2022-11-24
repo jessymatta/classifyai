@@ -1,17 +1,20 @@
-import React from 'react'
-import { useRef } from 'react'
+import React, { useRef } from "react";
+import "./index.scss";
 import { BsFillPlayCircleFill, BsFillPauseCircleFill, BsFillSkipStartCircleFill, BsFillSkipEndCircleFill } from 'react-icons/bs';
-import "./index.scss"
-import { AudioControllerProps } from "./AudioControllerProps"
-import { formatTime } from "../../helpers/formatTime"
+import { AudioControllerProps } from "./AudioControllerProps";
+import { formatTime } from "../../helpers/formatTime";
 
-const AudioController = ({ calls, isPlaying, setIsplaying, audioElem, currentCall, setCurrentCall }: AudioControllerProps) => {
+const AudioController = ({ calls,
+    isPlaying,
+    setIsplaying,
+    audioElem,
+    currentCall,
+    setCurrentCall }: AudioControllerProps) => {
     const PlayPause = () => {
-        setIsplaying(!isPlaying)
+        setIsplaying(!isPlaying);
     }
 
     const clickRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-
     const checkWidth = (e: any) => {
         let width = clickRef.current.clientWidth;
         const offset = e.nativeEvent.offsetX;
@@ -20,25 +23,25 @@ const AudioController = ({ calls, isPlaying, setIsplaying, audioElem, currentCal
     }
 
     const skipBack = () => {
-        const currId = (element: any) => element.id == currentCall.id;
+        const currId = (element: any) => element.id === currentCall.id;
         const index = calls.findIndex(currId)
-        if (index == 0) {
-            setCurrentCall(calls[calls.length - 1])
+        if (index === 0) {
+            setCurrentCall(calls[calls.length - 1]);
         } else {
-            setCurrentCall(calls[index - 1])
+            setCurrentCall(calls[index - 1]);
         }
-        audioElem.current.currentTime = 0
+        audioElem.current.currentTime = 0;
     }
 
     const skipToNext = () => {
-        const currId = (element: any) => element.id == currentCall.id;
-        const index = calls.findIndex(currId)
-        if (index == calls.length - 1) {
-            setCurrentCall(calls[0])
+        const currId = (element: any) => element.id === currentCall.id;
+        const index = calls.findIndex(currId);
+        if (index === calls.length - 1) {
+            setCurrentCall(calls[0]);
         } else {
-            setCurrentCall(calls[index + 1])
+            setCurrentCall(calls[index + 1]);
         }
-        audioElem.current.currentTime = 0
+        audioElem.current.currentTime = 0;
     }
 
     return (
@@ -73,4 +76,4 @@ const AudioController = ({ calls, isPlaying, setIsplaying, audioElem, currentCal
     )
 }
 
-export default AudioController
+export default AudioController;
