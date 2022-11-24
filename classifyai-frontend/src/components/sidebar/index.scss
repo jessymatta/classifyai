@@ -6,9 +6,9 @@
     flex-direction: column;
     padding: 18px;
     height: 100%;
-    position:fixed;
-    top:0;
-    left:0;
+    position: fixed;
+    top: 0;
+    left: 0;
     min-width: 238px;
 
     &__top {
@@ -29,14 +29,14 @@
         @include center;
     }
 
-    &__links{
-        height:100%;
+    &__links {
+        height: 100%;
         margin-top: 50px;
         display: flex;
         flex-direction: column;
     }
 
-    &__logout{
+    &__logout {
         margin-bottom: 2rem;
     }
 

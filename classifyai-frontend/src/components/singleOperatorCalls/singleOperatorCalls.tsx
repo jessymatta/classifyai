@@ -1,27 +1,27 @@
-import { useState, useEffect, useRef } from 'react'
-import Table from "../table"
-import Pagination from '../../components/pagination'
-import AudioController from '../../components/audioController'
-import { CurrentCall } from "../../pages/calls/CurrentCall"
-import Config from "../../constants/config.json"
+import { useState, useEffect, useRef } from "react";
+import Table from "../table";
+import Pagination from "../../components/pagination";
+import AudioController from "../../components/audioController";
+import { CurrentCall } from "../../pages/calls/CurrentCall";
+import Config from "../../constants/config.json";
 
 interface SingleOperatorCallsProps {
-    calls: Array<string> 
+    calls: Array<string>;
 }
 
 const SingleOperatorCalls = ({ calls }: SingleOperatorCallsProps) => {
 
-    const [currentPage, setCurrentPage] = useState(1)
-    const [callsPerPage] = useState(8)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [callsPerPage] = useState(8);
     const indexOfLastCall = currentPage * callsPerPage;
     const indexOfFirstCall = indexOfLastCall - callsPerPage;
-    const currentCalls = calls.slice(indexOfFirstCall, indexOfLastCall)
-    const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
-    const [isPlaying, setIsplaying] = useState(false)
+    const currentCalls = calls.slice(indexOfFirstCall, indexOfLastCall);
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    const [isPlaying, setIsplaying] = useState(false);
 
-    const [currentCall, setCurrentCall] = useState<CurrentCall>(calls[0])
-    const [url, setUrl] = useState<string>()
-    const audioElem = useRef<HTMLAudioElement>(null)
+    const [currentCall, setCurrentCall] = useState<CurrentCall>(calls[0]);
+    const [url, setUrl] = useState<string>();
+    const audioElem = useRef<HTMLAudioElement>(null);
 
     const onPlaying = () => {
         const duration = audioElem.current?.duration;
@@ -34,22 +34,22 @@ const SingleOperatorCalls = ({ calls }: SingleOperatorCallsProps) => {
 
     useEffect(() => {
         if (isPlaying && audioElem.current) {
-            audioElem.current.play()
+            audioElem.current.play();
         }
         else {
-            audioElem.current?.pause()
+            audioElem.current?.pause();
         }
     }, [isPlaying])
 
     useEffect(() => {
         if (currentCall) {
-            setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
+            setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`);
         }
     }, [currentCall])
 
     useEffect(() => {
-        setCurrentCall(calls[0])
-        setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
+        setCurrentCall(calls[0]);
+        setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`);
     }, [calls])
     return (
         <>
@@ -82,4 +82,4 @@ const SingleOperatorCalls = ({ calls }: SingleOperatorCallsProps) => {
     )
 }
 
-export default SingleOperatorCalls
+export default SingleOperatorCalls;

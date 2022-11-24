@@ -1,14 +1,14 @@
-import './index.scss'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import 'react-tabs/style/react-tabs.css'
-import SmallCard from '../cardType2'
-import DoughnutChartCard from '../doughnutChartCard'
-import EmployeeProfileCard from '../employeeProfileCard'
-import PhoneIconGreen from "../../assets/images/phone_green.svg"
-import BarChartCard from '../barChartCard'
-import PhoneIconYellow from "../../assets/images/phone_yellow.svg"
-import SingleOperatorCalls from '../singleOperatorCalls/singleOperatorCalls'
-import { OperatorProfileTabsProps } from "./operatorProfileTabsProps"
+import "./index.scss";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import SmallCard from "../cardType2";
+import DoughnutChartCard from "../doughnutChartCard";
+import EmployeeProfileCard from "../employeeProfileCard";
+import PhoneIconGreen from "../../assets/images/phone_green.svg";
+import BarChartCard from "../barChartCard";
+import PhoneIconYellow from "../../assets/images/phone_yellow.svg";
+import SingleOperatorCalls from "../singleOperatorCalls/singleOperatorCalls";
+import { OperatorProfileTabsProps } from "./operatorProfileTabsProps";
 
 const OperatorProfileTabs = ({
     operatorProfile,
@@ -73,14 +73,16 @@ const OperatorProfileTabs = ({
 
                     </div>
                 </TabPanel>
+
                 <TabPanel>
-                    <SingleOperatorCalls
+                    {operatorsCalls && <SingleOperatorCalls
                         calls={operatorsCalls}
-                    />
+                    />}
                 </TabPanel>
+
             </Tabs>
         </div>
     )
 }
 
-export default OperatorProfileTabs
+export default OperatorProfileTabs;

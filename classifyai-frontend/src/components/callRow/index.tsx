@@ -1,19 +1,18 @@
-import React from 'react'
-import "./index.scss"
-import { useState } from 'react'
-import PhoneIcon from "../../assets/images/phone_green.svg"
-import { FaPlayCircle, FaPauseCircle } from "react-icons/fa"
-import { AiOutlineInfoCircle } from "react-icons/ai"
-import { TbFileDownload } from "react-icons/tb"
-import { CallRowProps } from "./CallDetails"
-import Config from "../../constants/config.json"
+import "./index.scss";
+import { useState } from "react";
+import PhoneIcon from "../../assets/images/phone_green.svg";
+import { FaPlayCircle, FaPauseCircle } from "react-icons/fa";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { TbFileDownload } from "react-icons/tb";
+import { CallRowProps } from "./CallDetails";
+import Config from "../../constants/config.json";
 import { Doughnut } from 'react-chartjs-2';
-import { chartData, optionsTopLegend } from "../../helpers/doughnutChartHelpers"
-import OperatorStatsModal from '../operatorStatsModal'
+import { chartData, optionsTopLegend } from "../../helpers/doughnutChartHelpers";
+import OperatorStatsModal from "../operatorStatsModal";
 
 
 const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmotionsPCT, neutralEmotionsPCT,
-    createdAt, calls, setCurrentSong, setIsPlaying, operator_id, script_url, operator,singleOperator }: CallRowProps) => {
+    createdAt, calls, setCurrentSong, setIsPlaying, operator_id, script_url, operator, singleOperator }: CallRowProps) => {
     const [isActive, setIsActive] = useState(false);
 
     const handleClick = () => {
@@ -48,13 +47,13 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmoti
                     }}
                 >{customerNbr}</td>
 
-                {!singleOperator && 
-                <td className='username'
-                    style={{backgroundColor: isActive ? 'yellow' : 'white'}}
-                    onClick={()=>setIsOperatorStatsModalActive(true)}
-                >
-                {`@${operator && operator.username}`}
-                </td>}
+                {!singleOperator &&
+                    <td className='username'
+                        style={{ backgroundColor: isActive ? 'yellow' : 'white' }}
+                        onClick={() => setIsOperatorStatsModalActive(true)}
+                    >
+                        {`@${operator && operator.username}`}
+                    </td>}
 
                 <td
                     style={{
@@ -106,4 +105,4 @@ const CallRow = ({ id, customerNbr, duration, positiveEmotionsPCT, negativeEmoti
     )
 }
 
-export default CallRow
+export default CallRow;

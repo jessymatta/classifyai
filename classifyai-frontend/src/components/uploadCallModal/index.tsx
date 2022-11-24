@@ -1,38 +1,38 @@
-import "./index.scss"
-import { useState, useEffect } from 'react'
-import Input from '../input'
-import SelectTag from '../selectTag'
-import UploadIcon from "../../assets/images/upload.svg"
+import "./index.scss";
+import { useState, useEffect } from "react";
+import Input from "../input";
+import SelectTag from "../selectTag";
+import UploadIcon from "../../assets/images/upload.svg";
 import { ActionMeta, SingleValue } from "react-select";
-import { useGetAllOperators } from '../../query/operators/useOperators'
-import { UserDetails } from '../../routes/UserInterface'
-import { useAddCall } from "../../query/calls/useCalls"
-import LoadingSpinner from '../loadingSpinner'
-import Button from '../button'
-import { mapOperatorsData } from "../../helpers/callUploadHelpers"
-import { UploadCallModalProps, MyOptionType } from "./UploadCallProps"
+import { useGetAllOperators } from "../../query/operators/useOperators";
+import { UserDetails } from "../../routes/UserInterface";
+import { useAddCall } from "../../query/calls/useCalls";
+import LoadingSpinner from "../loadingSpinner";
+import Button from "../button";
+import { mapOperatorsData } from "../../helpers/callUploadHelpers";
+import { UploadCallModalProps, MyOptionType } from "./UploadCallProps";
 
 const UploadCallModal = ({ onClose }: UploadCallModalProps) => {
-    const [operators, setOperators] = useState<UserDetails[]>([])
-    const { data: allOperators, isSuccess: allOperatorsSuccess } = useGetAllOperators()
-    const [options, setOptions] = useState<MyOptionType[]>([])
-    const [customerNbr, setCustomerNbr] = useState<string>('')
-    const [selectedOperator, setSelectedOperator] = useState<number | any>()
-    const [audioBase64, setAudioBase64] = useState<string>("")
+    const [operators, setOperators] = useState<UserDetails[]>([]);
+    const { data: allOperators, isSuccess: allOperatorsSuccess } = useGetAllOperators();
+    const [options, setOptions] = useState<MyOptionType[]>([]);
+    const [customerNbr, setCustomerNbr] = useState<string>('');
+    const [selectedOperator, setSelectedOperator] = useState<any>();
+    const [audioBase64, setAudioBase64] = useState<string>("");
     const { mutateAsync, isLoading: callStillUploading, isSuccess: callUploadSuccess } = useAddCall();
 
     useEffect(() => {
         if (allOperatorsSuccess) {
-            setOperators(allOperators.data)
+            setOperators(allOperators.data);
         }
-        setOptions(mapOperatorsData(operators))
+        setOptions(mapOperatorsData(operators));
     }, [allOperators])
 
     const handleSelectionChange = (
         newSelections: SingleValue<MyOptionType>,
         actionMeta: ActionMeta<MyOptionType>
     ) => {
-        setSelectedOperator(newSelections?.key)
+        setSelectedOperator(newSelections?.key);
     };
 
     const convertAudioToBase64 = (e: React.ChangeEvent) => {
@@ -43,20 +43,20 @@ const UploadCallModal = ({ onClose }: UploadCallModalProps) => {
 
         reader.onload = (e) => {
             let audio_base64: any = e.target?.result;
-            setAudioBase64(audio_base64)
+            setAudioBase64(audio_base64);
         }
     }
 
     const handleCallUpload = async (e: React.FormEvent) => {
         e.preventDefault();
         let bodyFormData = new FormData();
-        bodyFormData.append("cutomer_nbr", customerNbr)
-        bodyFormData.append("operator_id", selectedOperator)
-        bodyFormData.append("base64_audio", audioBase64)
+        bodyFormData.append("cutomer_nbr", customerNbr);
+        bodyFormData.append("operator_id", selectedOperator);
+        bodyFormData.append("base64_audio", audioBase64);
         try {
             await mutateAsync(bodyFormData);
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     }
 
@@ -122,4 +122,4 @@ const UploadCallModal = ({ onClose }: UploadCallModalProps) => {
     )
 }
 
-export default UploadCallModal
+export default UploadCallModal;

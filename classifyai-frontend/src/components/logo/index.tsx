@@ -1,6 +1,5 @@
-import React from 'react'
 import "./index.scss";
-import { LogoProps } from './logo';
+import { LogoProps } from "./logo";
 
 const Logo = ({ logoType }: LogoProps) => {
     return (
@@ -8,4 +7,4 @@ const Logo = ({ logoType }: LogoProps) => {
     )
 }
 
-export default Logo
+export default Logo;

@@ -32,7 +32,7 @@ const getOperatorsStats = async (id: number) => {
 }
 
 //ADD AN OPERATOR API CALL
-const addOperator = async (data: FormData) => {
+const addOperator = async (data: FormData|object) => {
     try {
         const res = await axios.post(`${Config.BASE_URL}/super/operators`, data, {
             headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` }

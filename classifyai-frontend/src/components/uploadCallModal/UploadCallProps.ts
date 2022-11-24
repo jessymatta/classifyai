@@ -5,5 +5,5 @@ export interface UploadCallModalProps {
 export type MyOptionType = {
     label: string | JSX.Element;
     value: string;
-    key: number
+    key: number;
 };

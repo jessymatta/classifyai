@@ -61,8 +61,8 @@
     color: black;
 }
 
-.sucessMsg__container{
+.sucessMsg__container {
     @include center;
     flex-direction: column;
-    gap:15px;
+    gap: 15px;
 }

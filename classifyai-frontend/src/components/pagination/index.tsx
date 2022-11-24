@@ -1,6 +1,5 @@
-import React from 'react'
-import "./index.scss"
-import {PaginationProps} from "./PaginationProps"
+import "./index.scss";
+import { PaginationProps } from "./PaginationProps";
 
 const Pagination = ({ usersPerPage, totalUsers, paginate }: PaginationProps) => {
 
@@ -9,6 +8,7 @@ const Pagination = ({ usersPerPage, totalUsers, paginate }: PaginationProps) => 
     for (let i = 1; i <= Math.ceil(totalUsers / usersPerPage); i++) {
         pageNumbers.push(i);
     }
+
     return (
         <nav>
             <ul className='pagination__container'>
@@ -24,4 +24,4 @@ const Pagination = ({ usersPerPage, totalUsers, paginate }: PaginationProps) => 
     )
 }
 
-export default Pagination
+export default Pagination;

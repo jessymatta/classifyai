@@ -1,5 +1,4 @@
-import React from 'react'
-import "./index.scss"
+import "./index.scss";
 
 const Footer = () => {
   return (
@@ -9,4 +8,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer;

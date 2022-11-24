@@ -1,12 +1,12 @@
-import "./index.scss"
-import TitleComponent from '../titleBar'
-import DoughnutChartCard from '../doughnutChartCard'
-import SmallCard from "../../components/cardType2"
-import PPLWithCharts2 from "../../assets/images/ppl_with_circular_chart.svg"
-import CircularPctChart from '../circularPctChart'
-import 'react-circular-progressbar/dist/styles.css';
-import WordCount from "../../assets/images/word_icon.svg"
-import { ScriptUploadDataModalProps } from "./ScriptUploadDataModalProps"
+import "./index.scss";
+import TitleComponent from "../titleBar";
+import DoughnutChartCard from "../doughnutChartCard";
+import SmallCard from "../../components/cardType2";
+import PPLWithCharts2 from "../../assets/images/ppl_with_circular_chart.svg";
+import CircularPctChart from "../circularPctChart";
+import "react-circular-progressbar/dist/styles.css";
+import WordCount from "../../assets/images/word_icon.svg";
+import { ScriptUploadDataModalProps } from "./ScriptUploadDataModalProps";
 
 const ScriptUploadDataModal = (
     { customerPcts, operatorPcts, customerConfidenceAvg, operatorConfidenceAvg,
@@ -27,9 +27,7 @@ const ScriptUploadDataModal = (
                     />
 
                     <div className='scriptdata__content'>
-
                         <div className="scriptdata__content--top">
-
                             <div className="scriptdata__content--top-left">
                                 <DoughnutChartCard
                                     title={"Satisfaction Level"}
@@ -42,8 +40,8 @@ const ScriptUploadDataModal = (
                                     subtitle={"Operator"}
                                     data={operatorPcts}
                                     shadow={true} />
-
                             </div>
+
                             <div className="scriptdata__content--top-right">
                                 <SmallCard
                                     stats={`${operatorTotalSentencesNbr}`}
@@ -63,9 +61,7 @@ const ScriptUploadDataModal = (
                             </div>
                         </div>
 
-
                         <div className="scriptdata__content--bottom">
-
                             <div className="scriptdata__content--bottom-left">
                                 <CircularPctChart
                                     percentage={customerConfidenceAvg}
@@ -78,12 +74,11 @@ const ScriptUploadDataModal = (
                                     subtitle={"Operator"}
                                 />
                             </div>
-
                             <div className="scriptdata__content--bottom-right">
                                 <img src={PPLWithCharts2} alt="ppl with charts" />
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -91,4 +86,4 @@ const ScriptUploadDataModal = (
     )
 }
 
-export default ScriptUploadDataModal
+export default ScriptUploadDataModal;

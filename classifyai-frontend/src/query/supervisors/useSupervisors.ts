@@ -18,7 +18,7 @@ const getAllSupervisors = async () => {
 }
 
 //ADD SUPERVISOR API CALL
-const addSupervisor = async (data: any) => {
+const addSupervisor = async (data: FormData|object) => {
     try {
         const res = await axios.post(`${Config.BASE_URL}/super/supervisors`, data, {
             headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` }

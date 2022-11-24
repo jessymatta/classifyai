@@ -4,21 +4,12 @@ export interface ModalProps {
 }
 
 export interface AddUserFormProps {
-    firstName: string,
-    lastName: string,
-    email: string,
-    username: string,
-    dob: string,
-    password: string,
-    confirmPass: string
-}
-
-export interface AddUserFormErrors {
-    firstName?: string,
-    lastName?: string,
-    email?: string,
-    username?: string,
-    dob?: string,
-    password?: string,
-    confirmPass?: string
+    first_name: string;
+    last_name: string;
+    email: string;
+    username: string;
+    dob: string;
+    password: string;
+    password_confirmation: string;
+    profile_pic_base64?: string;
 }

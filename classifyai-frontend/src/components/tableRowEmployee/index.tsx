@@ -1,16 +1,16 @@
-import "./index.scss"
-import { useState } from "react"
-import TableRowUserInfo from "../tableRowUserInfo"
-import { AiOutlineEye } from "react-icons/ai"
-import { MdOutlineModeEdit } from "react-icons/md"
-import { MdDeleteOutline } from "react-icons/md"
-import { IconContext } from "react-icons"
-import OperatorStatsModal from "../operatorStatsModal"
-import SupervisorProfile from "../supervisorProfile"
-import ConfirmationPopup from "../confirmation"
-import EditProfileModal from "../editProfile"
-import AddInfoModalHOC from "../../hoc/addInfoModalHOC"
-import { TableRowProps } from "./TableRowProps"
+import "./index.scss";
+import { useState } from "react";
+import TableRowUserInfo from "../tableRowUserInfo";
+import { AiOutlineEye } from "react-icons/ai";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
+import { IconContext } from "react-icons";
+import OperatorStatsModal from "../operatorStatsModal";
+import SupervisorProfile from "../supervisorProfile";
+import ConfirmationPopup from "../confirmation";
+import EditProfileModal from "../editProfile";
+import AddInfoModalHOC from "../../hoc/addInfoModalHOC";
+import { TableRowProps } from "./TableRowProps";
 
 const TableRow = ({ user, supervisor, supersupervisor }: TableRowProps) => {
     const [isOperatorStatsModalActive, setIsOperatorStatsModalActive] = useState(false);
@@ -18,8 +18,8 @@ const TableRow = ({ user, supervisor, supersupervisor }: TableRowProps) => {
     const [deleteEmployeeConfirmation, setDeleteEmployeeConfirmation] = useState(false);
     const [isEditProfileModalActive, setEditProfileModalActive] = useState(false);
 
-    const openOperatorStatsModal = () => setIsOperatorStatsModalActive(true)
-    const openSupervisorProfileModal = () => setIsSupervisorModalActive(true)
+    const openOperatorStatsModal = () => setIsOperatorStatsModalActive(true);
+    const openSupervisorProfileModal = () => setIsSupervisorModalActive(true);
     return (
         <tr key={user.id}>
             <td><TableRowUserInfo id={user.id} ppPath={user.profile_pic_url} firstName={user.first_name} lastName={user.last_name} username={user.username} /></td>
@@ -75,4 +75,4 @@ const TableRow = ({ user, supervisor, supersupervisor }: TableRowProps) => {
     )
 }
 
-export default TableRow
+export default TableRow;

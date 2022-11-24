@@ -1,7 +1,8 @@
-import "./index.scss"
-import "react-circular-progressbar/dist/styles.css"
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
-import { CircularPctChartProps } from "./CircularPctChartProps"
+import "./index.scss";
+import "react-circular-progressbar/dist/styles.css";
+import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularPctChartProps } from "./CircularPctChartProps";
+import { circularPctStyles } from "./circularPctChartStylesConfig";
 
 const CircularPctChart = ({ percentage, title, subtitle }: CircularPctChartProps) => {
     return (
@@ -13,17 +14,11 @@ const CircularPctChart = ({ percentage, title, subtitle }: CircularPctChartProps
                     value={percentage}
                     text={`${percentage}%`}
                     strokeWidth={20}
-                    styles={buildStyles({
-                        strokeLinecap: "butt",
-                        textColor: "#949494",
-                        pathColor: "#41D847",
-                        trailColor: "#949494"
-                    })}
+                    styles={circularPctStyles}
                 />
             </div>
         </div>
-
     )
 }
 
-export default CircularPctChart
+export default CircularPctChart;

@@ -1,9 +1,9 @@
-import "./index.scss"
-import { UserDetails } from "../../routes/UserInterface"
-import TableRow from "../tableRowEmployee"
-import { TableProps } from "./TableProps"
-import CallRow from "../callRow"
-import { CallDetails } from "../../components/callRow/CallDetails"
+import "./index.scss";
+import { UserDetails } from "../../routes/UserInterface";
+import TableRow from "../tableRowEmployee";
+import { TableProps } from "./TableProps";
+import CallRow from "../callRow";
+import { CallDetails } from "../../components/callRow/CallDetails";
 
 const Table = ({
     headers,
@@ -66,4 +66,4 @@ const Table = ({
     )
 }
 
-export default Table
+export default Table;

@@ -3,8 +3,10 @@ const path = require('path')
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
+        icon: path.join(__dirname, './public/icon.ico'),
         width: 800,
         height: 600,
+        title: "ClassifyAI",
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }

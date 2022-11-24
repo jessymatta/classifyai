@@ -1,13 +1,12 @@
-import React from 'react';
 import "./index.scss";
 import Logo from "../logo/";
-import SidebarLabel from '../sidebarLabel';
+import SidebarLabel from "../sidebarLabel";
 import { FiLogOut } from "react-icons/fi";
-import { UserDetails } from '../../routes/UserInterface';
-import { queryClient } from '../../App';
-import { getRoleNameByValue } from '../../helpers/getRoleTitle';
-import { sidesbarLabels } from "../../constants/sidebarEnum"
-import { ROLES } from "../../constants/roles"
+import { UserDetails } from "../../routes/UserInterface";
+import { queryClient } from "../../App";
+import { getRoleNameByValue } from "../../helpers/getRoleTitle";
+import { sidesbarLabels } from "../../constants/sidebarEnum";
+import { ROLES } from "../../constants/roles";
 
 const Sidebar = () => {
     const loggedInUser: UserDetails = queryClient.getQueryCache().find(['USER_LOGGED_IN'])?.state.data as UserDetails;
@@ -16,7 +15,7 @@ const Sidebar = () => {
 
     const logout = () => {
         localStorage.clear();
-        queryClient.clear()
+        queryClient.clear();
         window.location.href = "/login";
     }
 
@@ -29,7 +28,6 @@ const Sidebar = () => {
             <p className="sidebar__username">{loggedInUserUsername ? `@${loggedInUserUsername}` : ""}</p>
 
             <div className="sidebar__links">
-
                 {sidesbarLabels[loggedInUserRole].map((label) => (
                     <SidebarLabel linkTo={label.linkTo} icon={label.icon} labelName={label.labelName} />
                 ))}
@@ -42,4 +40,4 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar
+export default Sidebar;
