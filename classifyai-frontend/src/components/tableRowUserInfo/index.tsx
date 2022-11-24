@@ -1,8 +1,7 @@
-import React from 'react'
-import "./index.scss"
-import DummyPP from "../../assets/images/dummy__pp.svg"
-import { TableRowUserInfoProps } from "./TableRowUserProps"
-import Config from "../../constants/config.json"
+import "./index.scss";
+import DummyPP from "../../assets/images/dummy__pp.svg";
+import { TableRowUserInfoProps } from "./TableRowUserProps";
+import Config from "../../constants/config.json";
 
 const TableRowUserInfo = ({ ppPath, firstName, lastName, username, id }: TableRowUserInfoProps) => {
 
@@ -22,5 +21,5 @@ const TableRowUserInfo = ({ ppPath, firstName, lastName, username, id }: TableRo
     )
 }
 
-export default TableRowUserInfo
+export default TableRowUserInfo;
 
