@@ -1,0 +1,28 @@
+@import "../../styles/variables.scss";
+
+.sidebar__label--container {
+    display: flex;
+    border-radius: $button-radius;
+    padding: 0.8rem 1.2rem;
+
+    &:hover {
+        background-color: rgba(226, 76, 63, 0.6);
+    }
+}
+
+.sidebar__link {
+    text-decoration: none;
+    color: $sidebar__labels--color;
+    @include center;
+}
+
+.sidebar__icon {
+    float: left;
+
+}
+
+.sidebar__label {
+    float: right;
+    font-size: $base__fontSize--xmedium;
+    margin-left: 4px;
+}

@@ -1,0 +1,41 @@
+@import "../../styles/variables.scss";
+
+.header {
+    height: 55px;
+    background-color: $header--background;
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+
+    &__wrapper {
+        display: flex;
+        padding: 5px;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    &__pp {
+        margin-left: 15px;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        width: auto;
+        cursor: pointer;
+    }
+
+    &__toggleBtn {
+        font-size: 35px;
+        display: flex;
+        align-items: center;
+        color: $color__primary--blue-dark;
+    }
+}
+
+.darkmode__icon {
+    cursor: pointer;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $color__primary--gray;
+    }
+}

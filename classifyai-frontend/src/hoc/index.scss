@@ -1,0 +1,20 @@
+@import "../styles/variables.scss";
+
+.home {
+    height: 100vh;
+    display: flex;
+
+    &__sidebar {
+        position: relative;
+        margin-right: 238px;
+    }
+
+    &__container {
+        background-color: $page--background-light;
+        flex: 5.5;
+    }
+
+    &__content {
+        padding: 0.5rem;
+    }
+}

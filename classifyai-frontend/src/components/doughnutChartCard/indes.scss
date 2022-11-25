@@ -1,0 +1,31 @@
+@import "../../styles/variables.scss";
+
+.card__chart {
+    background-color: white;
+    border-radius: $radius;
+    padding: 1.3rem;
+    width: fit-content;
+    height: 100%;
+
+    &--title {
+        font-size: $base__fontSize--large;
+    }
+
+    &--subtitle {
+        font-size: $base__fontSize--xsmall;
+        color: $color__primary--gray;
+        margin-bottom: 10px;
+        margin-top: 7px;
+    }
+}
+
+.shadow{
+    padding-top:0.5rem;
+    padding-bottom: 2rem;
+
+    .card__chart--subtitle{
+        color:$color--green;
+        font-size: $base__fontSize--xmedium;
+        margin-bottom: 2rem;
+    }
+}

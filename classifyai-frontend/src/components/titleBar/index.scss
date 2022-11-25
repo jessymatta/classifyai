@@ -1,0 +1,34 @@
+@import "../../styles/variables.scss";
+
+.title_container,
+.modal_title {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem;
+    align-items: center;
+    border-radius: $radius;
+    height: 65px;
+    width: 100%;
+    padding-left: 20px;
+    background-color: $color__primary--red;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    p {
+        font-size: $base__fontSize--xlarge;
+        color: white;
+    }
+}
+
+.modal_title {
+    margin-top: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 1rem;
+
+    .arrow {
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
+    }
+}
