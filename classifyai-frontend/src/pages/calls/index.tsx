@@ -1,43 +1,42 @@
-import React from 'react'
-import { useEffect, useState, useRef } from 'react'
-import Footer from '../../components/footer'
-import Header from '../../components/header'
-import Sidebar from '../../components/sidebar'
-import Table from '../../components/table'
-import TitleComponent from '../../components/titleBar'
-import DashboardHOC from '../../hoc/DashboardHOC'
-import { useGetAllCalls } from "../../query/calls/useCalls"
-import Pagination from '../../components/pagination'
-import AudioController from '../../components/audioController'
-import { CurrentCall } from "./CurrentCall"
-import Config from "../../constants/config.json"
-import AddInfoModalHOC from '../../hoc/addInfoModalHOC'
-import UploadCallModal from '../../components/uploadCallModal'
+import { useEffect, useState, useRef } from 'react';
+import Footer from '../../components/footer';
+import Header from '../../components/header';
+import Sidebar from '../../components/sidebar';
+import Table from '../../components/table';
+import TitleComponent from '../../components/titleBar';
+import DashboardHOC from '../../hoc/dashboardHOC/DashboardHOC';
+import { useGetAllCalls } from "../../query/calls/useCalls";
+import Pagination from '../../components/pagination';
+import AudioController from '../../components/audioController';
+import { CurrentCall } from "./CurrentCall";
+import Config from "../../constants/config.json";
+import AddInfoModalHOC from '../../hoc/addInfoModalHOC';
+import UploadCallModal from '../../components/uploadCallModal';
 
 const Calls = () => {
-    const { data: allCalls, isSuccess: allCallsSuccess } = useGetAllCalls()
-    const [allCallsData, setAllCallsData] = useState([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [callsPerPage] = useState(8)
+    const { data: allCalls, isSuccess: allCallsSuccess } = useGetAllCalls();
+    const [allCallsData, setAllCallsData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [callsPerPage] = useState(8);
     const indexOfLastCall = currentPage * callsPerPage;
     const indexOfFirstCall = indexOfLastCall - callsPerPage;
-    const currentCalls = allCallsData.slice(indexOfFirstCall, indexOfLastCall)
-    const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+    const currentCalls = allCallsData.slice(indexOfFirstCall, indexOfLastCall);
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-    const [calls, setCalls] = useState(allCallsData)
-    const [isPlaying, setIsplaying] = useState(false)
+    const [calls, setCalls] = useState(allCallsData);
+    const [isPlaying, setIsplaying] = useState(false);
 
-    const [currentCall, setCurrentCall] = useState<CurrentCall>(allCallsData[0])
-    const [url, setUrl] = useState<string>()
-    const audioElem = useRef<HTMLAudioElement>(null)
+    const [currentCall, setCurrentCall] = useState<CurrentCall>(allCallsData[0]);
+    const [url, setUrl] = useState<string>();
+    const audioElem = useRef<HTMLAudioElement>(null);
 
-    const [openUploadCallModal, setOpenUploadCallModal] = useState(false)
+    const [openUploadCallModal, setOpenUploadCallModal] = useState(false);
 
     useEffect(() => {
         if (allCallsSuccess) {
-            setAllCallsData(allCalls.data)
-            setCurrentCall(allCalls.data[0])
-            setCalls(allCalls.data)
+            setAllCallsData(allCalls.data);
+            setCurrentCall(allCalls.data[0]);
+            setCalls(allCalls.data);
         }
     }, [allCalls])
 
@@ -46,22 +45,22 @@ const Calls = () => {
         const currentTime = audioElem.current?.currentTime;
         if (currentTime && duration) {
             const progress = (currentTime / duration) * 100;
-            setCurrentCall({ ...currentCall, "progress": progress, "length": duration })
+            setCurrentCall({ ...currentCall, "progress": progress, "length": duration });
         }
     }
 
     useEffect(() => {
         if (isPlaying && audioElem.current) {
-            audioElem.current.play()
+            audioElem.current.play();
         }
         else {
-            audioElem.current?.pause()
+            audioElem.current?.pause();
         }
     }, [isPlaying])
 
     useEffect(() => {
         if (currentCall) {
-            setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`)
+            setUrl(`${Config.BASE_URL_CALLS}/${currentCall.operator_id}/${currentCall.audio_url}`);
         }
     }, [currentCall])
 
@@ -111,4 +110,4 @@ const Calls = () => {
     )
 }
 
-export default Calls
+export default Calls;
