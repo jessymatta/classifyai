@@ -1,25 +1,25 @@
-import "./index.scss"
-import { useState, useEffect } from "react"
-import Footer from '../../components/footer'
-import Header from '../../components/header'
-import Sidebar from '../../components/sidebar'
-import DashboardHOC from '../../hoc/DashboardHOC'
-import { useGetOperatorStats } from "../../query/operator/useOperator"
-import OperatorProfileTabs from "../../components/operatorProfileTabs"
-import { parseAndGetBarChartData } from "../../helpers/barChartHelpers"
-import { OperatorStatsResponse } from "./OperatorDashResponse"
+import "./index.scss";
+import { useState, useEffect } from "react";
+import Footer from '../../components/footer';
+import Header from '../../components/header';
+import Sidebar from '../../components/sidebar';
+import DashboardHOC from '../../hoc/dashboardHOC/DashboardHOC';
+import { useGetOperatorStats } from "../../query/operator/useOperator";
+import OperatorProfileTabs from "../../components/operatorProfileTabs";
+import { parseAndGetBarChartData } from "../../helpers/barChartHelpers";
+import { OperatorStatsResponse } from "./OperatorDashResponse";
 
 const DashboardOperator = () => {
 
-    const { data: allOperatorStats, isSuccess: operatorStatsSuccess } = useGetOperatorStats()
-    const [operatorStats, setOperatorStats] = useState<OperatorStatsResponse>()
-    const [barChartData, setBarChartData] = useState<any>([])
+    const { data: allOperatorStats, isSuccess: operatorStatsSuccess } = useGetOperatorStats();
+    const [operatorStats, setOperatorStats] = useState<OperatorStatsResponse>();
+    const [barChartData, setBarChartData] = useState<any>([]);
 
     useEffect(() => {
         if (allOperatorStats) {
-            console.log(allOperatorStats.data.operator_profile)
-            setOperatorStats(allOperatorStats.data)
-            setBarChartData(parseAndGetBarChartData(allOperatorStats.data.operator_last7_days_analysis))
+            console.log(allOperatorStats.data.operator_profile);
+            setOperatorStats(allOperatorStats.data);
+            setBarChartData(parseAndGetBarChartData(allOperatorStats.data.operator_last7_days_analysis));
         }
     }, [allOperatorStats])
 
@@ -46,4 +46,4 @@ const DashboardOperator = () => {
     )
 }
 
-export default DashboardOperator
+export default DashboardOperator;

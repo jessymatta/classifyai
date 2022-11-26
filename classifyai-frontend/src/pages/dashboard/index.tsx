@@ -1,32 +1,32 @@
-import "./index.scss"
-import { useEffect, useState } from 'react'
-import Card from '../../components/cardType1'
-import Footer from '../../components/footer'
-import Header from '../../components/header'
-import Sidebar from '../../components/sidebar'
-import DashboardHOC from '../../hoc/DashboardHOC'
-import HappyEmoji from "../../assets/images/happy_emoji.svg"
-import Trophy from "../../assets/images/trophy.svg"
-import AngryEmoji from "../../assets/images/angry_emoji.svg"
-import PersonDown from "../../assets/images/person_down.svg"
-import DoughnutChartCard from '../../components/doughnutChartCard'
-import SmallCard from '../../components/cardType2'
-import PhoneIcon from "../../assets/images/phone_green.svg"
-import Operator from "../../assets/images/operator.svg"
-import BarChartCard from '../../components/barChartCard'
-import PeopleWithCharts from "../../assets/images/ppl_with_chart.svg"
-import { useDashboardStats } from '../../query/dashboard/useDashboard'
-import { DashboardStats } from './DashboardStatsProps'
-import { parseAndGetBarChartData } from '../../helpers/barChartHelpers'
+import "./index.scss";
+import { useEffect, useState } from 'react';
+import Card from '../../components/cardType1';
+import Footer from '../../components/footer';
+import Header from '../../components/header';
+import Sidebar from '../../components/sidebar';
+import DashboardHOC from '../../hoc/dashboardHOC/DashboardHOC';
+import HappyEmoji from "../../assets/images/happy_emoji.svg";
+import Trophy from "../../assets/images/trophy.svg";
+import AngryEmoji from "../../assets/images/angry_emoji.svg";
+import PersonDown from "../../assets/images/person_down.svg";
+import DoughnutChartCard from '../../components/doughnutChartCard';
+import SmallCard from '../../components/cardType2';
+import PhoneIcon from "../../assets/images/phone_green.svg";
+import Operator from "../../assets/images/operator.svg";
+import BarChartCard from '../../components/barChartCard';
+import PeopleWithCharts from "../../assets/images/ppl_with_chart.svg";
+import { useDashboardStats } from '../../query/dashboard/useDashboard';
+import { DashboardStats } from './DashboardStatsProps';
+import { parseAndGetBarChartData } from '../../helpers/barChartHelpers';
 
 const Dashboard = () => {
-    const { data: allDashboardStats, isLoading: isLoadingDashboardStats, isSuccess: dashDataSuccess } = useDashboardStats()
-    const [barChartData, setBarChartData] = useState<any>([])
+    const { data: allDashboardStats, isSuccess: dashDataSuccess } = useDashboardStats()
+    const [barChartData, setBarChartData] = useState<any>([]);
     const [dashboardData, setDashboardData] = useState<DashboardStats>();
 
     useEffect(() => {
         if (dashDataSuccess) {
-            setDashboardData(allDashboardStats.data)
+            setDashboardData(allDashboardStats.data);
             setBarChartData(parseAndGetBarChartData(allDashboardStats.data.last_7_days_analysis_avg));
         }
     }, [allDashboardStats])
@@ -121,4 +121,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Dashboard;
