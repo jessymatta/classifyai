@@ -1,22 +1,21 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import Footer from '../../components/footer'
-import Header from '../../components/header'
-import Sidebar from '../../components/sidebar'
-import TitleComponent from '../../components/titleBar'
-import DashboardHOC from '../../hoc/DashboardHOC'
+import React, { useState, useEffect } from 'react';
 import "./index.scss"
-import UploadIcon from "../../assets/images/upload.svg"
-import Button from '../../components/button'
-import { useUploadScript } from "../../query/scripts/useScripts"
-import ScriptUploadDataModal from '../../components/fullPageScripModal'
-import { DataToDisplay } from "./ScriptData"
+import Footer from '../../components/footer';
+import Header from '../../components/header';
+import Sidebar from '../../components/sidebar';
+import TitleComponent from '../../components/titleBar';
+import DashboardHOC from '../../hoc/dashboardHOC/DashboardHOC';
+import UploadIcon from "../../assets/images/upload.svg";
+import Button from '../../components/button';
+import { useUploadScript } from "../../query/scripts/useScripts";
+import ScriptUploadDataModal from '../../components/fullPageScripModal';
+import { DataToDisplay } from "./ScriptData";
 
 const Scripts = () => {
 
-    const [csvToSend, setCsvToSend] = useState<string | any>()
+    const [csvToSend, setCsvToSend] = useState<any>();
     const { mutateAsync, isLoading: scriptStillUploading, isSuccess: scriptUploadSuccess } = useUploadScript();
-    const [dataToDisplay, setDataToDisplay] = useState<DataToDisplay>()
+    const [dataToDisplay, setDataToDisplay] = useState<DataToDisplay>();
     const [openModal, setOpenModal] = useState(true)
 
     const convertCSVFile = (e: React.ChangeEvent) => {
@@ -27,24 +26,20 @@ const Scripts = () => {
 
         reader.onload = (e) => {
             let csv_base64: any = e.target?.result;
-            setCsvToSend(csv_base64.split(',')[1])
+            setCsvToSend(csv_base64.split(',')[1]);
         }
     }
 
     const handleSubmitScript = async (e: React.FormEvent) => {
         e.preventDefault();
         let bodyFormData = new FormData();
-        bodyFormData.append("script_base64", csvToSend)
-        try {
-            const res = await mutateAsync(bodyFormData);
-            setDataToDisplay(res.data)
-        } catch (err) {
-            console.log(err)
-        }
+        bodyFormData.append("script_base64", csvToSend);
+        const res = await mutateAsync(bodyFormData);
+        setDataToDisplay(res.data);
     }
 
     useEffect(() => {
-        setOpenModal(true)
+        setOpenModal(true);
     }, [dataToDisplay])
 
     return (
@@ -107,4 +102,4 @@ const Scripts = () => {
     )
 }
 
-export default Scripts
+export default Scripts;
