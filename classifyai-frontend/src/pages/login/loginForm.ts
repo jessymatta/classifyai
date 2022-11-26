@@ -1,6 +1,6 @@
 export interface LoginFormProps {
     email: string;
-    password: string
+    password: string;
 }
 
 export interface ErrorsLogin {

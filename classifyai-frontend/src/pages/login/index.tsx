@@ -1,7 +1,6 @@
-import React from 'react'
-import { useState } from "react";
-import LoginImage from '../../assets/images/login_pic.svg';
+import React, { useState } from "react";
 import "./index.scss";
+import LoginImage from '../../assets/images/login_pic.svg';
 import Button from "../../components/button";
 import Input from "../../components/input";
 import Logo from "../../components/logo";
@@ -34,11 +33,11 @@ const LoginPage = () => {
         if (Object.keys(formErrors).length === 0) {
             try {
                 await mutateAsync(formValues);
-                const userRole = queryClient.getQueryCache().find(['USER_LOGGED_IN_ROLE'])?.state.data
+                const userRole = queryClient.getQueryCache().find(['USER_LOGGED_IN_ROLE'])?.state.data;
 
-                userRole == "Operator"?
-                nagivate("/dashboardoperator"):
-                nagivate("/dashboard");
+                userRole == "Operator" ?
+                    nagivate("/dashboardoperator") :
+                    nagivate("/dashboard");
 
             } catch (err) {
                 console.log(err)
@@ -73,4 +72,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default LoginPage;
